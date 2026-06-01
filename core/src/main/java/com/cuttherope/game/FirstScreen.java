@@ -13,11 +13,14 @@ public class FirstScreen implements Screen {
     private ShapeRenderer shape;
     private NivelCutTheRope nivel;
     private SpriteBatch batch;
+    private int estrellasRecolectada;
     private Texture texturaOmNom;
     private Texture texturaCaramelo;
     private Texture texturaEstrella;
     private Texture texturaOrigenCuerda;
     private Texture texturaOmNomDulce;
+    private Texture texturaEstrellaGanada;
+    private Texture texturaEstrellaNoGanada;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -29,6 +32,8 @@ public class FirstScreen implements Screen {
         texturaEstrella= new Texture("estrella.png");
         texturaOrigenCuerda= new Texture("origenCuerda.png");
         texturaOmNomDulce= new Texture("omNomDulce.png");
+        texturaEstrellaGanada= new Texture("estrellasGanadas.png");
+        texturaEstrellaNoGanada= new Texture("estrellasNoGanadas.png");
     }
 
     @Override
@@ -188,6 +193,22 @@ public class FirstScreen implements Screen {
                 batch.draw(texturaEstrella, estrella.getX()-15, estrella.getY()-15,30,30);
             }
         }
+        int ganadas= caramelo.getEstrellasRecolectadas();
+        float yMarcador=700;
+        float tamañoEstrella=90;
+        float separacion=100;
+        float xInicial=350;
+        for (int i = 0; i < 3; i++)
+        {
+            if(i<ganadas)
+            {
+                batch.draw(texturaEstrellaGanada, xInicial+i*separacion, yMarcador, tamañoEstrella, tamañoEstrella);
+            }
+            else
+            {
+                batch.draw(texturaEstrellaNoGanada, xInicial+i*separacion, yMarcador, tamañoEstrella,tamañoEstrella);
+            }
+        }
 //        shape.end();
         batch.end();
     }
@@ -228,5 +249,7 @@ public class FirstScreen implements Screen {
         texturaEstrella.dispose();
         texturaOrigenCuerda.dispose();
         texturaOmNomDulce.dispose();
+        texturaEstrellaGanada.dispose();
+        texturaEstrellaNoGanada.dispose();
     }
 }

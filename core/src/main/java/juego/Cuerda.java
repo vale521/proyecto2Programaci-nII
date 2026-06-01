@@ -68,7 +68,7 @@ public class Cuerda extends Entidad {
     {
         cortada = true;
         caramelo.setLibre(true);
-        caramelo.setVelocidadY(-4);
+        caramelo.setVelocidadY(-1);
     }
 
     public boolean estaCortada()
