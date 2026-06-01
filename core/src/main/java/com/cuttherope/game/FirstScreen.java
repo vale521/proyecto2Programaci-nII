@@ -21,6 +21,16 @@ public class FirstScreen implements Screen {
     private Texture texturaOmNomDulce;
     private Texture texturaEstrellaGanada;
     private Texture texturaEstrellaNoGanada;
+    private Texture texturaBtnPausar;
+    private Texture texturaBtnReiniciar;
+    private float xBtnPausar=900;
+    private float yBtnPausar=730;
+    private float xBtnReiniciar=840;
+    private float yBtnReiniciar=730;
+    private float anchoBtn=50;
+    private float altoBtn=50;
+    private boolean pausado=false;
+
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -34,6 +44,8 @@ public class FirstScreen implements Screen {
         texturaOmNomDulce= new Texture("omNomDulce.png");
         texturaEstrellaGanada= new Texture("estrellasGanadas.png");
         texturaEstrellaNoGanada= new Texture("estrellasNoGanadas.png");
+        texturaBtnPausar= new Texture("btnPausa.png");
+        texturaBtnReiniciar= new Texture("btnReiniciar.png");
     }
 
     @Override
@@ -54,10 +66,25 @@ public class FirstScreen implements Screen {
 
     private void actualizarJuego()
     {
+
         if(Gdx.input.justTouched()==true)
         {
             float mouseX= Gdx.input.getX();
             float mouseY= Gdx.graphics.getHeight()-Gdx.input.getY();
+
+            if(mouseX>= xBtnPausar && (mouseX<=xBtnPausar+anchoBtn )&& mouseY>=yBtnPausar && (mouseY<= yBtnPausar+altoBtn))
+            {
+                pausado= !pausado;
+                return;
+            }
+
+            if(mouseX>= xBtnReiniciar && (mouseX<=xBtnReiniciar+anchoBtn )&& mouseY>=yBtnReiniciar && (mouseY<= yBtnReiniciar+altoBtn))
+            {
+                nivel.reiniciarNivel();
+                pausado=false;
+                return;
+            }
+
             Cuerda cuerda = nivel.getCuerdas().get(0);
             float x1= cuerda.getAnclajeX();
             float y1= cuerda.getAnclajeY();
@@ -68,6 +95,10 @@ public class FirstScreen implements Screen {
             {
                 cuerda.cortar();
             }
+        }
+        if(pausado==true)
+        {
+            return;
         }
         for(Cuerda cuerda: nivel.getCuerdas())
         {
@@ -209,6 +240,8 @@ public class FirstScreen implements Screen {
                 batch.draw(texturaEstrellaNoGanada, xInicial+i*separacion, yMarcador, tamañoEstrella,tamañoEstrella);
             }
         }
+        batch.draw(texturaBtnReiniciar, xBtnReiniciar, yBtnReiniciar, anchoBtn, altoBtn);
+        batch.draw(texturaBtnPausar, xBtnPausar, yBtnPausar, anchoBtn, altoBtn);
 //        shape.end();
         batch.end();
     }
