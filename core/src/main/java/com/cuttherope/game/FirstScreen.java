@@ -16,6 +16,8 @@ public class FirstScreen implements Screen {
     private Texture texturaOmNom;
     private Texture texturaCaramelo;
     private Texture texturaEstrella;
+    private Texture texturaOrigenCuerda;
+    private Texture texturaOmNomDulce;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -25,6 +27,8 @@ public class FirstScreen implements Screen {
         texturaOmNom= new Texture("omNomNormal.png");
         texturaCaramelo= new Texture("caramelo.png");
         texturaEstrella= new Texture("estrella.png");
+        texturaOrigenCuerda= new Texture("origenCuerda.png");
+        texturaOmNomDulce= new Texture("omNomDulce.png");
     }
 
     @Override
@@ -153,13 +157,29 @@ public class FirstScreen implements Screen {
         }
         shape.end();
         batch.begin();
+
+        for(Cuerda cuerda: nivel.getCuerdas())
+        {
+            batch.draw(texturaOrigenCuerda, cuerda.getAnclajeX()-20, cuerda.getAnclajeY()-20, 40, 40);
+        }
+
 //        shape.begin(ShapeRenderer.ShapeType.Filled);
         OmNom omNom= nivel.getOmNom();
 //        shape.circle(omNom.getX(), omNom.getY(), 40);
-        batch.draw(texturaOmNom, omNom.getX()-40, omNom.getY()-40, 80,80);
+        if(omNom.estaComiendo()==true)
+        {
+            batch.draw(texturaOmNomDulce, omNom.getX()-40, omNom.getY()-40, 100,100);
+        }
+        else
+        {
+            batch.draw(texturaOmNom, omNom.getX()-40, omNom.getY()-40, 80,80);
+        }
         Caramelo caramelo = nivel.getCaramelo();
 //        shape.circle(caramelo.getX(), caramelo.getY(), 20);
-        batch.draw(texturaCaramelo, caramelo.getX()-20, caramelo.getY()-20, 40,40);
+        if(caramelo.isFueComido()==false)
+        {
+            batch.draw(texturaCaramelo, caramelo.getX()-20, caramelo.getY()-20, 40,40);
+        }
         for(Estrella estrella: nivel.getEstrellas())
         {
             if(estrella.isRecolectada()==false)
@@ -206,5 +226,7 @@ public class FirstScreen implements Screen {
         texturaCaramelo.dispose();
         texturaOmNom.dispose();
         texturaEstrella.dispose();
+        texturaOrigenCuerda.dispose();
+        texturaOmNomDulce.dispose();
     }
 }
