@@ -29,45 +29,55 @@ public abstract class Entidad {
 
     public abstract void reiniciar();
 
-    public float getX() {
+    public float getX()
+    {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(float x)
+    {
         this.x = x;
     }
 
-    public float getY() {
+    public float getY()
+    {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(float y)
+    {
         this.y = y;
     }
 
-    public float getAncho() {
+    public float getAncho()
+    {
         return ancho;
     }
 
-    public void setAncho(float ancho) {
+    public void setAncho(float ancho)
+    {
         this.ancho = ancho;
     }
 
-    public float getAlto() {
+    public float getAlto()
+    {
         return alto;
     }
 
-    public void setAlto(float alto) {
+    public void setAlto(float alto)
+    {
         this.alto = alto;
     }
 
-    public boolean isActiva() {
+    public boolean isActiva()
+    {
         return activa;
     }
 
-    public void setActiva(boolean activa) {
+    public void setActiva(boolean activa)
+    {
         this.activa = activa;
     }
-    
-    
+
+
 }

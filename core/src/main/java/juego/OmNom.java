@@ -11,7 +11,9 @@ package juego;
 public class OmNom extends Entidad {
     private boolean comiendo;
     private float posicionInicialx, posicionInicialy;
-    public OmNom(float x, float y) {
+
+    public OmNom(float x, float y)
+    {
         super(x, y, 80, 80);
 
         this.comiendo = false;
@@ -20,13 +22,13 @@ public class OmNom extends Entidad {
     }
 
     @Override
-    public void actualizar() 
+    public void actualizar()
     {
         //verificaria si el caramelo esta cerca y si ya colisionó y llama a comer caramelo
     }
 
     @Override
-    public void reiniciar() 
+    public void reiniciar()
     {
         comiendo=false;
         //que x e y vuelvan a sus posiciones iniciales
@@ -35,6 +37,15 @@ public class OmNom extends Entidad {
     }
 
     public void comerCaramelo(Caramelo caramelo) {
+        if(caramelo!=null)
+        {
+            caramelo.marcarComoComido();
+            comiendo=true;
+        }
+    }
 
+    public boolean estaComiendo()
+    {
+        return comiendo;
     }
 }

@@ -20,18 +20,41 @@ public class Estrella extends Entidad {
     }
 
     @Override
-    public void actualizar() 
+    public void actualizar()
     {
         //la estrella vibra o espera ser tocada
     }
 
     @Override
-    public void reiniciar() 
+    public void reiniciar()
     {
-        //vuelve a no estar recolectada
+        recolectada=false;
+        activa=true;
     }
 
-    public void recolectar() {
-        recolectada =  true;
+    public void recolectar()
+    {
+        recolectada=true;
+        activa=false;
+    }
+
+    public boolean isRecolectada()
+    {
+        return recolectada;
+    }
+
+    public void setRecolectada(boolean recolectada)
+    {
+        this.recolectada = recolectada;
+    }
+
+    public int getPuntos()
+    {
+        return puntos;
+    }
+
+    public void setPuntos(int puntos)
+    {
+        this.puntos = puntos;
     }
 }

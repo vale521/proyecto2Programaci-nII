@@ -19,7 +19,7 @@ public class GameManager {
         this.juegoPausado=false;
     }
 
-    public void iniciarJuego(Juego juego) 
+    public void iniciarJuego(Juego juego)
     {
         this.juegoActual= juego;
         this.usuarioActual= juego.getJugadorActual();
@@ -42,50 +42,54 @@ public class GameManager {
         }
         if(juegoActual.isJuegoTerminado()==true)
         {
-            
+
             System.out.println("El juego ya terminó");
             return;
         }
         juegoActual.actualizar();
     }
-    public void terminarJuego() 
+    public void terminarJuego()
     {
         juegoActual.finalizarJuego();
     }
 
-    public void cambiarNivel() 
+    public void cambiarNivel()
     {
     }
 
-    public void guardarProgreso() 
+    public void guardarProgreso()
     {
 
     }
 
-    public void cargarProgreso() 
+    public void cargarProgreso()
     {
         if(usuarioActual==null || juegoActual==null)
         {
             return;
         }
-        
+
     }
 
-    public Juego getJuegoActual() {
+    public Juego getJuegoActual()
+    {
         return juegoActual;
     }
 
-    public Usuario getUsuarioActual() {
+    public Usuario getUsuarioActual()
+    {
         return usuarioActual;
     }
 
-    public boolean isJuegoActivo() {
+    public boolean isJuegoActivo()
+    {
         return juegoActivo;
     }
 
-    public boolean isJuegoPausado() {
+    public boolean isJuegoPausado()
+    {
         return juegoPausado;
     }
-    
-    
+
+
 }
