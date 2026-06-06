@@ -33,6 +33,20 @@ public class NivelCutTheRope extends Nivel {
         completado=false;
         cuerdas.clear();
         estrellas.clear();
+        if(getNumeroNivel()==1)
+        {
+            configurarNivel1();
+        }
+        //agregado para nivel 2
+        else if(getNumeroNivel()==2)
+        {
+            configurarNivel2();
+        }
+        //crear personaje (omnom), caramelo y configurar la dificultad falta
+    }
+
+    private void configurarNivel1()
+    {
         caramelo =new Caramelo(500,500);
         omNom= new OmNom(500,80);
 
@@ -40,9 +54,25 @@ public class NivelCutTheRope extends Nivel {
         estrellas.add(new Estrella(500,250));
         estrellas.add(new Estrella(500,150));
         cuerdas.add(new Cuerda(500,600,100,caramelo));
-        //crear personaje (omnom), caramelo y configurar la dificultad falta
     }
+    //agregado para nivel 2
+    private void configurarNivel2()
+    {
+        System.out.println("entro al 2");
+        float anclajeIzqX=330;
+        float anclajeInqY=620;
+        float anclajeDerX=460;
+        float anclajeDerY=620;
+        caramelo =new Caramelo(390,460);
+        omNom= new OmNom(460,100);
 
+        estrellas.add(new Estrella(560, 370));
+        estrellas.add(new Estrella(460,310));
+        estrellas.add(new Estrella(460,230));
+        cuerdas.add(new Cuerda(anclajeIzqX,anclajeInqY,150,caramelo,0));
+        cuerdas.add(new Cuerda(anclajeDerX,anclajeDerY,250,caramelo, -20));
+//        cuerdas.add(new Cuerda(540,760,620,caramelo, -55));
+    }
     @Override
     public void reiniciarNivel()
     {

@@ -18,6 +18,7 @@ public class Cuerda extends Entidad {
     private double velocidadAngular;
     private double aceleracionAngular;
     private final double GRAVEDAD=0.4;
+    
     public Cuerda(float x, float y, float longitud, Caramelo caramelo)
     {
         super(x, y, 10, 100);
@@ -26,11 +27,24 @@ public class Cuerda extends Entidad {
         this.longitud = longitud;
         this.caramelo = caramelo;
         this.cortada = false;
-        this.angulo=Math.toRadians(30);
+        this.angulo=Math.toRadians(30);//era30
         this.velocidadAngular=0;
         this.aceleracionAngular=0;
     }
-
+//agregado para resolver nivel 2
+    public Cuerda(float x, float y, float longitud, Caramelo caramelo, double anguloInicial)
+    {
+        super(x, y, 10, 100);
+        this.anclajeY=y;
+        this.anclajeX=x;
+        this.longitud = longitud;
+        this.caramelo = caramelo;
+        this.cortada = false;
+        this.angulo=Math.toRadians(anguloInicial);
+        this.velocidadAngular=0;
+        this.aceleracionAngular=0;
+    }
+    
     @Override
     public void actualizar()
     {
@@ -50,9 +64,9 @@ public class Cuerda extends Entidad {
         float nuevoX =(float)(anclajeX+ longitud* Math.sin(angulo));
 
         float nuevoY =(float)(anclajeY-longitud* Math.cos(angulo));
-
-        caramelo.setX(nuevoX);
-        caramelo.setY(nuevoY);
+//          modficado para el nivel 2
+//        caramelo.setX(nuevoX);
+//        caramelo.setY(nuevoY);
     }
 
     @Override
@@ -124,5 +138,15 @@ public class Cuerda extends Entidad {
     public void setAnclajeY(float anclajeY)
     {
         this.anclajeY = anclajeY;
+    }
+    //modficado para el nivel 2
+    public float getPosicionCarameloX()
+    {
+        return (float)(anclajeX+longitud*Math.sin(angulo));
+    }
+    
+    public float getPosicionCarameloY()
+    {
+        return (float)(anclajeY-longitud*Math.cos(angulo));
     }
 }

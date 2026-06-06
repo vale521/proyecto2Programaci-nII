@@ -15,7 +15,7 @@ public abstract class Juego {
     protected boolean juegoTerminado;
     protected int puntajeTotal;
 
-    public Juego(String nombreJuego, Usuario jugadorActual) 
+    public Juego(String nombreJuego, Usuario jugadorActual)
     {
         this.nombreJuego = nombreJuego;
         this.jugadorActual = jugadorActual;
@@ -77,5 +77,5 @@ public abstract class Juego {
         this.puntajeTotal = puntajeTotal;
     }
 
-    
+
 }

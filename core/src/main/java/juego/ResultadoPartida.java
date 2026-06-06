@@ -4,6 +4,7 @@
  */
 package juego;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
@@ -18,12 +19,17 @@ public class ResultadoPartida {
     private LocalDateTime fechaHoraInicioPartida;
     private LocalDateTime fechaHoraFinalPartida;
     private boolean victoria;
-    private Jugador jugador;
-    
-    public ResultadoPartida() 
+
+
+    public ResultadoPartida()
     {
 
     }
-    
-    
+
+    public Duration getTiempoPartida()
+    {
+        //dias, horas, mins
+        Duration tiempoDuracionPartida= Duration.between(fechaHoraInicioPartida, fechaHoraFinalPartida);
+        return tiempoDuracionPartida;
+    }
 }

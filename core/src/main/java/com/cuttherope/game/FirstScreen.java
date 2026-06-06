@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import juego.*;
 
 /** First screen of the application. Displayed after the application is created. */
@@ -34,6 +35,8 @@ public class FirstScreen implements Screen {
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
+//        this.nivel = new NivelCutTheRope(1,1);
+//probar nivel 2
         this.nivel = new NivelCutTheRope(1,1);
         this.nivel.iniciarNivel();
         batch= new SpriteBatch();
@@ -57,7 +60,7 @@ public class FirstScreen implements Screen {
     @Override
     public void render(float delta) {
         // Draw your screen here. "delta" is the time since last render in seconds.
-        Gdx.gl.glClearColor(1f, 0.8f, 0.86f, 1f);
+        Gdx.gl.glClearColor(0.98f, 0.95f, 0.84f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         actualizarJuego();
         dibujarJuego();
@@ -84,16 +87,25 @@ public class FirstScreen implements Screen {
                 pausado=false;
                 return;
             }
-
-            Cuerda cuerda = nivel.getCuerdas().get(0);
-            float x1= cuerda.getAnclajeX();
-            float y1= cuerda.getAnclajeY();
-            float x2= nivel.getCaramelo().getX();
-            float y2= nivel.getCaramelo().getY();
-            float distancia= distanciaPuntoLinea(mouseX, mouseY, x1, y1, x2, y2);
-            if(distancia<15)
+//            modificacion para el nivel 2
+//            Cuerda cuerda = nivel.getCuerdas().get(0);
+//            float x1= cuerda.getAnclajeX();
+//            float y1= cuerda.getAnclajeY();
+//            float x2= nivel.getCaramelo().getX();
+//            float y2= nivel.getCaramelo().getY();
+//            float distancia= distanciaPuntoLinea(mouseX, mouseY, x1, y1, x2, y2);
+//            if(distancia<15)
+//            {
+//                cuerda.cortar();
+//            }
+            for (Cuerda cuerda : nivel.getCuerdas()) 
             {
-                cuerda.cortar();
+                float distancia= distanciaPuntoLinea(mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), nivel.getCaramelo().getX(), nivel.getCaramelo().getY());
+                if(distancia<15)
+                {
+                    cuerda.cortar();
+                    break;
+                }
             }
         }
         if(pausado==true)
@@ -103,12 +115,43 @@ public class FirstScreen implements Screen {
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             cuerda.actualizar();
+            
         }
+        actualizarCarameloConCuerdas();
         nivel.getCaramelo().actualizar();
         verificarEstrellas();
         verificarOmNom();
     }
 
+    private void actualizarCarameloConCuerdas()
+    {
+        int activas=0;
+        float sumaPesoX=0;
+        float sumaPesoY=0;
+        float sumaPesos=0;
+        for(Cuerda cuerda: nivel.getCuerdas())
+        {
+            if(cuerda.estaCortada()==false)
+            {
+                float peso=1.0f/cuerda.getLongitud();
+                sumaPesoX+=cuerda.getPosicionCarameloX();
+                sumaPesoY+=cuerda.getPosicionCarameloY();
+                sumaPesos+=peso;
+                activas++;
+            }
+        }
+        if(activas>0)
+        {
+            nivel.getCaramelo().setLibre(false);
+            nivel.getCaramelo().setX(sumaPesoX/activas);
+            nivel.getCaramelo().setY(sumaPesoY/activas);
+        }
+        else
+        {
+            System.out.println("sin cuerdas activas");
+            nivel.getCaramelo().setLibre(true);
+        }
+    }
     private float distanciaPuntoLinea(float px, float py, float x1, float y1, float x2, float y2)
     {
         float A= px-x1;
@@ -174,21 +217,53 @@ public class FirstScreen implements Screen {
         float dy = caramelo.getY() - omNom.getY();
         double distancia = Math.sqrt(dx * dx + dy * dy);
 
+//        if (distancia < 60)
+//        {
+//            omNom.comerCaramelo(caramelo);
+//            System.out.println("GANASTE");
+//        }
         if (distancia < 60)
         {
             omNom.comerCaramelo(caramelo);
             System.out.println("GANASTE");
+            if(nivel.getNumeroNivel()==1)
+            {
+                nivel= new NivelCutTheRope(2,1);
+                nivel.iniciarNivel();
+            }
         }
     }
 
     private void dibujarJuego()
     {
         shape.begin(ShapeRenderer.ShapeType.Line);
+        shape.setColor(.35f,0.20f,0.08f, 1f);
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             if(cuerda.estaCortada()==false)
             {
-                shape.line(cuerda.getAnclajeX(), cuerda.getAnclajeY(), nivel.getCaramelo().getX(), nivel.getCaramelo().getY());
+                float x1= cuerda.getAnclajeX();
+                float y1= cuerda.getAnclajeY();
+                float x2= nivel.getCaramelo().getX();
+                float y2= nivel.getCaramelo().getY();
+//                shape.line(cuerda.getAnclajeX(), cuerda.getAnclajeY(), nivel.getCaramelo().getX(), nivel.getCaramelo().getY());
+                float dist= (float) Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+                float cuelgue= dist*0.25f;
+                float ctrlX=(x1+x2)/2f;
+                float ctrlY=(y1+y2)/2f-cuelgue;
+                int segmentos=20;
+                float prevX= x1;
+                float prevY=y1;
+                for (int i = 1; i <= segmentos; i++) {
+                    float t=(float) i/segmentos;
+                    float mt=1-t;
+                    float bx=mt * mt * x1 + 2 * mt * t * ctrlX + t * t * x2;
+                    float by=mt * mt * y1 + 2 * mt * t * ctrlY + t * t * y2;
+                    shape.line(prevX, prevY, bx, by);
+                    prevX= bx;
+                    prevY=by;
+                    
+                }
             }
         }
         shape.end();
