@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 public class PersistenciaJugador {
     private final File carpetaUsuarios;
 
-//HOLA
+//HOLA camaron sin cola
     public PersistenciaJugador() {
         this.carpetaUsuarios = new File("usuarios");
         if(!carpetaUsuarios.exists()==true)
