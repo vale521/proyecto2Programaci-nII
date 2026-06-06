@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 public class PersistenciaJugador {
     private final File carpetaUsuarios;
 
-
+//HOLA
     public PersistenciaJugador() {
         this.carpetaUsuarios = new File("usuarios");
         if(!carpetaUsuarios.exists()==true)
@@ -74,7 +74,7 @@ public class PersistenciaJugador {
         }
     }
 
-    public Jugador cargarJugador(String username) 
+    public Jugador cargarJugador(String username)
     {
         //busca archivo y reconstuye el objeto de clase jugador con objectInputSream
         try
@@ -103,6 +103,6 @@ public class PersistenciaJugador {
         {
             System.out.println("El jugador es nulo o no existe en carpeta");
         }
-        
+
     }
 }
