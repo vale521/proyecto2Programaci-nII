@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package juego;
+package desuso;
+
+import juego.Usuario;
 
 /**
  *
@@ -11,7 +13,7 @@ package juego;
 public abstract class Juego {
     protected String nombreJuego;
     protected Usuario jugadorActual;
-    protected Nivel nivelActual;
+    protected juego.Juego nivelActual;
     protected boolean juegoTerminado;
     protected int puntajeTotal;
 
@@ -53,11 +55,11 @@ public abstract class Juego {
         this.jugadorActual = jugadorActual;
     }
 
-    public Nivel getNivelActual() {
+    public juego.Juego getNivelActual() {
         return nivelActual;
     }
 
-    public void setNivelActual(Nivel nivelActual) {
+    public void setNivelActual(juego.Juego nivelActual) {
         this.nivelActual = nivelActual;
     }
 

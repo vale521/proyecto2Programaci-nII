@@ -11,55 +11,55 @@ import java.util.ArrayList;
  * @author valer
  */
 public class GestorNiveles {
-    private ArrayList<NivelCutTheRope> niveles;
-
+    private ArrayList<Nivel> niveles;
+//TODO: sacar configurarNivel para aqui. Envez de configurar nivel ponerle otro nombre configurarNiveldeComplejidad1
     private int nivelActual;
 
-    public GestorNiveles() {
+    public GestorNiveles(Jugador jugador) {
 
         niveles = new ArrayList<>();
 
         nivelActual = 1;
 
-        cargarNiveles();
+        cargarNiveles(jugador);
     }
 
-    public void cargarNiveles() 
+    public void cargarNiveles(Jugador jugador)
     {
-
-        niveles.add(new NivelCutTheRope(1, 1));
-        niveles.add(new NivelCutTheRope(2, 2));
-        niveles.add(new NivelCutTheRope(3, 3));
-        niveles.add(new NivelCutTheRope(4, 4));
-        niveles.add(new NivelCutTheRope(5, 5));
+        niveles.add(new Nivel1(jugador));
+        niveles.add(new Nivel2(jugador));
+        niveles.add(new Nivel3(jugador));
+        niveles.add(new Nivel4(jugador));
+        niveles.add(new Nivel5(jugador));
     }
 
-    public NivelCutTheRope obtenerNivelActual() 
+
+    public Nivel obtenerNivelActual()
     {
 
         return niveles.get(nivelActual - 1);
     }
 
-    public void avanzarNivel() 
+    public void avanzarNivel()
     {
 
-        if(nivelActual < niveles.size()) 
+        if(nivelActual < niveles.size())
         {
             nivelActual++;
         }
     }
 
-    public boolean ultimoNivelCompletado() 
+    public boolean ultimoNivelCompletado()
     {
 
         return nivelActual == niveles.size();
     }
 
-    public ArrayList<NivelCutTheRope> getNiveles() {
+    public ArrayList<Nivel> getNiveles() {
         return niveles;
     }
 
-    public void setNiveles(ArrayList<NivelCutTheRope> niveles) {
+    public void setNiveles(ArrayList<Nivel> niveles) {
         this.niveles = niveles;
     }
 
@@ -70,6 +70,6 @@ public class GestorNiveles {
     public void setNivelActual(int nivelActual) {
         this.nivelActual = nivelActual;
     }
-    
-    
+
+
 }

@@ -40,6 +40,7 @@ public class PersistenciaJugador {
         return file;
     }
 
+    //TODO: cambiar nombre de carpeta a jugadores
     public File crearArchivoJugador(String username) throws IOException
     {
         File carpeta= crearCarpetaJugador(username);

@@ -5,14 +5,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import juego.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** First screen of the application. Displayed after the application is created. */
 public class FirstScreen implements Screen {
     private MainGame game;
     private ShapeRenderer shape;
-    private NivelCutTheRope nivel;
+    private Nivel nivel;
     private SpriteBatch batch;
     private int estrellasRecolectada;
     private Texture texturaOmNom;
@@ -31,14 +33,21 @@ public class FirstScreen implements Screen {
     private float anchoBtn=50;
     private float altoBtn=50;
     private boolean pausado=false;
-
+    private Jugador jugador;
+    private GestorNiveles gestorNiveles;
+    //private List<Nivel> niveles;
+    //TODO: En lugar de extender juego con niveles si se puede configurar desde firstScreen cada nivel con arraylist
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
 //        this.nivel = new NivelCutTheRope(1,1);
-//probar nivel 2
-        this.nivel = new NivelCutTheRope(1,1);
-        this.nivel.iniciarNivel();
+//        probar nivel 2
+        this.jugador= new Jugador();
+        this.gestorNiveles= new GestorNiveles(this.jugador);
+        this.nivel= gestorNiveles.obtenerNivelActual();
+        nivel.iniciarNivel();
+//        this.nivel = new Nivel(1,1, jugador);
+//        this.nivel.iniciarNivel();
         batch= new SpriteBatch();
         texturaOmNom= new Texture("omNomNormal.png");
         texturaCaramelo= new Texture("caramelo.png");
@@ -49,6 +58,16 @@ public class FirstScreen implements Screen {
         texturaEstrellaNoGanada= new Texture("estrellasNoGanadas.png");
         texturaBtnPausar= new Texture("btnPausa.png");
         texturaBtnReiniciar= new Texture("btnReiniciar.png");
+/*        niveles = new ArrayList<>();
+
+        Nivel nivelX = new Nivel(1,1, jugador);
+        nivelX.iniciarNivel();
+        nivelX.agregarCuerda(new Cuerda(500,600,100,caramelo));
+        niveles.add(nivelX);
+
+        nivelX.configurar();
+        niveles.add(nivelX);*/
+
     }
 
     @Override
@@ -98,7 +117,7 @@ public class FirstScreen implements Screen {
 //            {
 //                cuerda.cortar();
 //            }
-            for (Cuerda cuerda : nivel.getCuerdas()) 
+            for (Cuerda cuerda : nivel.getCuerdas())
             {
                 float distancia= distanciaPuntoLinea(mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), nivel.getCaramelo().getX(), nivel.getCaramelo().getY());
                 if(distancia<15)
@@ -115,7 +134,7 @@ public class FirstScreen implements Screen {
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             cuerda.actualizar();
-            
+
         }
         actualizarCarameloConCuerdas();
         nivel.getCaramelo().actualizar();
@@ -226,10 +245,20 @@ public class FirstScreen implements Screen {
         {
             omNom.comerCaramelo(caramelo);
             System.out.println("GANASTE");
-            if(nivel.getNumeroNivel()==1)
+//            if(nivel.getNumeroNivel()==1)
+//            {
+//                nivel= new Nivel(2,1, jugador);
+//                nivel.iniciarNivel();
+//                nivel.reiniciarNivel();
+//            }
+            if(nivel.verificarVictoria()==true)
             {
-                nivel= new NivelCutTheRope(2,1);
-                nivel.iniciarNivel();
+                gestorNiveles.avanzarNivel();
+                if(gestorNiveles.ultimoNivelCompletado()==false)
+                {
+                    nivel= gestorNiveles.obtenerNivelActual();
+                    nivel.iniciarNivel();
+                }
             }
         }
     }
@@ -262,7 +291,7 @@ public class FirstScreen implements Screen {
                     shape.line(prevX, prevY, bx, by);
                     prevX= bx;
                     prevY=by;
-                    
+
                 }
             }
         }

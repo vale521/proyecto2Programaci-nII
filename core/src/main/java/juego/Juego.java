@@ -8,14 +8,14 @@ package juego;
  *
  * @author valer
  */
-public abstract class Nivel {
+public abstract class Juego {
     protected int numeroNivel;
     protected boolean desbloqueado;
     protected boolean completado;
-
+    protected Jugador jugador;
     protected int dificultad;
 
-    public Nivel(int numeroNivel, int dificultad) {
+    public Juego(int numeroNivel, int dificultad, Jugador jugador) {
         this.numeroNivel = numeroNivel;
         this.dificultad = dificultad;
 
@@ -62,5 +62,5 @@ public abstract class Nivel {
     public void setDificultad(int dificultad) {
         this.dificultad = dificultad;
     }
-    
+
 }
