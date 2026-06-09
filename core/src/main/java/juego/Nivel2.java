@@ -20,6 +20,6 @@ public class Nivel2 extends Nivel{
         estrellas.add(new Estrella(460,310));
         estrellas.add(new Estrella(460,230));
         cuerdas.add(new Cuerda(anclajeIzqX,anclajeInqY,150,caramelo,0));
-        cuerdas.add(new Cuerda(anclajeDerX,anclajeDerY,250,caramelo, -20));
+        cuerdas.add(new Cuerda(anclajeDerX,anclajeDerY,250,caramelo, -30));
     }
 }

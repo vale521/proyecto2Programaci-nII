@@ -9,18 +9,15 @@ public class Nivel3 extends Nivel{
     protected void configurarNivel()
     {
         System.out.println("Entro al nivel 3");
-        float anclajeIzqX=330;
-        float anclajeInqY=620;
-        float anclajeDerX=460;
-        float anclajeDerY=620;
-        caramelo =new Caramelo(430,500);
-        omNom= new OmNom(750,80);
 
-        estrellas.add(new Estrella(155, 430));
-        estrellas.add(new Estrella(155,250));
-        estrellas.add(new Estrella(430,620));
-        cuerdas.add(new Cuerda(280,650,240,caramelo,-20));
-        cuerdas.add(new Cuerda(580,650,220,caramelo, 20));
-        cuerdas.add(new Cuerda(200,350,240,caramelo, 55));
+        caramelo = new Caramelo(520,420);
+        omNom = new OmNom(700,120);
+        estrellas.add(new Estrella(220, 430));
+        estrellas.add(new Estrella(170, 250));
+        estrellas.add(new Estrella(520, 120));
+        cuerdas.add(new Cuerda(300, 620, 260, caramelo, -45));
+        cuerdas.add(new Cuerda(560, 620, 210, caramelo, 15));
+        cuerdas.add(new Cuerda(300, 300, 320, caramelo, 60));
+
     }
 }
