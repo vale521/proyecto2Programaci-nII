@@ -46,6 +46,9 @@ public class FirstScreen implements Screen {
 
     private boolean nivelCompletado=false;
     private float tiempoVictoria=0;
+
+    private float mouseAnteriorX=-1;
+    private float mouseAnteriorY=-1;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -88,48 +91,65 @@ public class FirstScreen implements Screen {
     private void actualizarJuego()
     {
 
-        if(Gdx.input.justTouched()==true)
-        {
-            float mouseX= Gdx.input.getX();
-            float mouseY= Gdx.graphics.getHeight()-Gdx.input.getY();
+        if(Gdx.input.justTouched()==true) {
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-            if(mouseX>= xBtnPausar && (mouseX<=xBtnPausar+anchoBtn )&& mouseY>=yBtnPausar && (mouseY<= yBtnPausar+altoBtn))
-            {
-                pausado= !pausado;
+            if (mouseX >= xBtnPausar && (mouseX <= xBtnPausar + anchoBtn) && mouseY >= yBtnPausar && (mouseY <= yBtnPausar + altoBtn)) {
+                pausado = !pausado;
+
                 return;
             }
 
-            if(mouseX>= xBtnReiniciar && (mouseX<=xBtnReiniciar+anchoBtn )&& mouseY>=yBtnReiniciar && (mouseY<= yBtnReiniciar+altoBtn))
-            {
+            if (mouseX >= xBtnReiniciar && (mouseX <= xBtnReiniciar + anchoBtn) && mouseY >= yBtnReiniciar && (mouseY <= yBtnReiniciar + altoBtn)) {
                 nivel.reiniciarNivel();
-                pausado=false;
+                pausado = false;
                 return;
-            }
-//            modificacion para el nivel 2
-//            Cuerda cuerda = nivel.getCuerdas().get(0);
-//            float x1= cuerda.getAnclajeX();
-//            float y1= cuerda.getAnclajeY();
-//            float x2= nivel.getCaramelo().getX();
-//            float y2= nivel.getCaramelo().getY();
-//            float distancia= distanciaPuntoLinea(mouseX, mouseY, x1, y1, x2, y2);
-//            if(distancia<15)
-//            {
-//                cuerda.cortar();
-//            }
-            for (Cuerda cuerda : nivel.getCuerdas())
-            {
-                float distancia= distanciaPuntoLinea(mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), cuerda.getCaramelo().getX(), cuerda.getCaramelo().getY());
-                if(distancia<15)
-                {
-                    cuerda.cortar();
-                    break;
-                }
             }
         }
-        if(pausado==true)
+        if (pausado == true)
         {
+            mouseAnteriorX = -1;
+            mouseAnteriorY = -1;
             return;
         }
+        if (Gdx.input.isTouched())
+        {
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            if(mouseAnteriorX>=0 && mouseAnteriorY>=0)
+            {
+                float deslizarX= mouseX-mouseAnteriorX;
+                float deslizarY= mouseY-mouseAnteriorY;
+                float distDeslizar= (float) Math.sqrt(deslizarX*deslizarX+deslizarY*deslizarY);
+                if(distDeslizar>5f)
+                {
+                    for (Cuerda cuerda : nivel.getCuerdas())
+                    {
+                        if(cuerda.estaCortada()==false)
+                        {
+                            boolean segmentoIntersecados=segmentosSeIntersecan(mouseAnteriorX, mouseAnteriorY, mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), cuerda.getCaramelo().getX(), cuerda.getCaramelo().getY());
+                            if(segmentoIntersecados==true)
+                            {
+                                cuerda.cortar();
+                                break;
+                            }
+
+                        }
+
+
+                    }
+                }
+            }
+            mouseAnteriorX=mouseX;
+            mouseAnteriorY= mouseY;
+        }
+        else
+        {
+            mouseAnteriorY=-1;
+            mouseAnteriorX=-1;
+        }
+
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             cuerda.actualizar();
@@ -141,6 +161,25 @@ public class FirstScreen implements Screen {
         verificarOmNom();
     }
 
+    private boolean segmentosSeIntersecan(float anteriorMouseX, float anteriorMouseY, float mouseX, float mouseY, float AnclajeX, float AnclajeY, float XCaramelo, float YCaramelo)
+    {
+        float distancia1x= mouseX-anteriorMouseX;
+        float distancia1y= mouseY-anteriorMouseY;
+        float distancia2x= XCaramelo-AnclajeX;
+        float distancia2y= YCaramelo-AnclajeY;
+
+        float cruce= distancia1x*distancia2y-distancia1y*distancia2x;
+        if(Math.abs(cruce)<0.0001f)//->significa que son paralelos, no se cruzan
+        {
+            return false;
+        }
+        // t indica qué tan lejos sobre el segmento del MOUSE ocurre la intersección (0=inicio, 1=fin)
+        float t = ((AnclajeX - anteriorMouseX) * distancia2y - (AnclajeY - anteriorMouseY) * distancia2x) / cruce;
+        // u indica qué tan lejos sobre el segmento de la CUERDA ocurre la intersección (0=anclaje, 1=caramelo)
+        float u = ((AnclajeX - anteriorMouseX) * distancia1y - (AnclajeY - anteriorMouseY) * distancia1x) / cruce;
+        // solo hay intersección real si ambos valores están entre 0 y 1 (dentro de ambos segmentos)
+        return t>=0f && t<=1f && u>=0f && u<=1f;
+    }
     private void actualizarCarameloConCuerdas()
     {
         if(nivelCompletado==true)
