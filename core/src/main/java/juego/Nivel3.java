@@ -19,8 +19,8 @@ public class Nivel3 extends Nivel{
 
         estrellas.add(new Estrella(488, 163));//488.7693, 163.15207
         estrellas.add(new Estrella(384,169)); //384.74658, 169.04115
-        estrellas.add(new Estrella(453,524));//453.19598, 524.977
-        cuerdas.add(new Cuerda(450,650,50,caramelo,-20));
+        estrellas.add(new Estrella(395,510));//453.19598, 524.977
+        cuerdas.add(new Cuerda(450,650,60,caramelo,-30));
         cuerdas.add(new Cuerda(625,650,25,caramelo, 20));
         cuerdas.add(new Cuerda(450,400,240,caramelo, 70));
 
