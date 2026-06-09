@@ -43,6 +43,9 @@ public class FirstScreen implements Screen {
     private float velcidadCaidaX=0f;
     private float velocidadCaidaY=0f;
     private static final float GRAVEDAD_LIBRE=-18f;
+
+    private boolean nivelCompletado=false;
+    private float tiempoVictoria=0;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -130,7 +133,7 @@ public class FirstScreen implements Screen {
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             cuerda.actualizar();
-
+            //System.out.println("Posicion caramelo: "+cuerda.getCaramelo().getX()+", "+cuerda.getCaramelo().getY());
         }
         actualizarCarameloConCuerdas();
         nivel.getCaramelo().actualizar();
@@ -140,6 +143,21 @@ public class FirstScreen implements Screen {
 
     private void actualizarCarameloConCuerdas()
     {
+        if(nivelCompletado==true)
+        {
+            tiempoVictoria-=Gdx.graphics.getDeltaTime();
+            System.out.println("CAMBIANDO NIVEL");
+            if(tiempoVictoria<=0)
+            {
+                gestorNiveles.avanzarNivel();
+                if (gestorNiveles.ultimoNivelCompletado() == false) {
+                    nivel = gestorNiveles.obtenerNivelActual();
+                    nivel.iniciarNivel();
+                }
+                nivelCompletado=false;
+            }
+            return;
+        }
         int activas=0;
         float sumaPesoX=0;
         float sumaPesoY=0;
@@ -237,9 +255,10 @@ public class FirstScreen implements Screen {
 //            omNom.comerCaramelo(caramelo);
 //            System.out.println("GANASTE");
 //        }
-        if (distancia < 60)
+        if (distancia < 60 && nivelCompletado==false)
         {
             omNom.comerCaramelo(caramelo);
+            System.out.println("ESTA COMIENDO: "+omNom.estaComiendo());
             System.out.println("GANASTE");
 //            if(nivel.getNumeroNivel()==1)
 //            {
@@ -247,15 +266,12 @@ public class FirstScreen implements Screen {
 //                nivel.iniciarNivel();
 //                nivel.reiniciarNivel();
 //            }
-            if(nivel.verificarVictoria()==true)
+            if(nivel.verificarVictoria()==true && nivelCompletado==false)
             {
-                gestorNiveles.avanzarNivel();
-                if(gestorNiveles.ultimoNivelCompletado()==false)
-                {
-                    nivel= gestorNiveles.obtenerNivelActual();
-                    nivel.iniciarNivel();
-                }
+                nivelCompletado=true;
+                tiempoVictoria=1f;
             }
+
         }
     }
 
