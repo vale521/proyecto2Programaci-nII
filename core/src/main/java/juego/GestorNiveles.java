@@ -43,16 +43,13 @@ public class GestorNiveles {
     public void avanzarNivel()
     {
 
-        if(nivelActual < niveles.size())
-        {
             nivelActual++;
-        }
     }
 
     public boolean ultimoNivelCompletado()
     {
 
-        return nivelActual == niveles.size();
+        return nivelActual > niveles.size();
     }
 
     public ArrayList<Nivel> getNiveles() {
