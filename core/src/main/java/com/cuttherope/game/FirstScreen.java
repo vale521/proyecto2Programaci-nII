@@ -14,9 +14,8 @@ import java.util.List;
 public class FirstScreen implements Screen {
     private MainGame game;
     private ShapeRenderer shape;
-    private Nivel nivel;
     private SpriteBatch batch;
-    private int estrellasRecolectada;
+
     private Texture texturaOmNom;
     private Texture texturaCaramelo;
     private Texture texturaEstrella;
@@ -26,29 +25,35 @@ public class FirstScreen implements Screen {
     private Texture texturaEstrellaNoGanada;
     private Texture texturaBtnPausar;
     private Texture texturaBtnReiniciar;
+
     private float xBtnPausar=900;
     private float yBtnPausar=730;
     private float xBtnReiniciar=840;
     private float yBtnReiniciar=730;
     private float anchoBtn=50;
     private float altoBtn=50;
+
     private boolean pausado=false;
     private Jugador jugador;
     private GestorNiveles gestorNiveles;
-    //private List<Nivel> niveles;
-    //TODO: En lugar de extender juego con niveles si se puede configurar desde firstScreen cada nivel con arraylist
+    private Nivel nivel;
+    private int estrellasRecolectada;
+
+    //caida libre caramelo
+    private float velcidadCaidaX=0f;
+    private float velocidadCaidaY=0f;
+    private static final float GRAVEDAD_LIBRE=-18f;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
-//        this.nivel = new NivelCutTheRope(1,1);
-//        probar nivel 2
+
         this.jugador= new Jugador();
         this.gestorNiveles= new GestorNiveles(this.jugador);
         this.nivel= gestorNiveles.obtenerNivelActual();
         nivel.iniciarNivel();
-//        this.nivel = new Nivel(1,1, jugador);
-//        this.nivel.iniciarNivel();
+
         batch= new SpriteBatch();
+
         texturaOmNom= new Texture("omNomNormal.png");
         texturaCaramelo= new Texture("caramelo.png");
         texturaEstrella= new Texture("estrella.png");
@@ -58,15 +63,6 @@ public class FirstScreen implements Screen {
         texturaEstrellaNoGanada= new Texture("estrellasNoGanadas.png");
         texturaBtnPausar= new Texture("btnPausa.png");
         texturaBtnReiniciar= new Texture("btnReiniciar.png");
-/*        niveles = new ArrayList<>();
-
-        Nivel nivelX = new Nivel(1,1, jugador);
-        nivelX.iniciarNivel();
-        nivelX.agregarCuerda(new Cuerda(500,600,100,caramelo));
-        niveles.add(nivelX);
-
-        nivelX.configurar();
-        niveles.add(nivelX);*/
 
     }
 
@@ -119,7 +115,7 @@ public class FirstScreen implements Screen {
 //            }
             for (Cuerda cuerda : nivel.getCuerdas())
             {
-                float distancia= distanciaPuntoLinea(mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), nivel.getCaramelo().getX(), nivel.getCaramelo().getY());
+                float distancia= distanciaPuntoLinea(mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), cuerda.getCaramelo().getX(), cuerda.getCaramelo().getY());
                 if(distancia<15)
                 {
                     cuerda.cortar();
@@ -153,8 +149,8 @@ public class FirstScreen implements Screen {
             if(cuerda.estaCortada()==false)
             {
                 float peso=1.0f/cuerda.getLongitud();
-                sumaPesoX+=cuerda.getPosicionCarameloX();
-                sumaPesoY+=cuerda.getPosicionCarameloY();
+                sumaPesoX+=cuerda.getPosicionCarameloX()*peso;
+                sumaPesoY+=cuerda.getPosicionCarameloY()*peso;
                 sumaPesos+=peso;
                 activas++;
             }
@@ -162,8 +158,8 @@ public class FirstScreen implements Screen {
         if(activas>0)
         {
             nivel.getCaramelo().setLibre(false);
-            nivel.getCaramelo().setX(sumaPesoX/activas);
-            nivel.getCaramelo().setY(sumaPesoY/activas);
+            nivel.getCaramelo().setX(sumaPesoX/sumaPesos);
+            nivel.getCaramelo().setY(sumaPesoY/sumaPesos);
         }
         else
         {

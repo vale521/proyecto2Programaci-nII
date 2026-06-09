@@ -18,7 +18,7 @@ public class Cuerda extends Entidad {
     private double velocidadAngular;//cuentos angulos cambia por actualizacion
     private double aceleracionAngular;//cambia la velocidad
     private final double GRAVEDAD=0.4;
-    
+
     public Cuerda(float x, float y, float longitud, Caramelo caramelo)
     {
         super(x, y, 10, 100);
@@ -27,7 +27,7 @@ public class Cuerda extends Entidad {
         this.longitud = longitud;
         this.caramelo = caramelo;
         this.cortada = false;
-        this.angulo=Math.toRadians(30);//era30
+        this.angulo=Math.toRadians(15);//era30
         this.velocidadAngular=0;
         this.aceleracionAngular=0;
     }
@@ -44,7 +44,7 @@ public class Cuerda extends Entidad {
         this.velocidadAngular=0;
         this.aceleracionAngular=0;
     }
-    
+
     @Override
     public void actualizar()
     {
@@ -140,7 +140,7 @@ public class Cuerda extends Entidad {
     {
         return (float)(anclajeX+longitud*Math.sin(angulo));
     }
-    
+
     public float getPosicionCarameloY()
     {
         return (float)(anclajeY-longitud*Math.cos(angulo));
