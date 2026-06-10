@@ -25,13 +25,17 @@ public class FirstScreen implements Screen {
     private Texture texturaEstrellaNoGanada;
     private Texture texturaBtnPausar;
     private Texture texturaBtnReiniciar;
+    private Texture texturaFondo;
+    private Texture texturabtnMenu;
 
     private float xBtnPausar=900;
-    private float yBtnPausar=730;
+    private float yBtnPausar=720;
     private float xBtnReiniciar=840;
-    private float yBtnReiniciar=730;
+    private float yBtnReiniciar=720;
     private float anchoBtn=50;
     private float altoBtn=50;
+    private float xBtnMenu=40;
+    private float yBtnMenu=720;
 
     private boolean pausado=false;
     private Jugador jugador;
@@ -65,11 +69,12 @@ public class FirstScreen implements Screen {
         texturaEstrella= new Texture("estrella.png");
         texturaOrigenCuerda= new Texture("origenCuerda.png");
         texturaOmNomDulce= new Texture("omNomDulce.png");
-        texturaEstrellaGanada= new Texture("estrellasGanadas.png");
-        texturaEstrellaNoGanada= new Texture("estrellasNoGanadas.png");
-        texturaBtnPausar= new Texture("btnPausa.png");
-        texturaBtnReiniciar= new Texture("btnReiniciar.png");
-
+        texturaEstrellaGanada= new Texture("estrellaGanada2.png");
+        texturaEstrellaNoGanada= new Texture("estrellaNoGanada2.png");
+        texturaBtnPausar= new Texture("btnPausar2.png");
+        texturaBtnReiniciar= new Texture("btnReiniciar2.png");
+        texturabtnMenu= new Texture("btnMenu2.png");
+        texturaFondo= new Texture("fondoNiveles.png");
     }
 
     @Override
@@ -81,7 +86,8 @@ public class FirstScreen implements Screen {
     @Override
     public void render(float delta) {
         // Draw your screen here. "delta" is the time since last render in seconds.
-        Gdx.gl.glClearColor(0.98f, 0.95f, 0.84f, 1f);
+        //Gdx.gl.glClearColor(0.98f, 0.95f, 0.84f, 1f);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         actualizarJuego();
         dibujarJuego();
@@ -104,6 +110,11 @@ public class FirstScreen implements Screen {
             if (mouseX >= xBtnReiniciar && (mouseX <= xBtnReiniciar + anchoBtn) && mouseY >= yBtnReiniciar && (mouseY <= yBtnReiniciar + altoBtn)) {
                 nivel.reiniciarNivel();
                 pausado = false;
+                return;
+            }
+            if (mouseX >= xBtnMenu && (mouseX <= xBtnMenu + anchoBtn) && mouseY >= yBtnMenu && (mouseY <= yBtnMenu + altoBtn))
+            {
+                //desde aque hay que abrir el menu Sonido y de volver al menuPrincipal de sara
                 return;
             }
         }
@@ -316,6 +327,10 @@ public class FirstScreen implements Screen {
 
     private void dibujarJuego()
     {
+        batch.begin();
+        batch.draw(texturaFondo, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        batch.end();
         shape.begin(ShapeRenderer.ShapeType.Line);
         shape.setColor(.35f,0.20f,0.08f, 1f);
         for(Cuerda cuerda: nivel.getCuerdas())
@@ -347,8 +362,8 @@ public class FirstScreen implements Screen {
             }
         }
         shape.end();
-        batch.begin();
 
+        batch.begin();
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             batch.draw(texturaOrigenCuerda, cuerda.getAnclajeX()-20, cuerda.getAnclajeY()-20, 40, 40);
@@ -366,7 +381,6 @@ public class FirstScreen implements Screen {
             batch.draw(texturaOmNom, omNom.getX()-40, omNom.getY()-40, 80,80);
         }
         Caramelo caramelo = nivel.getCaramelo();
-//        shape.circle(caramelo.getX(), caramelo.getY(), 20);
         if(caramelo.isFueComido()==false)
         {
             batch.draw(texturaCaramelo, caramelo.getX()-20, caramelo.getY()-20, 40,40);
@@ -375,7 +389,6 @@ public class FirstScreen implements Screen {
         {
             if(estrella.isRecolectada()==false)
             {
-//                shape.circle(estrella.getX(), estrella.getY(), 15);
                 batch.draw(texturaEstrella, estrella.getX()-15, estrella.getY()-15,30,30);
             }
         }
@@ -397,7 +410,7 @@ public class FirstScreen implements Screen {
         }
         batch.draw(texturaBtnReiniciar, xBtnReiniciar, yBtnReiniciar, anchoBtn, altoBtn);
         batch.draw(texturaBtnPausar, xBtnPausar, yBtnPausar, anchoBtn, altoBtn);
-//        shape.end();
+        batch.draw(texturabtnMenu, xBtnMenu, yBtnMenu, anchoBtn, altoBtn);
         batch.end();
     }
     @Override
@@ -439,5 +452,7 @@ public class FirstScreen implements Screen {
         texturaOmNomDulce.dispose();
         texturaEstrellaGanada.dispose();
         texturaEstrellaNoGanada.dispose();
+        texturaFondo.dispose();
+        texturabtnMenu.dispose();
     }
 }
