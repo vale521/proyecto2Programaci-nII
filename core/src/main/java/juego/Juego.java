@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package juego;
 
@@ -9,73 +9,58 @@ package juego;
  * @author valer
  */
 public abstract class Juego {
-    protected String nombreJuego;
-    protected Usuario jugadorActual;
-    protected Nivel nivelActual;
-    protected boolean juegoTerminado;
-    protected int puntajeTotal;
+    protected int numeroNivel;
+    protected boolean desbloqueado;
+    protected boolean completado;
+    protected Jugador jugador;
+    protected int dificultad;
 
-    public Juego(String nombreJuego, Usuario jugadorActual)
-    {
-        this.nombreJuego = nombreJuego;
-        this.jugadorActual = jugadorActual;
-        this.puntajeTotal = 0;
-        this.juegoTerminado = false;
+    public Juego(int numeroNivel, int dificultad, Jugador jugador) {
+        this.numeroNivel = numeroNivel;
+        this.dificultad = dificultad;
+
+        this.desbloqueado = false;
+        this.completado = false;
     }
 
-    public abstract void iniciarJuego();
+    public abstract void iniciarNivel();
 
-    public abstract void pausarJuego();
-
-    public abstract void finalizarJuego();
-
-    public abstract void cargarNivel(int numeroNivel);
-
-    public abstract void actualizar();
+    public abstract void reiniciarNivel();
 
     public abstract boolean verificarVictoria();
 
     public abstract boolean verificarDerrota();
 
-    public String getNombreJuego() {
-        return nombreJuego;
+    public int getNumeroNivel() {
+        return numeroNivel;
     }
 
-    public void setNombreJuego(String nombreJuego) {
-        this.nombreJuego = nombreJuego;
+    public void setNumeroNivel(int numeroNivel) {
+        this.numeroNivel = numeroNivel;
     }
 
-    public Usuario getJugadorActual() {
-        return jugadorActual;
+    public boolean isDesbloqueado() {
+        return desbloqueado;
     }
 
-    public void setJugadorActual(Usuario jugadorActual) {
-        this.jugadorActual = jugadorActual;
+    public void setDesbloqueado(boolean desbloqueado) {
+        this.desbloqueado = desbloqueado;
     }
 
-    public Nivel getNivelActual() {
-        return nivelActual;
+    public boolean isCompletado() {
+        return completado;
     }
 
-    public void setNivelActual(Nivel nivelActual) {
-        this.nivelActual = nivelActual;
+    public void setCompletado(boolean completado) {
+        this.completado = completado;
     }
 
-    public boolean isJuegoTerminado() {
-        return juegoTerminado;
+    public int getDificultad() {
+        return dificultad;
     }
 
-    public void setJuegoTerminado(boolean juegoTerminado) {
-        this.juegoTerminado = juegoTerminado;
+    public void setDificultad(int dificultad) {
+        this.dificultad = dificultad;
     }
-
-    public int getPuntajeTotal() {
-        return puntajeTotal;
-    }
-
-    public void setPuntajeTotal(int puntajeTotal) {
-        this.puntajeTotal = puntajeTotal;
-    }
-
 
 }

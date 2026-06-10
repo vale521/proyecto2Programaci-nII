@@ -21,7 +21,7 @@ import java.time.Duration;
 public class Jugador implements Serializable {
     //crear clase persistencia de un jugador que le datos jugador, para saber si existe por username, modificar datos del jugador ->crear archivo tmb
     //crear clase persistencia de partidas que almacene todas las partidas, obtenga todas las partidas de un jugador, agregar nueva partida. ->crear archivo tmb
-
+    //estado partida
     private String username;
     private String nombreCompleto;
     private String contraseña;
@@ -37,6 +37,9 @@ public class Jugador implements Serializable {
     private Duration tiempoTotal;
     private ArrayList<ResultadoPartida> historial;
     private boolean activo;
+
+    public Jugador() {
+    }
 
     public Jugador(String username, String nombreCompleto, String contraseña, ImageIcon avatar)
     {

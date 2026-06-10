@@ -12,13 +12,13 @@ public class Cuerda extends Entidad {
     private Caramelo caramelo;
     private boolean cortada;
     private float longitud;
-    private float anclajeX;
+    private float anclajeX; //es el punto fijo de donde se sostiene el caramelo osea el eje/origen
     private float anclajeY;
-    private double angulo;
-    private double velocidadAngular;
-    private double aceleracionAngular;
+    private double angulo;//para controlar que tnta inclinacion tendrá la cuerda y cambia posicion caramelo
+    private double velocidadAngular;//cuentos angulos cambia por actualizacion
+    private double aceleracionAngular;//cambia la velocidad
     private final double GRAVEDAD=0.4;
-    
+
     public Cuerda(float x, float y, float longitud, Caramelo caramelo)
     {
         super(x, y, 10, 100);
@@ -27,7 +27,7 @@ public class Cuerda extends Entidad {
         this.longitud = longitud;
         this.caramelo = caramelo;
         this.cortada = false;
-        this.angulo=Math.toRadians(30);//era30
+        this.angulo=Math.toRadians(15);//era30
         this.velocidadAngular=0;
         this.aceleracionAngular=0;
     }
@@ -40,11 +40,11 @@ public class Cuerda extends Entidad {
         this.longitud = longitud;
         this.caramelo = caramelo;
         this.cortada = false;
-        this.angulo=Math.toRadians(anguloInicial);
+        this.angulo=Math.toRadians(anguloInicial);//pasa angulo a radianes
         this.velocidadAngular=0;
         this.aceleracionAngular=0;
     }
-    
+
     @Override
     public void actualizar()
     {
@@ -53,16 +53,12 @@ public class Cuerda extends Entidad {
             return;
         }
 
-        aceleracionAngular =(-GRAVEDAD / longitud)* Math.sin(angulo);
-
+        aceleracionAngular =(-GRAVEDAD / longitud)* Math.sin(angulo)/*cuanto jala la gravedad*/;
         velocidadAngular += aceleracionAngular;
-
-        velocidadAngular *= 0.995;
-
-        angulo += velocidadAngular;
+        velocidadAngular *= 0.995;/*amortiguamiento*/
+        angulo += velocidadAngular;//angulo cambia para que la cuerda oscile
 
         float nuevoX =(float)(anclajeX+ longitud* Math.sin(angulo));
-
         float nuevoY =(float)(anclajeY-longitud* Math.cos(angulo));
 //          modficado para el nivel 2
 //        caramelo.setX(nuevoX);
@@ -144,7 +140,7 @@ public class Cuerda extends Entidad {
     {
         return (float)(anclajeX+longitud*Math.sin(angulo));
     }
-    
+
     public float getPosicionCarameloY()
     {
         return (float)(anclajeY-longitud*Math.cos(angulo));

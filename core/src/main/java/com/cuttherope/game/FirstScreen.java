@@ -5,16 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import juego.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** First screen of the application. Displayed after the application is created. */
 public class FirstScreen implements Screen {
     private MainGame game;
     private ShapeRenderer shape;
-    private NivelCutTheRope nivel;
     private SpriteBatch batch;
-    private int estrellasRecolectada;
+
     private Texture texturaOmNom;
     private Texture texturaCaramelo;
     private Texture texturaEstrella;
@@ -24,22 +25,41 @@ public class FirstScreen implements Screen {
     private Texture texturaEstrellaNoGanada;
     private Texture texturaBtnPausar;
     private Texture texturaBtnReiniciar;
+
     private float xBtnPausar=900;
     private float yBtnPausar=730;
     private float xBtnReiniciar=840;
     private float yBtnReiniciar=730;
     private float anchoBtn=50;
     private float altoBtn=50;
-    private boolean pausado=false;
 
+    private boolean pausado=false;
+    private Jugador jugador;
+    private GestorNiveles gestorNiveles;
+    private Nivel nivel;
+    private int estrellasRecolectada;
+
+    //caida libre caramelo
+    private float velcidadCaidaX=0f;
+    private float velocidadCaidaY=0f;
+    private static final float GRAVEDAD_LIBRE=-18f;
+
+    private boolean nivelCompletado=false;
+    private float tiempoVictoria=0;
+
+    private float mouseAnteriorX=-1;
+    private float mouseAnteriorY=-1;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
-//        this.nivel = new NivelCutTheRope(1,1);
-//probar nivel 2
-        this.nivel = new NivelCutTheRope(1,1);
-        this.nivel.iniciarNivel();
+
+        this.jugador= new Jugador();
+        this.gestorNiveles= new GestorNiveles(this.jugador);
+        this.nivel= gestorNiveles.obtenerNivelActual();
+        nivel.iniciarNivel();
+
         batch= new SpriteBatch();
+
         texturaOmNom= new Texture("omNomNormal.png");
         texturaCaramelo= new Texture("caramelo.png");
         texturaEstrella= new Texture("estrella.png");
@@ -49,6 +69,7 @@ public class FirstScreen implements Screen {
         texturaEstrellaNoGanada= new Texture("estrellasNoGanadas.png");
         texturaBtnPausar= new Texture("btnPausa.png");
         texturaBtnReiniciar= new Texture("btnReiniciar.png");
+
     }
 
     @Override
@@ -70,52 +91,69 @@ public class FirstScreen implements Screen {
     private void actualizarJuego()
     {
 
-        if(Gdx.input.justTouched()==true)
-        {
-            float mouseX= Gdx.input.getX();
-            float mouseY= Gdx.graphics.getHeight()-Gdx.input.getY();
+        if(Gdx.input.justTouched()==true) {
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-            if(mouseX>= xBtnPausar && (mouseX<=xBtnPausar+anchoBtn )&& mouseY>=yBtnPausar && (mouseY<= yBtnPausar+altoBtn))
-            {
-                pausado= !pausado;
+            if (mouseX >= xBtnPausar && (mouseX <= xBtnPausar + anchoBtn) && mouseY >= yBtnPausar && (mouseY <= yBtnPausar + altoBtn)) {
+                pausado = !pausado;
+
                 return;
             }
 
-            if(mouseX>= xBtnReiniciar && (mouseX<=xBtnReiniciar+anchoBtn )&& mouseY>=yBtnReiniciar && (mouseY<= yBtnReiniciar+altoBtn))
-            {
+            if (mouseX >= xBtnReiniciar && (mouseX <= xBtnReiniciar + anchoBtn) && mouseY >= yBtnReiniciar && (mouseY <= yBtnReiniciar + altoBtn)) {
                 nivel.reiniciarNivel();
-                pausado=false;
+                pausado = false;
                 return;
-            }
-//            modificacion para el nivel 2
-//            Cuerda cuerda = nivel.getCuerdas().get(0);
-//            float x1= cuerda.getAnclajeX();
-//            float y1= cuerda.getAnclajeY();
-//            float x2= nivel.getCaramelo().getX();
-//            float y2= nivel.getCaramelo().getY();
-//            float distancia= distanciaPuntoLinea(mouseX, mouseY, x1, y1, x2, y2);
-//            if(distancia<15)
-//            {
-//                cuerda.cortar();
-//            }
-            for (Cuerda cuerda : nivel.getCuerdas()) 
-            {
-                float distancia= distanciaPuntoLinea(mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), nivel.getCaramelo().getX(), nivel.getCaramelo().getY());
-                if(distancia<15)
-                {
-                    cuerda.cortar();
-                    break;
-                }
             }
         }
-        if(pausado==true)
+        if (pausado == true)
         {
+            mouseAnteriorX = -1;
+            mouseAnteriorY = -1;
             return;
         }
+        if (Gdx.input.isTouched())
+        {
+            float mouseX = Gdx.input.getX();
+            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            if(mouseAnteriorX>=0 && mouseAnteriorY>=0)
+            {
+                float deslizarX= mouseX-mouseAnteriorX;
+                float deslizarY= mouseY-mouseAnteriorY;
+                float distDeslizar= (float) Math.sqrt(deslizarX*deslizarX+deslizarY*deslizarY);
+                if(distDeslizar>5f)
+                {
+                    for (Cuerda cuerda : nivel.getCuerdas())
+                    {
+                        if(cuerda.estaCortada()==false)
+                        {
+                            boolean segmentoIntersecados=segmentosSeIntersecan(mouseAnteriorX, mouseAnteriorY, mouseX, mouseY, cuerda.getAnclajeX(), cuerda.getAnclajeY(), cuerda.getCaramelo().getX(), cuerda.getCaramelo().getY());
+                            if(segmentoIntersecados==true)
+                            {
+                                cuerda.cortar();
+                                break;
+                            }
+
+                        }
+
+
+                    }
+                }
+            }
+            mouseAnteriorX=mouseX;
+            mouseAnteriorY= mouseY;
+        }
+        else
+        {
+            mouseAnteriorY=-1;
+            mouseAnteriorX=-1;
+        }
+
         for(Cuerda cuerda: nivel.getCuerdas())
         {
             cuerda.actualizar();
-            
+            //System.out.println("Posicion caramelo: "+cuerda.getCaramelo().getX()+", "+cuerda.getCaramelo().getY());
         }
         actualizarCarameloConCuerdas();
         nivel.getCaramelo().actualizar();
@@ -123,8 +161,42 @@ public class FirstScreen implements Screen {
         verificarOmNom();
     }
 
+    private boolean segmentosSeIntersecan(float anteriorMouseX, float anteriorMouseY, float mouseX, float mouseY, float AnclajeX, float AnclajeY, float XCaramelo, float YCaramelo)
+    {
+        float distancia1x= mouseX-anteriorMouseX;
+        float distancia1y= mouseY-anteriorMouseY;
+        float distancia2x= XCaramelo-AnclajeX;
+        float distancia2y= YCaramelo-AnclajeY;
+
+        float cruce= distancia1x*distancia2y-distancia1y*distancia2x;
+        if(Math.abs(cruce)<0.0001f)//->significa que son paralelos, no se cruzan
+        {
+            return false;
+        }
+        // t indica qué tan lejos sobre el segmento del MOUSE ocurre la intersección (0=inicio, 1=fin)
+        float t = ((AnclajeX - anteriorMouseX) * distancia2y - (AnclajeY - anteriorMouseY) * distancia2x) / cruce;
+        // u indica qué tan lejos sobre el segmento de la CUERDA ocurre la intersección (0=anclaje, 1=caramelo)
+        float u = ((AnclajeX - anteriorMouseX) * distancia1y - (AnclajeY - anteriorMouseY) * distancia1x) / cruce;
+        // solo hay intersección real si ambos valores están entre 0 y 1 (dentro de ambos segmentos)
+        return t>=0f && t<=1f && u>=0f && u<=1f;
+    }
     private void actualizarCarameloConCuerdas()
     {
+        if(nivelCompletado==true)
+        {
+            tiempoVictoria-=Gdx.graphics.getDeltaTime();
+            System.out.println("CAMBIANDO NIVEL");
+            if(tiempoVictoria<=0)
+            {
+                gestorNiveles.avanzarNivel();
+                if (gestorNiveles.ultimoNivelCompletado() == false) {
+                    nivel = gestorNiveles.obtenerNivelActual();
+                    nivel.iniciarNivel();
+                }
+                nivelCompletado=false;
+            }
+            return;
+        }
         int activas=0;
         float sumaPesoX=0;
         float sumaPesoY=0;
@@ -134,8 +206,8 @@ public class FirstScreen implements Screen {
             if(cuerda.estaCortada()==false)
             {
                 float peso=1.0f/cuerda.getLongitud();
-                sumaPesoX+=cuerda.getPosicionCarameloX();
-                sumaPesoY+=cuerda.getPosicionCarameloY();
+                sumaPesoX+=cuerda.getPosicionCarameloX()*peso;
+                sumaPesoY+=cuerda.getPosicionCarameloY()*peso;
                 sumaPesos+=peso;
                 activas++;
             }
@@ -143,8 +215,8 @@ public class FirstScreen implements Screen {
         if(activas>0)
         {
             nivel.getCaramelo().setLibre(false);
-            nivel.getCaramelo().setX(sumaPesoX/activas);
-            nivel.getCaramelo().setY(sumaPesoY/activas);
+            nivel.getCaramelo().setX(sumaPesoX/sumaPesos);
+            nivel.getCaramelo().setY(sumaPesoY/sumaPesos);
         }
         else
         {
@@ -222,15 +294,23 @@ public class FirstScreen implements Screen {
 //            omNom.comerCaramelo(caramelo);
 //            System.out.println("GANASTE");
 //        }
-        if (distancia < 60)
+        if (distancia < 60 && nivelCompletado==false)
         {
             omNom.comerCaramelo(caramelo);
+            System.out.println("ESTA COMIENDO: "+omNom.estaComiendo());
             System.out.println("GANASTE");
-            if(nivel.getNumeroNivel()==1)
+//            if(nivel.getNumeroNivel()==1)
+//            {
+//                nivel= new Nivel(2,1, jugador);
+//                nivel.iniciarNivel();
+//                nivel.reiniciarNivel();
+//            }
+            if(nivel.verificarVictoria()==true && nivelCompletado==false)
             {
-                nivel= new NivelCutTheRope(2,1);
-                nivel.iniciarNivel();
+                nivelCompletado=true;
+                tiempoVictoria=1f;
             }
+
         }
     }
 
@@ -262,7 +342,7 @@ public class FirstScreen implements Screen {
                     shape.line(prevX, prevY, bx, by);
                     prevX= bx;
                     prevY=by;
-                    
+
                 }
             }
         }

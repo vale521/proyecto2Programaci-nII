@@ -4,6 +4,8 @@
  */
 package juego;
 
+import desuso.Juego;
+
 /**
  *
  * @author valer
@@ -18,7 +20,7 @@ public class CutTheRopeGame extends Juego {
     public CutTheRopeGame(Usuario jugadorActual) {
         super("Cut The Rope", jugadorActual);
 
-        this.gestorNiveles = new GestorNiveles();
+       // this.gestorNiveles = new GestorNiveles();
         this.sistemaPuntaje = new SistemaPuntaje();
     }
 
@@ -46,9 +48,9 @@ public class CutTheRopeGame extends Juego {
     @Override
     public void cargarNivel(int numeroNivel)
     {
-        NivelCutTheRope nivel = new NivelCutTheRope(numeroNivel,1);
-        nivel.iniciarNivel();
-        nivelActual = nivel;
+        //Nivel nivel = new Nivel(numeroNivel,1);
+        //nivel.iniciarNivel();
+        //nivelActual = nivel;
     }
 
     @Override
@@ -59,13 +61,13 @@ public class CutTheRopeGame extends Juego {
             return;
         }
 
-        if(!(nivelActual instanceof NivelCutTheRope))
+        if(!(nivelActual instanceof Nivel))
         {
             return;
         }
 
-        NivelCutTheRope nivel =
-            (NivelCutTheRope) nivelActual;
+        Nivel nivel =
+            (Nivel) nivelActual;
 
         Caramelo caramelo = nivel.getCaramelo();
 

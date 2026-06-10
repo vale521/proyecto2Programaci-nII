@@ -9,12 +9,13 @@ package juego;
  * @author valer
  */
 public abstract class Entidad {
-    protected float x;
+    //posicion en la pantalla
+    protected float x; 
     protected float y;
-
+    //tamaño del objeto
     protected float ancho;
     protected float alto;
-
+    
     protected boolean activa;
 
     public Entidad(float x, float y, float ancho, float alto) {
