@@ -37,6 +37,9 @@ public class Ganar extends javax.swing.JFrame {
         estrella1 = new javax.swing.JLabel();
         estrella3 = new javax.swing.JLabel();
         estrella2 = new javax.swing.JLabel();
+        estrellaGris1 = new javax.swing.JLabel();
+        estrellaGris2 = new javax.swing.JLabel();
+        estrellaGris3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,6 +71,18 @@ public class Ganar extends javax.swing.JFrame {
         estrella2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/estrellita.png"))); // NOI18N
         getContentPane().add(estrella2);
         estrella2.setBounds(140, 110, 60, 60);
+
+        estrellaGris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/estrella gris.png"))); // NOI18N
+        getContentPane().add(estrellaGris1);
+        estrellaGris1.setBounds(250, 110, 70, 60);
+
+        estrellaGris2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/estrella gris.png"))); // NOI18N
+        getContentPane().add(estrellaGris2);
+        estrellaGris2.setBounds(190, 100, 70, 60);
+
+        estrellaGris3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/estrella gris.png"))); // NOI18N
+        getContentPane().add(estrellaGris3);
+        estrellaGris3.setBounds(130, 110, 70, 60);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/9.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -120,6 +135,9 @@ public class Ganar extends javax.swing.JFrame {
     private javax.swing.JLabel estrella1;
     private javax.swing.JLabel estrella2;
     private javax.swing.JLabel estrella3;
+    private javax.swing.JLabel estrellaGris1;
+    private javax.swing.JLabel estrellaGris2;
+    private javax.swing.JLabel estrellaGris3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton next;
     private javax.swing.JButton niveles;

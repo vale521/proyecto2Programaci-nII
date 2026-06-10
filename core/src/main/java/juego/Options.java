@@ -31,6 +31,7 @@ public class Options extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        done = new javax.swing.JButton();
         volumen = new javax.swing.JButton();
         language1 = new javax.swing.JButton();
         musica = new javax.swing.JButton();
@@ -39,20 +40,25 @@ public class Options extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        done.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N
+        done.addActionListener(this::doneActionPerformed);
+        getContentPane().add(done);
+        done.setBounds(190, 240, 90, 30);
+
         volumen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/6.png"))); // NOI18N
         volumen.addActionListener(this::volumenActionPerformed);
         getContentPane().add(volumen);
-        volumen.setBounds(250, 120, 70, 40);
+        volumen.setBounds(250, 90, 70, 40);
 
         language1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/4.png"))); // NOI18N
         language1.addActionListener(this::language1ActionPerformed);
         getContentPane().add(language1);
-        language1.setBounds(160, 170, 160, 60);
+        language1.setBounds(160, 150, 160, 60);
 
         musica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/5.png"))); // NOI18N
         musica.addActionListener(this::musicaActionPerformed);
         getContentPane().add(musica);
-        musica.setBounds(160, 120, 70, 40);
+        musica.setBounds(160, 90, 70, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/options.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -72,6 +78,13 @@ public class Options extends javax.swing.JFrame {
     private void musicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_musicaActionPerformed
+
+    private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
+        // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_doneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -99,6 +112,7 @@ public class Options extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton done;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton language1;
     private javax.swing.JButton musica;
