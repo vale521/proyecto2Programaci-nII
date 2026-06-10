@@ -9,13 +9,15 @@ package juego;
  * @author valer
  */
 public class Caramelo extends Entidad {
-    private float velocidadX;
+    private float velocidadX; //ya tan rapido se mueve
     private float velocidadY;
-    private boolean fueComido;
-    private final float GRAVEDAD=0.4f;
+    private boolean fueComido;//para saber si llego al omnom
+    private final float GRAVEDAD=0.4f;//para que caiga para abajo
     private int estrellasRecolectadas;
-    private boolean libre;
-    public Caramelo(float x, float y) {
+    private boolean libre;//si es false cuerdas lo controlan sino cae con gravedad
+    
+    public Caramelo(float x, float y) 
+    {
         super(x, y, 40, 40);
 
         this.velocidadX = 0;
@@ -28,11 +30,11 @@ public class Caramelo extends Entidad {
     @Override
     public void actualizar()
     {
-        if(fueComido==true)
+        if(fueComido==true) //si ya llego al omnom ya no hace nada
         {
             return;
         }
-        if(libre==true)
+        if(libre==true)//si esta sin cuerdas 
         {
             aplicarGravedad();
             mover();
@@ -51,14 +53,14 @@ public class Caramelo extends Entidad {
     }
 
     public void mover()
-    {
-        x+=velocidadX;
-        y+=velocidadY;
+    {//para que el caramelo vaya bajando
+        x+=velocidadX; 
+        y+=velocidadY; 
     }
 
     public void aplicarGravedad()
     {
-        velocidadY-=GRAVEDAD;
+        velocidadY-=GRAVEDAD;// que vaya cayendo mas rapido cada vez
     }
 
     public void recolectarEstrella()
