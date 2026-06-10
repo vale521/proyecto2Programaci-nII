@@ -18,7 +18,7 @@ public class Niveles extends javax.swing.JFrame {
     public Niveles() {
         initComponents();
         
-        this.setSize(450, 470);
+        this.setSize(470, 435);
         this.setLocationRelativeTo(null);
     }
 
@@ -46,26 +46,47 @@ public class Niveles extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
+
+        nivel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5.png"))); // NOI18N
         getContentPane().add(nivel1);
-        nivel1.setBounds(360, 90, 50, 50);
+        nivel1.setBounds(370, 70, 80, 80);
+
+        nivel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1.png"))); // NOI18N
+        nivel2.addActionListener(this::nivel2ActionPerformed);
         getContentPane().add(nivel2);
-        nivel2.setBounds(40, 90, 50, 50);
+        nivel2.setBounds(10, 70, 80, 80);
+
+        nivel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l2.png"))); // NOI18N
         getContentPane().add(nivel3);
-        nivel3.setBounds(120, 90, 50, 50);
+        nivel3.setBounds(100, 70, 80, 80);
+
+        nivel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l3.png"))); // NOI18N
         getContentPane().add(nivel4);
-        nivel4.setBounds(200, 90, 50, 50);
+        nivel4.setBounds(190, 70, 80, 80);
+
+        nivel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l6.png"))); // NOI18N
         getContentPane().add(nivel5);
-        nivel5.setBounds(40, 180, 50, 50);
+        nivel5.setBounds(10, 170, 80, 80);
+
+        nivel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l7.png"))); // NOI18N
         getContentPane().add(nivel6);
-        nivel6.setBounds(120, 180, 50, 50);
+        nivel6.setBounds(100, 170, 80, 80);
+
+        nivel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l8.png"))); // NOI18N
         getContentPane().add(nivel7);
-        nivel7.setBounds(200, 180, 50, 50);
+        nivel7.setBounds(190, 170, 80, 80);
+
+        nivel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l9.png"))); // NOI18N
         getContentPane().add(nivel8);
-        nivel8.setBounds(280, 180, 50, 50);
+        nivel8.setBounds(280, 170, 80, 80);
+
+        nivel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l10.png"))); // NOI18N
         getContentPane().add(nivel9);
-        nivel9.setBounds(360, 180, 50, 50);
+        nivel9.setBounds(370, 170, 80, 80);
+
+        nivel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l4.png"))); // NOI18N
         getContentPane().add(nivel10);
-        nivel10.setBounds(280, 90, 50, 50);
+        nivel10.setBounds(280, 70, 80, 80);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -82,6 +103,10 @@ public class Niveles extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_backActionPerformed
+
+    private void nivel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivel2ActionPerformed
 
     /**
      * @param args the command line arguments
