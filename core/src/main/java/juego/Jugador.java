@@ -39,6 +39,12 @@ public class Jugador implements Serializable {
     private boolean activo;
 
     public Jugador() {
+        this.puntajes=new PuntajeNivel[5];
+        this.historial= new ArrayList<>();
+        this.preferenciasJuego=new PreferenciasJuego();
+        this.amigos= new ArrayList<>();
+        this.tiempoTotal=Duration.ZERO;
+        this.nivelPartidaActual=1;
     }
 
     public Jugador(String username, String nombreCompleto, String contraseña, ImageIcon avatar)

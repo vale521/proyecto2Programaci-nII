@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import juego.*;
-
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +15,7 @@ public class FirstScreen implements Screen {
     private MainGame game;
     private ShapeRenderer shape;
     private SpriteBatch batch;
+    private BitmapFont font;
 
     private Texture texturaOmNom;
     private Texture texturaCaramelo;
@@ -50,9 +51,11 @@ public class FirstScreen implements Screen {
 
     private boolean nivelCompletado=false;
     private float tiempoVictoria=0;
+    private float tiempoNivel=0;
 
     private float mouseAnteriorX=-1;
     private float mouseAnteriorY=-1;
+
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -63,6 +66,7 @@ public class FirstScreen implements Screen {
         nivel.iniciarNivel();
 
         batch= new SpriteBatch();
+        font= new BitmapFont();
 
         texturaOmNom= new Texture("omNomNormal.png");
         texturaCaramelo= new Texture("caramelo.png");
@@ -114,7 +118,7 @@ public class FirstScreen implements Screen {
             }
             if (mouseX >= xBtnMenu && (mouseX <= xBtnMenu + anchoBtn) && mouseY >= yBtnMenu && (mouseY <= yBtnMenu + altoBtn))
             {
-                //desde aque hay que abrir el menu Sonido y de volver al menuPrincipal de sara
+                //javax.swing.SwingUtilities.invokeLater(() -> {new Options().setVisible(true);});
                 return;
             }
         }
@@ -123,6 +127,11 @@ public class FirstScreen implements Screen {
             mouseAnteriorX = -1;
             mouseAnteriorY = -1;
             return;
+        }
+
+        if(pausado==false && nivelCompletado==false)
+        {
+            tiempoNivel+= Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isTouched())
         {
@@ -203,6 +212,7 @@ public class FirstScreen implements Screen {
                 if (gestorNiveles.ultimoNivelCompletado() == false) {
                     nivel = gestorNiveles.obtenerNivelActual();
                     nivel.iniciarNivel();
+                    tiempoNivel=0;
                 }
                 nivelCompletado=false;
             }
@@ -318,6 +328,12 @@ public class FirstScreen implements Screen {
 //            }
             if(nivel.verificarVictoria()==true && nivelCompletado==false)
             {
+                ResultadoPartida resultadoPartida= new ResultadoPartida();
+                resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
+                resultadoPartida.setCantidadEstrellasRecolectadas(caramelo.getEstrellasRecolectadas());
+                resultadoPartida.setTiempoSegundos(tiempoNivel);
+                resultadoPartida.setVictoria(true);
+                jugador.agregarResultado(resultadoPartida);
                 nivelCompletado=true;
                 tiempoVictoria=1f;
             }
@@ -411,6 +427,7 @@ public class FirstScreen implements Screen {
         batch.draw(texturaBtnReiniciar, xBtnReiniciar, yBtnReiniciar, anchoBtn, altoBtn);
         batch.draw(texturaBtnPausar, xBtnPausar, yBtnPausar, anchoBtn, altoBtn);
         batch.draw(texturabtnMenu, xBtnMenu, yBtnMenu, anchoBtn, altoBtn);
+        font.draw(batch, "Tiempo: "+(int) tiempoNivel +" s", 20, 50);
         batch.end();
     }
     @Override
