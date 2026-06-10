@@ -41,6 +41,7 @@ public class FirstScreen implements Screen {
     private boolean pausado=false;
     private Jugador jugador;
     private GestorNiveles gestorNiveles;
+    private PersistenciaJugador persistenciaJugador;
     private Nivel nivel;
     private int estrellasRecolectada;
 
@@ -61,9 +62,36 @@ public class FirstScreen implements Screen {
         this.shape = new ShapeRenderer();
 
         this.jugador= new Jugador();
+        this.persistenciaJugador= new PersistenciaJugador();
+        String username= jugador.getUsername();
+        PartidaProgreso progreso;
+        if(username!=null && username.isEmpty()==false)
+        {
+            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
+        }
+        else
+        {
+            progreso= new PartidaProgreso();
+        }
         this.gestorNiveles= new GestorNiveles(this.jugador);
         this.nivel= gestorNiveles.obtenerNivelActual();
         nivel.iniciarNivel();
+
+        if(progreso.isHayPartidaGuardada())
+        {
+            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
+            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
+            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
+            int restauradas=0;
+            for (Estrella estrella: nivel.getEstrellas())
+            {
+                if(restauradas<estrellasRestaurar)
+                {
+                    estrella.recolectar();
+                    restauradas++;
+                }
+            }
+        }
 
         batch= new SpriteBatch();
         font= new BitmapFont();
@@ -113,11 +141,13 @@ public class FirstScreen implements Screen {
 
             if (mouseX >= xBtnReiniciar && (mouseX <= xBtnReiniciar + anchoBtn) && mouseY >= yBtnReiniciar && (mouseY <= yBtnReiniciar + altoBtn)) {
                 nivel.reiniciarNivel();
+                tiempoNivel=0;
                 pausado = false;
                 return;
             }
             if (mouseX >= xBtnMenu && (mouseX <= xBtnMenu + anchoBtn) && mouseY >= yBtnMenu && (mouseY <= yBtnMenu + altoBtn))
             {
+                guardarProgresoActual();
                 javax.swing.SwingUtilities.invokeLater(() -> {new Options().setVisible(true);});
                 return;
             }
@@ -181,6 +211,17 @@ public class FirstScreen implements Screen {
         verificarOmNom();
     }
 
+    private void guardarProgresoActual()
+    {
+        String username= jugador.getUsername();
+        if(username==null || username.isEmpty()==true)
+        {
+            return;
+        }
+        PartidaProgreso estado= new PartidaProgreso(gestorNiveles.getNivelActual(), nivel.getCaramelo().getEstrellasRecolectadas(), tiempoNivel);
+        persistenciaJugador.guardarProgreso(jugador.getUsername(), estado);
+        System.out.println("PROGRESO GUARDADO: NIVEL "+gestorNiveles.getNivelActual()+", estrellas "+nivel.getCaramelo().getEstrellasRecolectadas()+", tiempo "+tiempoNivel);
+    }
     private boolean segmentosSeIntersecan(float anteriorMouseX, float anteriorMouseY, float mouseX, float mouseY, float AnclajeX, float AnclajeY, float XCaramelo, float YCaramelo)
     {
         float distancia1x= mouseX-anteriorMouseX;
@@ -334,6 +375,7 @@ public class FirstScreen implements Screen {
                 resultadoPartida.setTiempoSegundos(tiempoNivel);
                 resultadoPartida.setVictoria(true);
                 jugador.agregarResultado(resultadoPartida);
+                persistenciaJugador.borrarProgreso(jugador.getUsername());
                 nivelCompletado=true;
                 tiempoVictoria=1f;
             }
@@ -444,7 +486,8 @@ public class FirstScreen implements Screen {
 
     @Override
     public void pause() {
-        // Invoked when your application is paused.
+        // Invoked when your application is paused
+        guardarProgresoActual();
     }
 
     @Override
@@ -455,6 +498,7 @@ public class FirstScreen implements Screen {
     @Override
     public void hide() {
         // This method is called when another screen replaces this one.
+        guardarProgresoActual();
     }
 
     @Override
