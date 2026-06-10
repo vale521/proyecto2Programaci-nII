@@ -118,7 +118,7 @@ public class FirstScreen implements Screen {
             }
             if (mouseX >= xBtnMenu && (mouseX <= xBtnMenu + anchoBtn) && mouseY >= yBtnMenu && (mouseY <= yBtnMenu + altoBtn))
             {
-                //javax.swing.SwingUtilities.invokeLater(() -> {new Options().setVisible(true);});
+                javax.swing.SwingUtilities.invokeLater(() -> {new Options().setVisible(true);});
                 return;
             }
         }
