@@ -49,16 +49,7 @@ public class CuentaNoExiste extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
 
-        String usuario = username.getText().trim();
-        String password = pass.getText().trim();
-
-        if (usuario.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        } else {
-            UsuarioGuardado mensaje = new UsuarioGuardado();
-            mensaje.setVisible(true);
-        }
+        
         InicioJuego inicio = new InicioJuego();
         this.dispose();
         inicio.setVisible(true);

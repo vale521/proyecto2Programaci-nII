@@ -17,11 +17,12 @@ public class CutTheRopeGame extends Juego {
     private SistemaPuntaje sistemaPuntaje;
     //timer
 
-    public CutTheRopeGame(Usuario jugadorActual) {
+    public CutTheRopeGame(Jugador jugadorActual, GestorNiveles gestorNiveles) {
         super("Cut The Rope", jugadorActual);
 
        // this.gestorNiveles = new GestorNiveles();
         this.sistemaPuntaje = new SistemaPuntaje();
+        this.gestorNiveles= gestorNiveles;
     }
 
     @Override

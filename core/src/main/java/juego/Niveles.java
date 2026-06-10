@@ -253,6 +253,6 @@ public class Niveles extends javax.swing.JFrame {
  
         // Abrir la pantalla del juego pasando el nivel y el jugador
         this.dispose();
-        new CutTheRopeGame(jugador, gestor).setVisible(true);
+        new CutTheRopeGame(jugador, gestor);
     }
 }
