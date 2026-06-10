@@ -4,6 +4,8 @@
  */
 package juego;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author admin
@@ -28,21 +30,66 @@ public class CrearPerfil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        pass = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
+        back = new javax.swing.JButton();
+        done = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+        getContentPane().add(pass);
+        pass.setBounds(150, 210, 180, 26);
+
+        username.addActionListener(this::usernameActionPerformed);
+        getContentPane().add(username);
+        username.setBounds(150, 120, 180, 26);
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
+        back.addActionListener(this::backActionPerformed);
+        getContentPane().add(back);
+        back.setBounds(240, 250, 90, 30);
+
+        done.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N
+        done.addActionListener(this::doneActionPerformed);
+        getContentPane().add(done);
+        done.setBounds(140, 250, 90, 30);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/login.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 480, 313);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        
+        String usuario = username.getText().trim();
+        String password = pass.getText().trim();
+
+        if (usuario.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            UsuarioGuardado mensaje = new UsuarioGuardado();
+            mensaje.setVisible(true);
+        }
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_backActionPerformed
+
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+
+    private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
+        // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_doneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +117,10 @@ public class CrearPerfil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JButton done;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField pass;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

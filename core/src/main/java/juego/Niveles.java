@@ -36,6 +36,16 @@ public class Niveles extends javax.swing.JFrame {
         nivel3 = new javax.swing.JButton();
         nivel4 = new javax.swing.JButton();
         nivel10 = new javax.swing.JButton();
+        nivelgris1 = new javax.swing.JButton();
+        nivelgris2 = new javax.swing.JButton();
+        nivelgris3 = new javax.swing.JButton();
+        nivelgris4 = new javax.swing.JButton();
+        nivelgris5 = new javax.swing.JButton();
+        nivelgris6 = new javax.swing.JButton();
+        nivelgris7 = new javax.swing.JButton();
+        nivelgris8 = new javax.swing.JButton();
+        nivelgris9 = new javax.swing.JButton();
+        nivelgris10 = new javax.swing.JButton();
         back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -63,6 +73,56 @@ public class Niveles extends javax.swing.JFrame {
         getContentPane().add(nivel10);
         nivel10.setBounds(280, 130, 80, 80);
 
+        nivelgris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1gris.png"))); // NOI18N
+        nivelgris1.addActionListener(this::nivelgris1ActionPerformed);
+        getContentPane().add(nivelgris1);
+        nivelgris1.setBounds(10, 70, 80, 80);
+
+        nivelgris2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l2gris.png"))); // NOI18N
+        nivelgris2.addActionListener(this::nivelgris2ActionPerformed);
+        getContentPane().add(nivelgris2);
+        nivelgris2.setBounds(100, 70, 80, 80);
+
+        nivelgris3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l3gris.png"))); // NOI18N
+        nivelgris3.addActionListener(this::nivelgris3ActionPerformed);
+        getContentPane().add(nivelgris3);
+        nivelgris3.setBounds(190, 70, 80, 80);
+
+        nivelgris4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l4gris.png"))); // NOI18N
+        nivelgris4.addActionListener(this::nivelgris4ActionPerformed);
+        getContentPane().add(nivelgris4);
+        nivelgris4.setBounds(280, 70, 80, 80);
+
+        nivelgris5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5gris.png"))); // NOI18N
+        nivelgris5.addActionListener(this::nivelgris5ActionPerformed);
+        getContentPane().add(nivelgris5);
+        nivelgris5.setBounds(370, 70, 80, 80);
+
+        nivelgris6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l6gris.png"))); // NOI18N
+        nivelgris6.addActionListener(this::nivelgris6ActionPerformed);
+        getContentPane().add(nivelgris6);
+        nivelgris6.setBounds(10, 170, 80, 80);
+
+        nivelgris7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l7gris.png"))); // NOI18N
+        nivelgris7.addActionListener(this::nivelgris7ActionPerformed);
+        getContentPane().add(nivelgris7);
+        nivelgris7.setBounds(100, 170, 80, 80);
+
+        nivelgris8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l8gris.png"))); // NOI18N
+        nivelgris8.addActionListener(this::nivelgris8ActionPerformed);
+        getContentPane().add(nivelgris8);
+        nivelgris8.setBounds(190, 170, 80, 80);
+
+        nivelgris9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l9gris.png"))); // NOI18N
+        nivelgris9.addActionListener(this::nivelgris9ActionPerformed);
+        getContentPane().add(nivelgris9);
+        nivelgris9.setBounds(280, 170, 80, 80);
+
+        nivelgris10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l10gris.png"))); // NOI18N
+        nivelgris10.addActionListener(this::nivelgris10ActionPerformed);
+        getContentPane().add(nivelgris10);
+        nivelgris10.setBounds(370, 170, 80, 80);
+
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
@@ -82,6 +142,46 @@ public class Niveles extends javax.swing.JFrame {
     private void nivel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nivel2ActionPerformed
+
+    private void nivelgris1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris1ActionPerformed
+
+    private void nivelgris2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris2ActionPerformed
+
+    private void nivelgris3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris3ActionPerformed
+
+    private void nivelgris4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris4ActionPerformed
+
+    private void nivelgris5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris5ActionPerformed
+
+    private void nivelgris6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris6ActionPerformed
+
+    private void nivelgris7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris7ActionPerformed
+
+    private void nivelgris8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris8ActionPerformed
+
+    private void nivelgris9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris9ActionPerformed
+
+    private void nivelgris10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nivelgris10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,5 +216,15 @@ public class Niveles extends javax.swing.JFrame {
     private javax.swing.JButton nivel2;
     private javax.swing.JButton nivel3;
     private javax.swing.JButton nivel4;
+    private javax.swing.JButton nivelgris1;
+    private javax.swing.JButton nivelgris10;
+    private javax.swing.JButton nivelgris2;
+    private javax.swing.JButton nivelgris3;
+    private javax.swing.JButton nivelgris4;
+    private javax.swing.JButton nivelgris5;
+    private javax.swing.JButton nivelgris6;
+    private javax.swing.JButton nivelgris7;
+    private javax.swing.JButton nivelgris8;
+    private javax.swing.JButton nivelgris9;
     // End of variables declaration//GEN-END:variables
 }

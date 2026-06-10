@@ -4,6 +4,7 @@
  */
 package juego;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  *
  * @author valer
  */
-public class ResultadoPartida {
+public class ResultadoPartida implements Serializable {
     private LocalDateTime fecha;
     private int nivelAlcanzado;
     private int puntajeObtenido;
@@ -23,7 +24,7 @@ public class ResultadoPartida {
 
     public ResultadoPartida()
     {
-
+        this.fecha= LocalDateTime.now();
     }
 
     public Duration getTiempoPartida()
@@ -33,12 +34,23 @@ public class ResultadoPartida {
         return tiempoDuracionPartida;
     }
 
+    public int calcularPuntaje()
+    {
+        int base = cantidadEstrellasRecolectadas*1000;
+        int bonusTiempo= (int) Math.max(0,500-tiempoSegundos*5);
+        if(victoria==true)
+        {
+            return base+bonusTiempo;
+        }
+        return 0;
+    }
     public float getTiempoSegundos() {
         return tiempoSegundos;
     }
 
     public void setTiempoSegundos(float tiempoSegundos) {
         this.tiempoSegundos = tiempoSegundos;
+        this.puntajeObtenido= calcularPuntaje();
     }
 
     public LocalDateTime getFecha() {
@@ -71,6 +83,7 @@ public class ResultadoPartida {
 
     public void setCantidadEstrellasRecolectadas(int cantidadEstrellasRecolectadas) {
         this.cantidadEstrellasRecolectadas = cantidadEstrellasRecolectadas;
+        this.puntajeObtenido=calcularPuntaje();
     }
 
     public LocalDateTime getFechaHoraInicioPartida() {
