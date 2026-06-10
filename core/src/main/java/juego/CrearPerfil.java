@@ -86,9 +86,28 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
-        InicioJuego inicio = new InicioJuego();
+        String user = username.getText().trim();
+            String passw = pass.getText().trim();
+
+            if(user.isEmpty() || passw.isEmpty()){
+                JOptionPane.showMessageDialog(this,"Complete todos los campos");
+                return;
+            }
+
+            PersistenciaJugador persistencia =new PersistenciaJugador();
+
+            if(persistencia.existeJugador(user)){
+                JOptionPane.showMessageDialog(this,"El usuario ya existe");
+                return;
+            }
+
+            Jugador jugador =new Jugador(user, user, passw, null);
+
+            persistencia.guardarJugador(jugador);
+
+            JOptionPane.showMessageDialog(this,"Usuario registrado correctamente");
         this.dispose();
-        inicio.setVisible(true);
+        new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
     /**

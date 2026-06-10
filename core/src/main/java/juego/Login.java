@@ -74,7 +74,21 @@ public class Login extends javax.swing.JFrame {
         //temporal
         System.out.println(username.getText());
         System.out.println(contrasena.getText());
+        PersistenciaJugador persistencia =new PersistenciaJugador();
+
+        if(!persistencia.existeJugador(usuario)){
+
+            new CuentaNoExiste().setVisible(true);
+            return;
+        }
+        Jugador jugador = persistencia.cargarJugador(usuario);
+        if (jugador.getContraseña().equals(password)==false)
+        {
+            new IncorrectPass().setVisible(true);
+            return;
+        }
         this.dispose();
+        new Niveles(jugador).setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
     /**
