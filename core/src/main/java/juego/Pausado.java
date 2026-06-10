@@ -28,21 +28,54 @@ public class Pausado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        back = new javax.swing.JButton();
+        niveles = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/resume.png"))); // NOI18N
+        back.addActionListener(this::backActionPerformed);
+        getContentPane().add(back);
+        back.setBounds(210, 220, 120, 40);
+
+        niveles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/10.png"))); // NOI18N
+        niveles.addActionListener(this::nivelesActionPerformed);
+        getContentPane().add(niveles);
+        niveles.setBounds(130, 220, 60, 40);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pausado.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 480, 310);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nivelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelesActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login l = new Login();
+        l.setVisible(true);
+    }//GEN-LAST:event_nivelesActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+
+        String usuario = username.getText().trim();
+        String password = pass.getText().trim();
+
+        if (usuario.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            UsuarioGuardado mensaje = new UsuarioGuardado();
+            mensaje.setVisible(true);
+        }
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +103,8 @@ public class Pausado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton niveles;
     // End of variables declaration//GEN-END:variables
 }

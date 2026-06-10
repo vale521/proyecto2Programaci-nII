@@ -40,10 +40,10 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="play">
+    <Component class="javax.swing.JButton" name="CrearUsuario">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/juego/1.png"/>
+          <Image iconType="3" name="/juego/usuario.png"/>
         </Property>
       </Properties>
       <Constraints>

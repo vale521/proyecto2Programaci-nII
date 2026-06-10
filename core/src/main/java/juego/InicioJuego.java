@@ -33,7 +33,7 @@ public class InicioJuego extends javax.swing.JFrame {
     private void initComponents() {
 
         options = new javax.swing.JButton();
-        play = new javax.swing.JButton();
+        CrearUsuario = new javax.swing.JButton();
         login = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -45,9 +45,9 @@ public class InicioJuego extends javax.swing.JFrame {
         getContentPane().add(options);
         options.setBounds(110, 360, 160, 60);
 
-        play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/1.png"))); // NOI18N
-        getContentPane().add(play);
-        play.setBounds(110, 280, 160, 60);
+        CrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usuario.png"))); // NOI18N
+        getContentPane().add(CrearUsuario);
+        CrearUsuario.setBounds(110, 280, 160, 60);
 
         login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/2.png"))); // NOI18N
         login.addActionListener(this::loginActionPerformed);
@@ -101,9 +101,9 @@ public class InicioJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CrearUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton login;
     private javax.swing.JButton options;
-    private javax.swing.JButton play;
     // End of variables declaration//GEN-END:variables
 }
