@@ -8,17 +8,17 @@ package juego;
  *
  * @author admin
  */
-public class CuentaNoExiste extends javax.swing.JFrame {
+public class RankingsGlobales extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CuentaNoExiste.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RankingsGlobales.class.getName());
 
     /**
-     * Creates new form CuentaNoExiste
+     * Creates new form Rankings
      */
-    public CuentaNoExiste() {
+    public RankingsGlobales() {
         initComponents();
         
-        this.setSize(493, 347);
+        this.setSize(690, 500);
         this.setLocationRelativeTo(null);
     }
 
@@ -31,6 +31,12 @@ public class CuentaNoExiste extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        total = new javax.swing.JLabel();
+        nivelesCompletados = new javax.swing.JLabel();
+        vecesJugado = new javax.swing.JLabel();
+        rank = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         back = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -38,19 +44,57 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        total.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        total.setForeground(new java.awt.Color(255, 255, 255));
+        total.setText("####");
+        getContentPane().add(total);
+        total.setBounds(390, 380, 150, 40);
+
+        nivelesCompletados.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        nivelesCompletados.setForeground(new java.awt.Color(255, 255, 255));
+        nivelesCompletados.setText("####");
+        getContentPane().add(nivelesCompletados);
+        nivelesCompletados.setBounds(390, 320, 150, 40);
+
+        vecesJugado.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        vecesJugado.setForeground(new java.awt.Color(255, 255, 255));
+        vecesJugado.setText("####");
+        getContentPane().add(vecesJugado);
+        vecesJugado.setBounds(390, 260, 150, 40);
+
+        rank.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        rank.setForeground(new java.awt.Color(255, 255, 255));
+        rank.setText("####");
+        getContentPane().add(rank);
+        rank.setBounds(460, 140, 150, 40);
+
+        jScrollPane1.setBackground(new java.awt.Color(190, 151, 123));
+
+        jList1.setBackground(new java.awt.Color(220, 179, 152));
+        jList1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(120, 100, 150, 350);
+
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(190, 230, 90, 30);
+        back.setBounds(570, 420, 90, 30);
 
         backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
         backEsp.addActionListener(this::backEspActionPerformed);
         getContentPane().add(backEsp);
-        backEsp.setBounds(190, 230, 90, 30);
+        backEsp.setBounds(570, 420, 90, 30);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/no existe.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/global.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 480, 313);
+        jLabel1.setBounds(0, 0, 676, 470);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -85,12 +129,18 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CuentaNoExiste().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new RankingsGlobales().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nivelesCompletados;
+    private javax.swing.JLabel rank;
+    private javax.swing.JLabel total;
+    private javax.swing.JLabel vecesJugado;
     // End of variables declaration//GEN-END:variables
 }

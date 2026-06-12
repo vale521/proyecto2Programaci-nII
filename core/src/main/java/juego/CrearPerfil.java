@@ -19,6 +19,9 @@ public class CrearPerfil extends javax.swing.JFrame {
      */
     public CrearPerfil() {
         initComponents();
+        
+        this.setSize(493, 347);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -34,6 +37,8 @@ public class CrearPerfil extends javax.swing.JFrame {
         username = new javax.swing.JTextField();
         back = new javax.swing.JButton();
         done = new javax.swing.JButton();
+        backEsp = new javax.swing.JButton();
+        doneEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,6 +60,16 @@ public class CrearPerfil extends javax.swing.JFrame {
         getContentPane().add(done);
         done.setBounds(140, 250, 90, 30);
 
+        backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
+        backEsp.addActionListener(this::backEspActionPerformed);
+        getContentPane().add(backEsp);
+        backEsp.setBounds(240, 250, 90, 30);
+
+        doneEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
+        doneEsp.addActionListener(this::doneEspActionPerformed);
+        getContentPane().add(doneEsp);
+        doneEsp.setBounds(140, 250, 90, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/login.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 313);
@@ -64,20 +79,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        
-        String usuario = username.getText().trim();
-        String password = pass.getText().trim();
-
-        if (usuario.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        } else {
-            UsuarioGuardado mensaje = new UsuarioGuardado();
-            mensaje.setVisible(true);
-        }
-        InicioJuego inicio = new InicioJuego();
-        this.dispose();
-        inicio.setVisible(true);
+       
     }//GEN-LAST:event_backActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -110,6 +112,14 @@ public class CrearPerfil extends javax.swing.JFrame {
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
+    private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backEspActionPerformed
+
+    private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_doneEspActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -137,7 +147,9 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
+    private javax.swing.JButton backEsp;
     private javax.swing.JButton done;
+    private javax.swing.JButton doneEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField pass;
     private javax.swing.JTextField username;
