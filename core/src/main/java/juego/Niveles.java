@@ -51,6 +51,9 @@ public class Niveles extends javax.swing.JFrame {
         nivelgris4 = new javax.swing.JButton();
         nivelgris5 = new javax.swing.JButton();
         back = new javax.swing.JButton();
+        backEsp = new javax.swing.JButton();
+        stats = new javax.swing.JButton();
+        statsEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,7 +112,22 @@ public class Niveles extends javax.swing.JFrame {
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(140, 240, 160, 60);
+        back.setBounds(60, 250, 160, 60);
+
+        backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
+        backEsp.addActionListener(this::backEspActionPerformed);
+        getContentPane().add(backEsp);
+        backEsp.setBounds(60, 250, 160, 60);
+
+        stats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/stats.png"))); // NOI18N
+        stats.addActionListener(this::statsActionPerformed);
+        getContentPane().add(stats);
+        stats.setBounds(240, 250, 160, 60);
+
+        statsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/statsesp.png"))); // NOI18N
+        statsEsp.addActionListener(this::statsEspActionPerformed);
+        getContentPane().add(statsEsp);
+        statsEsp.setBounds(240, 250, 160, 60);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/niveles.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -172,6 +190,20 @@ public class Niveles extends javax.swing.JFrame {
         abrirNivel(4);
     }//GEN-LAST:event_nivel4ActionPerformed
 
+    private void statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsActionPerformed
+        // TODO add your handling code here:
+        Rankings rank = new Rankings();
+        rank.setVisible(true);
+    }//GEN-LAST:event_statsActionPerformed
+
+    private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backEspActionPerformed
+
+    private void statsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statsEspActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -199,6 +231,7 @@ public class Niveles extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
+    private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton nivel1;
     private javax.swing.JButton nivel2;
@@ -210,6 +243,8 @@ public class Niveles extends javax.swing.JFrame {
     private javax.swing.JButton nivelgris3;
     private javax.swing.JButton nivelgris4;
     private javax.swing.JButton nivelgris5;
+    private javax.swing.JButton stats;
+    private javax.swing.JButton statsEsp;
     // End of variables declaration//GEN-END:variables
 
     private void configurarBtnProgreso() {
