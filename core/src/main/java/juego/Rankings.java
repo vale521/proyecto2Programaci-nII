@@ -44,6 +44,7 @@ public class Rankings extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        historial = new javax.swing.JButton();
         back = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -60,6 +61,11 @@ public class Rankings extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
+
+        historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historial.png"))); // NOI18N
+        historial.addActionListener(this::historialActionPerformed);
+        getContentPane().add(historial);
+        historial.setBounds(580, 10, 90, 30);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -190,12 +196,24 @@ public class Rankings extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-
+        this.dispose();
+        Niveles niveles = new Niveles();
+        niveles.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        Niveles niveles = new Niveles();
+        niveles.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
+
+    private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
+        // TODO add your handling code here:
+        Historial historial = new Historial();
+        historial.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_historialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,6 +243,7 @@ public class Rankings extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
+    private javax.swing.JButton historial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

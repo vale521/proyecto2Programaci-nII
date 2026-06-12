@@ -58,8 +58,8 @@ public class Perder extends javax.swing.JFrame {
     private void nivelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelesActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Login l = new Login();
-        l.setVisible(true);
+        Niveles niveles = new Niveles();
+        niveles.setVisible(true);
     }//GEN-LAST:event_nivelesActionPerformed
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
