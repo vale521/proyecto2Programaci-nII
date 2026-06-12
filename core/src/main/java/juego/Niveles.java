@@ -40,6 +40,7 @@ public class Niveles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scrollbar1 = new java.awt.Scrollbar();
         nivel5 = new javax.swing.JButton();
         nivel1 = new javax.swing.JButton();
         nivel2 = new javax.swing.JButton();
@@ -109,7 +110,7 @@ public class Niveles extends javax.swing.JFrame {
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(140, 240, 160, 60);
+        back.setBounds(140, 170, 160, 60);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/niveles.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -210,6 +211,7 @@ public class Niveles extends javax.swing.JFrame {
     private javax.swing.JButton nivelgris3;
     private javax.swing.JButton nivelgris4;
     private javax.swing.JButton nivelgris5;
+    private java.awt.Scrollbar scrollbar1;
     // End of variables declaration//GEN-END:variables
 
     private void configurarBtnProgreso() {
