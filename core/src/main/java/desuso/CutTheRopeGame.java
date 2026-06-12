@@ -2,9 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package juego;
+package desuso;
 
 import desuso.Juego;
+import juego.Caramelo;
+import juego.Cuerda;
+import juego.Estrella;
+import juego.GestorNiveles;
+import juego.Jugador;
+import juego.Nivel;
+import juego.OmNom;
+import juego.SistemaPuntaje;
 
 /**
  *
@@ -18,7 +26,7 @@ public class CutTheRopeGame extends Juego {
     //timer
 
     public CutTheRopeGame(Jugador jugadorActual, GestorNiveles gestorNiveles) {
-        super("Cut The Rope", jugadorActual);
+        super("Cut The Rope");
 
        // this.gestorNiveles = new GestorNiveles();
         this.sistemaPuntaje = new SistemaPuntaje();

@@ -4,7 +4,7 @@
  */
 package desuso;
 
-import juego.Usuario;
+import juego.*;
 
 /**
  *
@@ -12,7 +12,6 @@ import juego.Usuario;
  */
 public class GameManager {
     private Juego juegoActual;
-    private Usuario usuarioActual;
     private boolean juegoActivo;
     private boolean juegoPausado;
 
@@ -24,7 +23,6 @@ public class GameManager {
     public void iniciarJuego(Juego juego)
     {
         this.juegoActual= juego;
-        this.usuarioActual= juego.getJugadorActual();
         juegoActivo=true;
         juegoPausado=false;
         juegoActual.iniciarJuego();
@@ -64,23 +62,10 @@ public class GameManager {
 
     }
 
-    public void cargarProgreso()
-    {
-        if(usuarioActual==null || juegoActual==null)
-        {
-            return;
-        }
-
-    }
-
+    
     public Juego getJuegoActual()
     {
         return juegoActual;
-    }
-
-    public Usuario getUsuarioActual()
-    {
-        return usuarioActual;
     }
 
     public boolean isJuegoActivo()
