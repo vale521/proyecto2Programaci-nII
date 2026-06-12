@@ -4,6 +4,8 @@
  */
 package juego;
 
+import desuso.CutTheRopeGame;
+
 /**
  *
  * @author admin

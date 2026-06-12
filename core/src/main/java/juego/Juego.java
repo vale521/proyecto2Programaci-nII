@@ -15,6 +15,10 @@ public abstract class Juego {
     protected Jugador jugador;
     protected int dificultad;
 
+    public Juego() {
+    }
+
+    
     public Juego(int numeroNivel, int dificultad, Jugador jugador) {
         this.numeroNivel = numeroNivel;
         this.dificultad = dificultad;

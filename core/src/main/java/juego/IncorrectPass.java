@@ -8,7 +8,7 @@ package juego;
  * @author admin
  */
 public class IncorrectPass extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IncorrectPass.class.getName());
 
     /**
@@ -16,9 +16,6 @@ public class IncorrectPass extends javax.swing.JFrame {
      */
     public IncorrectPass() {
         initComponents();
-        
-        this.setSize(493, 347);
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +28,6 @@ public class IncorrectPass extends javax.swing.JFrame {
     private void initComponents() {
 
         back = new javax.swing.JButton();
-        backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,11 +37,6 @@ public class IncorrectPass extends javax.swing.JFrame {
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
         back.setBounds(190, 230, 90, 30);
-
-        backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
-        backEsp.addActionListener(this::backEspActionPerformed);
-        getContentPane().add(backEsp);
-        backEsp.setBounds(190, 230, 90, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/incorrectpass.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -57,11 +48,9 @@ public class IncorrectPass extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_backActionPerformed
 
-    private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backEspActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,7 +59,7 @@ public class IncorrectPass extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -90,7 +79,6 @@ public class IncorrectPass extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-    private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
