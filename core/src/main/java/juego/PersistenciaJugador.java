@@ -106,4 +106,57 @@ public class PersistenciaJugador {
         }
 
     }
+
+    public void guardarProgreso(String username, PartidaProgreso estadoPartidaProgreso)
+    {
+        try
+        {
+            File carpeta = crearCarpetaJugador(username);
+            File archivo= new File(carpeta, "progreso.dat");
+            FileOutputStream archivoOutput= new FileOutputStream(archivo);
+            ObjectOutputStream salida= new ObjectOutputStream(archivoOutput);
+            salida.writeObject(estadoPartidaProgreso);
+            salida.close();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public PartidaProgreso cargarProgreso(String username)
+    {
+        try
+        {
+            File archivo= new File(obtenerCarpetaJugador(username), "progreso.dat");
+            if(archivo.exists()==false)
+            {
+                return new PartidaProgreso();
+            }
+            FileInputStream archivoInput= new FileInputStream(archivo);
+            ObjectInputStream entrada= new ObjectInputStream(archivoInput);
+            PartidaProgreso estadoPartidaProgreso= (PartidaProgreso) entrada.readObject();
+            entrada.close();
+            return estadoPartidaProgreso;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return new PartidaProgreso();
+        }
+    }
+
+    public void borrarProgreso(String username)
+    {
+        if(username == null || username.isEmpty())
+        {
+            System.out.println("No se puede borrar progreso: username nulo");
+            return;
+        }
+        File archivo= new File(obtenerCarpetaJugador(username), "progreso.dat");
+        if(archivo.exists()==true)
+        {
+            archivo.delete();
+        }
+    }
 }

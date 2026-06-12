@@ -12,18 +12,36 @@ import java.util.ArrayList;
  */
 public class GestorNiveles {
     private ArrayList<Nivel> niveles;
-//TODO: sacar configurarNivel para aqui. Envez de configurar nivel ponerle otro nombre configurarNiveldeComplejidad1
     private int nivelActual;
 
     public GestorNiveles(Jugador jugador) {
-
         niveles = new ArrayList<>();
-
         nivelActual = 1;
-
         cargarNiveles(jugador);
     }
 
+    public GestorNiveles(Jugador jugador, PartidaProgreso progreso) {
+
+        niveles = new ArrayList<>();
+        cargarNiveles(jugador);
+        if(progreso!=null && progreso.isHayPartidaGuardada())
+        {
+            this.nivelActual=progreso.getNivelActual();
+            if(this.nivelActual<1)
+            {
+                this.nivelActual=1;
+            }
+            if(this.nivelActual>niveles.size())//TODO: cambiar condicion despues esta no me gusta
+            {
+                this.nivelActual=niveles.size();
+            }
+
+        }
+        else
+        {
+            this.nivelActual=1;
+        }
+    }
     public void cargarNiveles(Jugador jugador)
     {
         niveles.add(new Nivel1(jugador));

@@ -4,6 +4,8 @@
  */
 package juego;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author admin

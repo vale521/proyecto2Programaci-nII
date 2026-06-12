@@ -44,11 +44,11 @@ public class CrearPerfil extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().add(pass);
-        pass.setBounds(150, 210, 180, 22);
+        pass.setBounds(150, 210, 180, 26);
 
         username.addActionListener(this::usernameActionPerformed);
         getContentPane().add(username);
-        username.setBounds(150, 120, 180, 22);
+        username.setBounds(150, 120, 180, 26);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -79,20 +79,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        
-        String usuario = username.getText().trim();
-        String password = pass.getText().trim();
-
-        if (usuario.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        } else {
-            UsuarioGuardado mensaje = new UsuarioGuardado();
-            mensaje.setVisible(true);
-        }
-        InicioJuego inicio = new InicioJuego();
-        this.dispose();
-        inicio.setVisible(true);
+       
     }//GEN-LAST:event_backActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -101,9 +88,28 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
-        InicioJuego inicio = new InicioJuego();
+        String user = username.getText().trim();
+            String passw = pass.getText().trim();
+
+            if(user.isEmpty() || passw.isEmpty()){
+                JOptionPane.showMessageDialog(this,"Complete todos los campos");
+                return;
+            }
+
+            PersistenciaJugador persistencia =new PersistenciaJugador();
+
+            if(persistencia.existeJugador(user)){
+                JOptionPane.showMessageDialog(this,"El usuario ya existe");
+                return;
+            }
+
+            Jugador jugador =new Jugador(user, user, passw, null);
+
+            persistencia.guardarJugador(jugador);
+
+            JOptionPane.showMessageDialog(this,"Usuario registrado correctamente");
         this.dispose();
-        inicio.setVisible(true);
+        new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
