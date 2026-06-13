@@ -21,6 +21,8 @@ public class InicioJuego extends javax.swing.JFrame {
         this.setSize(387, 500);
 
         this.setLocationRelativeTo(null);
+        Musica.musicaDeFondo("/juego/background_music.wav");
+
     }
 
     /**
@@ -108,9 +110,9 @@ public class InicioJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_optionsEspActionPerformed
     private void CrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearUsuarioActionPerformed
         // TODO add your handling code here:
-            this.dispose();
-            CrearPerfil crear =new CrearPerfil();
-            crear.setVisible(true);
+        this.dispose();
+        CrearPerfil crear = new CrearPerfil();
+        crear.setVisible(true);
     }//GEN-LAST:event_CrearUsuarioActionPerformed
 
     /**

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author admin
  */
 public class CrearPerfil extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearPerfil.class.getName());
 
     /**
@@ -19,9 +19,11 @@ public class CrearPerfil extends javax.swing.JFrame {
      */
     public CrearPerfil() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        Musica.musicaDeFondo("/juego/background_music.wav");
+
     }
 
     /**
@@ -79,7 +81,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_backActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -89,25 +91,25 @@ public class CrearPerfil extends javax.swing.JFrame {
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
         String user = username.getText().trim();
-            String passw = pass.getText().trim();
+        String passw = pass.getText().trim();
 
-            if(user.isEmpty() || passw.isEmpty()){
-                JOptionPane.showMessageDialog(this,"Complete todos los campos");
-                return;
-            }
+        if (user.isEmpty() || passw.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos");
+            return;
+        }
 
-            PersistenciaJugador persistencia =new PersistenciaJugador();
+        PersistenciaJugador persistencia = new PersistenciaJugador();
 
-            if(persistencia.existeJugador(user)){
-                JOptionPane.showMessageDialog(this,"El usuario ya existe");
-                return;
-            }
+        if (persistencia.existeJugador(user)) {
+            JOptionPane.showMessageDialog(this, "El usuario ya existe");
+            return;
+        }
 
-            Jugador jugador =new Jugador(user, user, passw, null);
+        Jugador jugador = new Jugador(user, user, passw, null);
 
-            persistencia.guardarJugador(jugador);
+        persistencia.guardarJugador(jugador);
 
-            JOptionPane.showMessageDialog(this,"Usuario registrado correctamente");
+        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
         this.dispose();
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneActionPerformed

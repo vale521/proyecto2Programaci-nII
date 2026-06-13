@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class Options extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Options.class.getName());
 
     /**
@@ -17,9 +17,19 @@ public class Options extends javax.swing.JFrame {
      */
     public Options() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        Musica.musicaDeFondo("/juego/background_music.wav");
+        volumen.setVisible(true);
+        volumenMute.setVisible(false);
+        if (Musica.mutearMusica()) {
+            musicaMute.setVisible(false);
+            musica.setVisible(true);
+        } else {
+            musicaMute.setVisible(true);
+            musica.setVisible(false);
+        }
     }
 
     /**
@@ -105,6 +115,12 @@ public class Options extends javax.swing.JFrame {
 
     private void volumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenActionPerformed
         // TODO add your handling code here:
+        Musica.bajarVolumenGradual();
+
+        if (Musica.getNivelVolumen() == 0) {
+            volumen.setVisible(false);
+            volumenMute.setVisible(true);
+        }
     }//GEN-LAST:event_volumenActionPerformed
 
     private void language1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_language1ActionPerformed
@@ -113,6 +129,9 @@ public class Options extends javax.swing.JFrame {
 
     private void musicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaActionPerformed
         // TODO add your handling code here:
+        Musica.playMusica();
+        musica.setVisible(false);
+        musicaMute.setVisible(true);
     }//GEN-LAST:event_musicaActionPerformed
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
@@ -123,15 +142,23 @@ public class Options extends javax.swing.JFrame {
     }//GEN-LAST:event_doneActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
         // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_doneEspActionPerformed
 
     private void languageEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageEspActionPerformed
@@ -140,10 +167,16 @@ public class Options extends javax.swing.JFrame {
 
     private void volumenMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenMuteActionPerformed
         // TODO add your handling code here:
+        Musica.restaurarVolumenMaximo();
+        volumenMute.setVisible(false);
+        volumen.setVisible(true);
     }//GEN-LAST:event_volumenMuteActionPerformed
 
     private void musicaMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMuteActionPerformed
         // TODO add your handling code here:
+        Musica.pararMusica();
+        musicaMute.setVisible(false);
+        musica.setVisible(true);
     }//GEN-LAST:event_musicaMuteActionPerformed
 
     /**
