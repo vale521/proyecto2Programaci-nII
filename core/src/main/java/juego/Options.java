@@ -21,6 +21,8 @@ public class Options extends javax.swing.JFrame {
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
         Musica.musicaDeFondo("/juego/background_music.wav");
+        volumen.setVisible(true);
+        volumenMute.setVisible(false);
         if (Musica.mutearMusica()) {
             musicaMute.setVisible(false);
             musica.setVisible(true);
@@ -113,6 +115,12 @@ public class Options extends javax.swing.JFrame {
 
     private void volumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenActionPerformed
         // TODO add your handling code here:
+        Musica.bajarVolumenGradual();
+
+        if (Musica.getNivelVolumen() == 0) {
+            volumen.setVisible(false);
+            volumenMute.setVisible(true);
+        }
     }//GEN-LAST:event_volumenActionPerformed
 
     private void language1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_language1ActionPerformed
@@ -159,6 +167,9 @@ public class Options extends javax.swing.JFrame {
 
     private void volumenMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenMuteActionPerformed
         // TODO add your handling code here:
+        Musica.restaurarVolumenMaximo();
+        volumenMute.setVisible(false);
+        volumen.setVisible(true);
     }//GEN-LAST:event_volumenMuteActionPerformed
 
     private void musicaMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMuteActionPerformed
