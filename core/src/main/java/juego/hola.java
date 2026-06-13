@@ -71,7 +71,6 @@ public class hola extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 204, 255));
-        jTabbedPane1.setForeground(new java.awt.Color(0, 0, 0));
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setOpaque(true);
 
@@ -118,7 +117,6 @@ public class hola extends javax.swing.JFrame {
         jTabbedPane1.addTab("tab2", jPanel2);
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
         jPanel4.setLayout(null);
         jTabbedPane1.addTab("tab3", jPanel4);
 

@@ -95,10 +95,16 @@ public class InicioJuego extends javax.swing.JFrame {
 
     private void loginEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        Login l = new Login();
+        l.setVisible(true);
     }//GEN-LAST:event_loginEspActionPerformed
 
     private void optionsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        Options o = new Options();
+        o.setVisible(true);
     }//GEN-LAST:event_optionsEspActionPerformed
     private void CrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearUsuarioActionPerformed
         // TODO add your handling code here:
