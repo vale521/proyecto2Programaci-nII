@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class Options extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Options.class.getName());
 
     /**
@@ -17,9 +17,16 @@ public class Options extends javax.swing.JFrame {
      */
     public Options() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        if (Musica.mutearMusica()) {
+            musicaMute.setVisible(false);
+            musica.setVisible(true);
+        } else {
+            musicaMute.setVisible(true);
+            musica.setVisible(false);
+        }
     }
 
     /**
@@ -59,7 +66,7 @@ public class Options extends javax.swing.JFrame {
         musica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/5.png"))); // NOI18N
         musica.addActionListener(this::musicaActionPerformed);
         getContentPane().add(musica);
-        musica.setBounds(160, 90, 70, 40);
+        musica.setBounds(90, 90, 70, 40);
 
         musicaMute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp8.png"))); // NOI18N
         musicaMute.addActionListener(this::musicaMuteActionPerformed);
@@ -113,6 +120,9 @@ public class Options extends javax.swing.JFrame {
 
     private void musicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaActionPerformed
         // TODO add your handling code here:
+        Musica.playMusica();
+        musica.setVisible(false);
+        musicaMute.setVisible(true);
     }//GEN-LAST:event_musicaActionPerformed
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
@@ -152,6 +162,9 @@ public class Options extends javax.swing.JFrame {
 
     private void musicaMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMuteActionPerformed
         // TODO add your handling code here:
+        Musica.pararMusica();
+        musicaMute.setVisible(false);
+        musica.setVisible(true);
     }//GEN-LAST:event_musicaMuteActionPerformed
 
     /**
