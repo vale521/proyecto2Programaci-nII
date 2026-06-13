@@ -20,7 +20,7 @@ public class Historial extends javax.swing.JFrame {
 
         this.setSize(700, 500);
         this.setLocationRelativeTo(null);
-        Musica.musicaDeFondo("/juego/background_music.wav");
+        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }

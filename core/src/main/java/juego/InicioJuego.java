@@ -21,7 +21,7 @@ public class InicioJuego extends javax.swing.JFrame {
         this.setSize(387, 500);
 
         this.setLocationRelativeTo(null);
-        Musica.musicaDeFondo("/juego/background_music.wav");
+        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }

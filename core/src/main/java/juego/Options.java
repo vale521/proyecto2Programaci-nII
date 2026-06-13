@@ -20,7 +20,7 @@ public class Options extends javax.swing.JFrame {
 
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        Musica.musicaDeFondo("/juego/background_music.wav");
+        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         volumen.setVisible(true);
         volumenMute.setVisible(false);
         if (Musica.mutearMusica()) {
@@ -32,6 +32,16 @@ public class Options extends javax.swing.JFrame {
         }
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarBotonesMusica() {
+        if (PreferenciasJuego.mutearMusica()) {
+            musicaMute.setVisible(true);
+            musica.setVisible(false);
+        } else {
+            musica.setVisible(true);
+            musicaMute.setVisible(false);
+        }
     }
 
     public void actualizarInterfazIdioma() {

@@ -22,7 +22,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        Musica.musicaDeFondo("/juego/background_music.wav");
+        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
