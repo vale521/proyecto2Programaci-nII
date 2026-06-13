@@ -20,6 +20,7 @@ public class Options extends javax.swing.JFrame {
 
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        Musica.musicaDeFondo("/juego/background_music.wav");
         if (Musica.mutearMusica()) {
             musicaMute.setVisible(false);
             musica.setVisible(true);
@@ -66,7 +67,7 @@ public class Options extends javax.swing.JFrame {
         musica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/5.png"))); // NOI18N
         musica.addActionListener(this::musicaActionPerformed);
         getContentPane().add(musica);
-        musica.setBounds(90, 90, 70, 40);
+        musica.setBounds(160, 90, 70, 40);
 
         musicaMute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp8.png"))); // NOI18N
         musicaMute.addActionListener(this::musicaMuteActionPerformed);

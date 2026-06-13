@@ -17,6 +17,7 @@ public class Rankings extends javax.swing.JFrame {
      */
     public Rankings() {
         initComponents();
+        Musica.musicaDeFondo("/juego/background_music.wav");
         
         this.setSize(695, 490);
         this.setLocationRelativeTo(null);
