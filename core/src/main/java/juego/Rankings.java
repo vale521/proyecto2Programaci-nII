@@ -18,7 +18,9 @@ public class Rankings extends javax.swing.JFrame {
     public Rankings() {
         initComponents();
         Musica.musicaDeFondo("/juego/background_music.wav");
-        
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+
         this.setSize(695, 490);
         this.setLocationRelativeTo(null);
 
@@ -34,6 +36,16 @@ public class Rankings extends javax.swing.JFrame {
         jTable1.setRowHeight(40);
         jTable4.setRowHeight(40);
         jTable5.setRowHeight(40);
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            backEsp.setVisible(true);
+            back.setVisible(false);
+        } else {
+            back.setVisible(true);
+            backEsp.setVisible(false);
+        }
     }
 
     /**

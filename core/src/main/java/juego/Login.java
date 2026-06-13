@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author admin
  */
 public class Login extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
 
     /**
@@ -19,10 +19,24 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
         Musica.musicaDeFondo("/juego/background_music.wav");
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            backEsp.setVisible(true);
+            back.setVisible(false);
+            done.setVisible(false);
+        } else {
+            back.setVisible(true);
+            backEsp.setVisible(false);
+            done.setVisible(true);
+        }
     }
 
     /**
@@ -78,7 +92,7 @@ public class Login extends javax.swing.JFrame {
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
-        
+
         String usuario = username.getText().trim();
         String password = contrasena.getText().trim();
 
@@ -89,20 +103,19 @@ public class Login extends javax.swing.JFrame {
             UsuarioGuardado mensaje = new UsuarioGuardado();
             mensaje.setVisible(true);
         }
-        
+
         //temporal
         System.out.println(username.getText());
         System.out.println(contrasena.getText());
-        PersistenciaJugador persistencia =new PersistenciaJugador();
+        PersistenciaJugador persistencia = new PersistenciaJugador();
 
-        if(!persistencia.existeJugador(usuario)){
+        if (!persistencia.existeJugador(usuario)) {
 
             new CuentaNoExiste().setVisible(true);
             return;
         }
         Jugador jugador = persistencia.cargarJugador(usuario);
-        if (jugador.getContraseña().equals(password)==false)
-        {
+        if (jugador.getContraseña().equals(password) == false) {
             new IncorrectPass().setVisible(true);
             return;
         }

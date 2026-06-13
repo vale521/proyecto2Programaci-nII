@@ -11,27 +11,46 @@ import desuso.CutTheRopeGame;
  * @author admin
  */
 public class Niveles extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Niveles.class.getName());
     private Jugador jugador;
+
     /**
      * Creates new form Niveles
      */
     public Niveles() {
         initComponents();
-        
+
         this.setSize(470, 435);
         this.setLocationRelativeTo(null);
         Musica.musicaDeFondo("/juego/background_music.wav");
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            backEsp.setVisible(true);
+            back.setVisible(false);
+            stats.setVisible(false);
+            statsEsp.setVisible(true);
+        } else {
+            back.setVisible(true);
+            backEsp.setVisible(false);
+            stats.setVisible(true);
+            statsEsp.setVisible(false);
+        }
+    }
+
     public Niveles(Jugador jugador) {
         initComponents();
-        
+
         this.setSize(470, 435);
         this.setLocationRelativeTo(null);
-        this.jugador= jugador;
+        this.jugador = jugador;
         configurarBtnProgreso();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,17 +165,17 @@ public class Niveles extends javax.swing.JFrame {
     private void nivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel1ActionPerformed
         // TODO add your handling code here:
         abrirNivel(1);
-        
+
     }//GEN-LAST:event_nivel1ActionPerformed
 
     private void nivelgris1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris1ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_nivelgris1ActionPerformed
 
     private void nivelgris2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris2ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_nivelgris2ActionPerformed
 
     private void nivelgris3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris3ActionPerformed
@@ -249,17 +268,19 @@ public class Niveles extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void configurarBtnProgreso() {
-        if (jugador == null) return;
- 
+        if (jugador == null) {
+            return;
+        }
+
         int nivelDesbloqueado = jugador.getNivelPartidaActual();
- 
+
         // Niveles activos (filas superiores del mapa)
         nivel1.setEnabled(nivelDesbloqueado >= 1);
         nivel2.setEnabled(nivelDesbloqueado >= 2);
         nivel3.setEnabled(nivelDesbloqueado >= 3);
         nivel4.setEnabled(nivelDesbloqueado >= 4);
         nivel5.setEnabled(nivelDesbloqueado >= 5);
- 
+
         // Niveles grises (fila inferior del mapa) — siempre bloqueados
         // a menos que el jugador haya avanzado suficientemente
         nivelgris1.setEnabled(nivelDesbloqueado >= 1);
@@ -271,8 +292,10 @@ public class Niveles extends javax.swing.JFrame {
     }
 
     private void abrirNivel(int numeroNivel) {
-        if (jugador == null) return;
- 
+        if (jugador == null) {
+            return;
+        }
+
         // Verificar que el nivel no supere los disponibles
         GestorNiveles gestor = new GestorNiveles(jugador);
         if (numeroNivel > gestor.getNiveles().size()) {
@@ -280,15 +303,15 @@ public class Niveles extends javax.swing.JFrame {
                     "Nivel no disponible aún.");
             return;
         }
- 
+
         // >>> NUEVO: imprimir estado del jugador al entrar a un nivel <<<
         System.out.println("Entrando al nivel " + numeroNivel
                 + " | Jugador: " + jugador.toString());
- 
+
         gestor.setNivelActual(numeroNivel);
         Nivel nivel = gestor.obtenerNivelActual();
         nivel.iniciarNivel();
- 
+
         // Abrir la pantalla del juego pasando el nivel y el jugador
         this.dispose();
         new CutTheRopeGame(jugador, gestor);

@@ -30,6 +30,28 @@ public class Options extends javax.swing.JFrame {
             musicaMute.setVisible(true);
             musica.setVisible(false);
         }
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            languageEsp.setVisible(true);
+            backEsp.setVisible(true);
+            doneEsp.setVisible(true);
+
+            language1.setVisible(false);
+            back.setVisible(false);
+            done.setVisible(false);
+        } else {
+            language1.setVisible(true);
+            back.setVisible(true);
+            done.setVisible(true);
+
+            languageEsp.setVisible(false);
+            backEsp.setVisible(false);
+            doneEsp.setVisible(false);
+        }
     }
 
     /**
@@ -125,6 +147,7 @@ public class Options extends javax.swing.JFrame {
 
     private void language1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_language1ActionPerformed
         // TODO add your handling code here:
+        Idioma.cambiarIdiomaGlobal();
     }//GEN-LAST:event_language1ActionPerformed
 
     private void musicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaActionPerformed
@@ -163,6 +186,7 @@ public class Options extends javax.swing.JFrame {
 
     private void languageEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageEspActionPerformed
         // TODO add your handling code here:
+        Idioma.cambiarIdiomaGlobal();
     }//GEN-LAST:event_languageEspActionPerformed
 
     private void volumenMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenMuteActionPerformed

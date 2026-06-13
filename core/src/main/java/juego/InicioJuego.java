@@ -22,7 +22,28 @@ public class InicioJuego extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
         Musica.musicaDeFondo("/juego/background_music.wav");
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
 
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            CrearUsuario.setVisible(true);
+            loginEsp.setVisible(true);
+            optionsEsp.setVisible(true);
+
+            CrearUsuario.setVisible(false);
+            login.setVisible(false);
+            options.setVisible(false);
+        } else {
+            CrearUsuario.setVisible(true);
+            login.setVisible(true);
+            options.setVisible(true);
+
+            CrearUsuarioEsp.setVisible(false);
+            loginEsp.setVisible(false);
+            optionsEsp.setVisible(false);
+        }
     }
 
     /**
@@ -65,7 +86,7 @@ public class InicioJuego extends javax.swing.JFrame {
         getContentPane().add(loginEsp);
         loginEsp.setBounds(110, 200, 160, 60);
 
-        optionsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp6.png"))); // NOI18N
+        optionsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp2.png"))); // NOI18N
         optionsEsp.addActionListener(this::optionsEspActionPerformed);
         getContentPane().add(optionsEsp);
         optionsEsp.setBounds(110, 360, 160, 60);

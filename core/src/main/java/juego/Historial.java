@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class Historial extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Historial.class.getName());
 
     /**
@@ -17,10 +17,22 @@ public class Historial extends javax.swing.JFrame {
      */
     public Historial() {
         initComponents();
-        
+
         this.setSize(700, 500);
         this.setLocationRelativeTo(null);
         Musica.musicaDeFondo("/juego/background_music.wav");
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            backEsp.setVisible(true);
+            back.setVisible(false);
+        } else {
+            back.setVisible(true);
+            backEsp.setVisible(false);
+        }
     }
 
     /**
