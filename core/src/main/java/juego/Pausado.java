@@ -19,7 +19,6 @@ public class Pausado extends javax.swing.JFrame {
         initComponents();
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
     }
 
     /**

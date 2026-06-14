@@ -17,7 +17,6 @@ public class Rankings extends javax.swing.JFrame {
      */
     public Rankings() {
         initComponents();
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
 

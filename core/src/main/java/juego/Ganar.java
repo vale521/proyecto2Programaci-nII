@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class Ganar extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Ganar.class.getName());
 
     /**
@@ -17,10 +17,9 @@ public class Ganar extends javax.swing.JFrame {
      */
     public Ganar() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
     }
 
     /**

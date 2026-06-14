@@ -4,6 +4,11 @@
  */
 package juego;
 
+import java.net.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 /**
  *
  * @author admin
@@ -12,16 +17,17 @@ public class InicioJuego extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InicioJuego.class.getName());
 
+    public static PreferenciasJuego preferencias = new PreferenciasJuego();
+    public static Clip clipActual;
+
     /**
      * Creates new form InicioJuego
      */
     public InicioJuego() {
         initComponents();
-
         this.setSize(387, 500);
-
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
+        PreferenciasJuego.reproducirMusicaDeFondo("/juego/background_music.wav", preferencias);
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }

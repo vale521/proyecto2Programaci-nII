@@ -22,7 +22,6 @@ public class Login extends javax.swing.JFrame {
 
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
@@ -32,10 +31,12 @@ public class Login extends javax.swing.JFrame {
             backEsp.setVisible(true);
             back.setVisible(false);
             done.setVisible(false);
+            doneEsp.setVisible(true);
         } else {
             back.setVisible(true);
             backEsp.setVisible(false);
             done.setVisible(true);
+            doneEsp.setVisible(false);
         }
     }
 
@@ -124,11 +125,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_doneActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed

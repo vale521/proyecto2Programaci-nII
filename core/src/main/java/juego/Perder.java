@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class Perder extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Perder.class.getName());
 
     /**
@@ -17,10 +17,9 @@ public class Perder extends javax.swing.JFrame {
      */
     public Perder() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
     }
 
     /**

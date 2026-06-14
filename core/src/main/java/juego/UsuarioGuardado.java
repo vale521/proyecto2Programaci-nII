@@ -20,19 +20,19 @@ public class UsuarioGuardado extends javax.swing.JFrame {
 
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
+
     public void actualizarInterfazIdioma() {
-    if (Idioma.isEspanol()) {
-        doneEsp.setVisible(true);
-        done.setVisible(false);
-    } else {
-        done.setVisible(true);
-        doneEsp.setVisible(false);
+        if (Idioma.isEspanol()) {
+            doneEsp.setVisible(true);
+            done.setVisible(false);
+        } else {
+            done.setVisible(true);
+            doneEsp.setVisible(false);
+        }
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.

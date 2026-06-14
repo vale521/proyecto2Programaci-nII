@@ -23,7 +23,6 @@ public class Niveles extends javax.swing.JFrame {
 
         this.setSize(470, 435);
         this.setLocationRelativeTo(null);
-        PreferenciasJuego.musicaDeFondo("/juego/background_music.wav");
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
