@@ -161,6 +161,59 @@ public class FirstScreen implements Screen {
         texturaFondo= new Texture("fondoNiveles.png");
     }
 
+    public FirstScreen(Jugador jugador, MainGame game, int numeroNivel) {
+        this.game = game;
+        this.shape = new ShapeRenderer();
+
+        this.jugador= jugador;
+        this.persistenciaJugador= new PersistenciaJugador();
+        String username= jugador.getUsername();
+        PartidaProgreso progreso;
+        if(username!=null && username.isEmpty()==false)
+        {
+            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
+        }
+        else
+        {
+            progreso= new PartidaProgreso();
+        }
+        this.gestorNiveles= new GestorNiveles(this.jugador);
+        this.gestorNiveles.setNivelActual(numeroNivel);
+        this.nivel= gestorNiveles.obtenerNivelActual();
+        nivel.iniciarNivel();
+
+//        if(progreso.isHayPartidaGuardada())
+//        {
+//            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
+//            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
+//            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
+//            int restauradas=0;
+//            for (Estrella estrella: nivel.getEstrellas())
+//            {
+//                if(restauradas<estrellasRestaurar)
+//                {
+//                    estrella.recolectar();
+//                    restauradas++;
+//                }
+//            }
+//        }
+
+        batch= new SpriteBatch();
+        font= new BitmapFont();
+
+        texturaOmNom= new Texture("omNomNormal.png");
+        texturaCaramelo= new Texture("caramelo.png");
+        texturaEstrella= new Texture("estrella.png");
+        texturaOrigenCuerda= new Texture("origenCuerda.png");
+        texturaOmNomDulce= new Texture("omNomDulce.png");
+        texturaEstrellaGanada= new Texture("estrellaGanada2.png");
+        texturaEstrellaNoGanada= new Texture("estrellaNoGanada2.png");
+        texturaBtnPausar= new Texture("btnPausar2.png");
+        texturaBtnReiniciar= new Texture("btnReiniciar2.png");
+        texturabtnMenu= new Texture("btnMenu2.png");
+        texturaFondo= new Texture("fondoNiveles.png");
+    }
+    
     @Override
     public void show() {
         System.out.println("Entro en show");

@@ -3,18 +3,38 @@ package com.cuttherope.game.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.cuttherope.game.MainGame;
-
+import javax.swing.SwingUtilities;
+import juego.Niveles;
+import juego.LanzadorNivel;
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
-        createApplication();
+        //createApplication();
+        SwingUtilities.invokeLater(() -> {
+            Niveles ventana= new Niveles();
+            ventana.setLanzador(crearLanzador());
+            ventana.setVisible(true);
+        });
     }
 
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new MainGame(), getDefaultConfiguration());
-    }   
+    }
 
+    public static LanzadorNivel crearLanzador() {
+        return (jugador, numeroNivel) -> {
+            new Thread(() -> {
+                Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+                config.setTitle("CutTheRopeGame");
+                config.useVsync(true);
+                config.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
+                config.setWindowedMode(1000, 800);
+                config.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
+                new Lwjgl3Application(new MainGame(jugador, numeroNivel), config);
+            }).start();
+        };
+    }
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
         configuration.setTitle("CutTheRopeGame");

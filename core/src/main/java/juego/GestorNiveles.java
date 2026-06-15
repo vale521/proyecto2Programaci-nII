@@ -82,7 +82,8 @@ public class GestorNiveles {
         return nivelActual;
     }
 
-    public void setNivelActual(int nivelActual) {
+    public void setNivelActual(int nivelActual) 
+    {
         this.nivelActual = nivelActual;
     }
 

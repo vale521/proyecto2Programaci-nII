@@ -62,9 +62,9 @@ public class InicioJuego extends javax.swing.JFrame {
     private void initComponents() {
 
         options = new javax.swing.JButton();
-        CrearUsuario = new javax.swing.JButton();
         login = new javax.swing.JButton();
         loginEsp = new javax.swing.JButton();
+        CrearUsuario = new javax.swing.JButton();
         optionsEsp = new javax.swing.JButton();
         CrearUsuarioEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -77,11 +77,6 @@ public class InicioJuego extends javax.swing.JFrame {
         getContentPane().add(options);
         options.setBounds(110, 360, 160, 60);
 
-        CrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usuario.png"))); // NOI18N
-        CrearUsuario.addActionListener(this::CrearUsuarioActionPerformed);
-        getContentPane().add(CrearUsuario);
-        CrearUsuario.setBounds(110, 280, 160, 60);
-
         login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/2.png"))); // NOI18N
         login.addActionListener(this::loginActionPerformed);
         getContentPane().add(login);
@@ -92,12 +87,18 @@ public class InicioJuego extends javax.swing.JFrame {
         getContentPane().add(loginEsp);
         loginEsp.setBounds(110, 200, 160, 60);
 
+        CrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usuario.png"))); // NOI18N
+        CrearUsuario.addActionListener(this::CrearUsuarioActionPerformed);
+        getContentPane().add(CrearUsuario);
+        CrearUsuario.setBounds(110, 280, 160, 60);
+
         optionsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp2.png"))); // NOI18N
         optionsEsp.addActionListener(this::optionsEspActionPerformed);
         getContentPane().add(optionsEsp);
         optionsEsp.setBounds(110, 360, 160, 60);
 
         CrearUsuarioEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp6.png"))); // NOI18N
+        CrearUsuarioEsp.addActionListener(this::CrearUsuarioEspActionPerformed);
         getContentPane().add(CrearUsuarioEsp);
         CrearUsuarioEsp.setBounds(110, 280, 160, 60);
 
@@ -140,7 +141,15 @@ public class InicioJuego extends javax.swing.JFrame {
         this.dispose();
         CrearPerfil crear = new CrearPerfil();
         crear.setVisible(true);
+        
     }//GEN-LAST:event_CrearUsuarioActionPerformed
+
+    private void CrearUsuarioEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearUsuarioEspActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        CrearPerfil crear = new CrearPerfil();
+        crear.setVisible(true);
+    }//GEN-LAST:event_CrearUsuarioEspActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,7 +4,7 @@
  */
 package juego;
 
-import desuso.CutTheRopeGame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Niveles extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Niveles.class.getName());
     private Jugador jugador;
-
+    private LanzadorNivel lanzador;
     /**
      * Creates new form Niveles
      */
@@ -27,6 +27,10 @@ public class Niveles extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
+    public void setLanzador(LanzadorNivel lanzador)
+    {
+        this.lanzador=lanzador;
+    }
     public void actualizarInterfazIdioma() {
         if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
@@ -294,25 +298,21 @@ public class Niveles extends javax.swing.JFrame {
         if (jugador == null) {
             return;
         }
-
-        // Verificar que el nivel no supere los disponibles
         GestorNiveles gestor = new GestorNiveles(jugador);
-        if (numeroNivel > gestor.getNiveles().size()) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Nivel no disponible aún.");
+        if (numeroNivel > gestor.getNiveles().size()) 
+        {
+            javax.swing.JOptionPane.showMessageDialog(this,"Nivel no disponible aún.");
             return;
         }
-
-        // >>> NUEVO: imprimir estado del jugador al entrar a un nivel <<<
-        System.out.println("Entrando al nivel " + numeroNivel
-                + " | Jugador: " + jugador.toString());
-
-        gestor.setNivelActual(numeroNivel);
-        Nivel nivel = gestor.obtenerNivelActual();
-        nivel.iniciarNivel();
-
-        // Abrir la pantalla del juego pasando el nivel y el jugador
+        System.out.println("Entrando al nivel " + numeroNivel+ " | Jugador: " + jugador.toString());
         this.dispose();
-        new CutTheRopeGame(jugador, gestor);
+        if(lanzador!=null)
+        {
+            lanzador.lanzarNivel(jugador, numeroNivel);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "ERROR: lanzador no configurado");
+        }
     }
 }
