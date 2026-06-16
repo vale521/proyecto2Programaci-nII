@@ -9,9 +9,8 @@ package juego;
  * @author admin
  */
 public class Options extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Options.class.getName());
 
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Options.class.getName());
     /**
      * Creates new form Options
      */
@@ -20,6 +19,41 @@ public class Options extends javax.swing.JFrame {
         
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        actualizarBotonesMusica();
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarBotonesMusica() {
+        boolean estaActivada = InicioJuego.preferencias.getMusica().isActivada();
+
+        if (estaActivada) {
+            musica.setVisible(true);
+            musicaMute.setVisible(false);
+        } else {
+            musica.setVisible(false);
+            musicaMute.setVisible(true);
+        }
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            languageEsp.setVisible(true);
+            backEsp.setVisible(true);
+            doneEsp.setVisible(true);
+
+            language1.setVisible(false);
+            back.setVisible(false);
+            done.setVisible(false);
+        } else {
+            language1.setVisible(true);
+            back.setVisible(true);
+            done.setVisible(true);
+
+            languageEsp.setVisible(false);
+            backEsp.setVisible(false);
+            doneEsp.setVisible(false);
+        }
     }
 
     /**
@@ -31,34 +65,58 @@ public class Options extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        done = new javax.swing.JButton();
-        volumen = new javax.swing.JButton();
-        language1 = new javax.swing.JButton();
         musica = new javax.swing.JButton();
+        musicaMute = new javax.swing.JButton();
+        done = new javax.swing.JButton();
+        language1 = new javax.swing.JButton();
+        languageEsp = new javax.swing.JButton();
+        back = new javax.swing.JButton();
+        doneEsp = new javax.swing.JButton();
+        backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        musica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/5.png"))); // NOI18N
+        musica.addActionListener(this::musicaActionPerformed);
+        getContentPane().add(musica);
+        musica.setBounds(210, 90, 70, 40);
+
+        musicaMute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp8.png"))); // NOI18N
+        musicaMute.addActionListener(this::musicaMuteActionPerformed);
+        getContentPane().add(musicaMute);
+        musicaMute.setBounds(210, 90, 70, 40);
+
         done.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N
         done.addActionListener(this::doneActionPerformed);
         getContentPane().add(done);
-        done.setBounds(190, 240, 90, 30);
-
-        volumen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/6.png"))); // NOI18N
-        volumen.addActionListener(this::volumenActionPerformed);
-        getContentPane().add(volumen);
-        volumen.setBounds(250, 90, 70, 40);
+        done.setBounds(260, 240, 90, 30);
 
         language1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/4.png"))); // NOI18N
         language1.addActionListener(this::language1ActionPerformed);
         getContentPane().add(language1);
         language1.setBounds(160, 150, 160, 60);
 
-        musica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/5.png"))); // NOI18N
-        musica.addActionListener(this::musicaActionPerformed);
-        getContentPane().add(musica);
-        musica.setBounds(160, 90, 70, 40);
+        languageEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp3.png"))); // NOI18N
+        languageEsp.addActionListener(this::languageEspActionPerformed);
+        getContentPane().add(languageEsp);
+        languageEsp.setBounds(160, 150, 160, 60);
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
+        back.addActionListener(this::backActionPerformed);
+        getContentPane().add(back);
+        back.setBounds(140, 240, 90, 30);
+
+        doneEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
+        doneEsp.addActionListener(this::doneEspActionPerformed);
+        getContentPane().add(doneEsp);
+        doneEsp.setBounds(260, 240, 90, 30);
+
+        backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
+        backEsp.addActionListener(this::backEspActionPerformed);
+        getContentPane().add(backEsp);
+        backEsp.setBounds(140, 240, 90, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/options.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -67,16 +125,17 @@ public class Options extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void volumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volumenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_volumenActionPerformed
-
     private void language1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_language1ActionPerformed
         // TODO add your handling code here:
+        Idioma.cambiarIdiomaGlobal();
     }//GEN-LAST:event_language1ActionPerformed
 
     private void musicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaActionPerformed
         // TODO add your handling code here:
+        musicaMute.setVisible(false);
+        
+        InicioJuego.preferencias.getMusica().setActivada(false);
+        actualizarBotonesMusica();
     }//GEN-LAST:event_musicaActionPerformed
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
@@ -85,6 +144,38 @@ public class Options extends javax.swing.JFrame {
         this.dispose();
         inicio.setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_backActionPerformed
+
+    private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
+        // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_backEspActionPerformed
+
+    private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
+        // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_doneEspActionPerformed
+
+    private void languageEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageEspActionPerformed
+        // TODO add your handling code here:
+        Idioma.cambiarIdiomaGlobal();
+    }//GEN-LAST:event_languageEspActionPerformed
+
+    private void musicaMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicaMuteActionPerformed
+        // TODO add your handling code here:
+        musica.setVisible(false);
+        InicioJuego.preferencias.getMusica().setActivada(true);
+        actualizarBotonesMusica();
+    }//GEN-LAST:event_musicaMuteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,10 +203,14 @@ public class Options extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JButton backEsp;
     private javax.swing.JButton done;
+    private javax.swing.JButton doneEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton language1;
+    private javax.swing.JButton languageEsp;
     private javax.swing.JButton musica;
-    private javax.swing.JButton volumen;
+    private javax.swing.JButton musicaMute;
     // End of variables declaration//GEN-END:variables
 }

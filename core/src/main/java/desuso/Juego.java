@@ -4,7 +4,7 @@
  */
 package desuso;
 
-import juego.Usuario;
+import juego.*;
 
 /**
  *
@@ -12,15 +12,13 @@ import juego.Usuario;
  */
 public abstract class Juego {
     protected String nombreJuego;
-    protected Usuario jugadorActual;
     protected juego.Juego nivelActual;
     protected boolean juegoTerminado;
     protected int puntajeTotal;
 
-    public Juego(String nombreJuego, Usuario jugadorActual)
+    public Juego(String nombreJuego)
     {
         this.nombreJuego = nombreJuego;
-        this.jugadorActual = jugadorActual;
         this.puntajeTotal = 0;
         this.juegoTerminado = false;
     }
@@ -47,13 +45,6 @@ public abstract class Juego {
         this.nombreJuego = nombreJuego;
     }
 
-    public Usuario getJugadorActual() {
-        return jugadorActual;
-    }
-
-    public void setJugadorActual(Usuario jugadorActual) {
-        this.jugadorActual = jugadorActual;
-    }
 
     public juego.Juego getNivelActual() {
         return nivelActual;

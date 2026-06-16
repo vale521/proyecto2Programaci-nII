@@ -4,14 +4,12 @@
  */
 package juego;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author admin
  */
 public class IncorrectPass extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IncorrectPass.class.getName());
 
     /**
@@ -19,6 +17,18 @@ public class IncorrectPass extends javax.swing.JFrame {
      */
     public IncorrectPass() {
         initComponents();
+        this.setSize(493, 347);
+        this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            backEsp.setVisible(true);
+        } else {
+            back.setVisible(true);
+        }
     }
 
     /**
@@ -31,6 +41,7 @@ public class IncorrectPass extends javax.swing.JFrame {
     private void initComponents() {
 
         back = new javax.swing.JButton();
+        backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,27 +52,30 @@ public class IncorrectPass extends javax.swing.JFrame {
         getContentPane().add(back);
         back.setBounds(190, 230, 90, 30);
 
+        backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
+        backEsp.addActionListener(this::backEspActionPerformed);
+        getContentPane().add(backEsp);
+        backEsp.setBounds(190, 230, 90, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/incorrectpass.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 480, 313);
+        jLabel1.setBounds(0, 0, 480, 310);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        // TODO add your handling code here:
-
-        if (usuario.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        } else {
-            UsuarioGuardado mensaje = new UsuarioGuardado();
-            mensaje.setVisible(true);
-        }
-        InicioJuego inicio = new InicioJuego();
         this.dispose();
-        inicio.setVisible(true);
+        Login login = new Login();
+        login.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
+
+    private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_backEspActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,6 +104,7 @@ public class IncorrectPass extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
+    private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

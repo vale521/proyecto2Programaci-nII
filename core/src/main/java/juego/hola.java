@@ -44,6 +44,9 @@ public class hola extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -68,7 +71,6 @@ public class hola extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 204, 255));
-        jTabbedPane1.setForeground(new java.awt.Color(0, 0, 0));
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setOpaque(true);
 
@@ -115,9 +117,29 @@ public class hola extends javax.swing.JFrame {
         jTabbedPane1.addTab("tab2", jPanel2);
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
         jPanel4.setLayout(null);
         jTabbedPane1.addTab("tab3", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel5.setLayout(null);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jPanel5.add(jScrollPane3);
+        jScrollPane3.setBounds(80, 30, 270, 150);
+
+        jTabbedPane1.addTab("tab4", jPanel5);
 
         jPanel3.add(jTabbedPane1);
         jTabbedPane1.setBounds(30, 110, 400, 270);
@@ -175,11 +197,14 @@ public class hola extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

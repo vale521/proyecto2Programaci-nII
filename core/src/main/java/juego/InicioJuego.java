@@ -4,6 +4,11 @@
  */
 package juego;
 
+import java.net.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 /**
  *
  * @author admin
@@ -12,15 +17,39 @@ public class InicioJuego extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InicioJuego.class.getName());
 
+    public static PreferenciasJuego preferencias = new PreferenciasJuego();
+    public static Clip clipActual;
+
     /**
      * Creates new form InicioJuego
      */
     public InicioJuego() {
         initComponents();
-
         this.setSize(387, 500);
-
         this.setLocationRelativeTo(null);
+        PreferenciasJuego.reproducirMusicaDeFondo("/juego/background_music.wav", preferencias);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            CrearUsuario.setVisible(true);
+            loginEsp.setVisible(true);
+            optionsEsp.setVisible(true);
+
+            CrearUsuario.setVisible(false);
+            login.setVisible(false);
+            options.setVisible(false);
+        } else {
+            CrearUsuario.setVisible(true);
+            login.setVisible(true);
+            options.setVisible(true);
+
+            CrearUsuarioEsp.setVisible(false);
+            loginEsp.setVisible(false);
+            optionsEsp.setVisible(false);
+        }
     }
 
     /**
@@ -35,6 +64,9 @@ public class InicioJuego extends javax.swing.JFrame {
         options = new javax.swing.JButton();
         CrearUsuario = new javax.swing.JButton();
         login = new javax.swing.JButton();
+        loginEsp = new javax.swing.JButton();
+        optionsEsp = new javax.swing.JButton();
+        CrearUsuarioEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,6 +78,7 @@ public class InicioJuego extends javax.swing.JFrame {
         options.setBounds(110, 360, 160, 60);
 
         CrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usuario.png"))); // NOI18N
+        CrearUsuario.addActionListener(this::CrearUsuarioActionPerformed);
         getContentPane().add(CrearUsuario);
         CrearUsuario.setBounds(110, 280, 160, 60);
 
@@ -53,6 +86,20 @@ public class InicioJuego extends javax.swing.JFrame {
         login.addActionListener(this::loginActionPerformed);
         getContentPane().add(login);
         login.setBounds(110, 200, 160, 60);
+
+        loginEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp1.png"))); // NOI18N
+        loginEsp.addActionListener(this::loginEspActionPerformed);
+        getContentPane().add(loginEsp);
+        loginEsp.setBounds(110, 200, 160, 60);
+
+        optionsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp2.png"))); // NOI18N
+        optionsEsp.addActionListener(this::optionsEspActionPerformed);
+        getContentPane().add(optionsEsp);
+        optionsEsp.setBounds(110, 360, 160, 60);
+
+        CrearUsuarioEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp6.png"))); // NOI18N
+        getContentPane().add(CrearUsuarioEsp);
+        CrearUsuarioEsp.setBounds(110, 280, 160, 60);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/start (1).png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -74,6 +121,26 @@ public class InicioJuego extends javax.swing.JFrame {
         Options o = new Options();
         o.setVisible(true);
     }//GEN-LAST:event_optionsActionPerformed
+
+    private void loginEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEspActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login l = new Login();
+        l.setVisible(true);
+    }//GEN-LAST:event_loginEspActionPerformed
+
+    private void optionsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsEspActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Options o = new Options();
+        o.setVisible(true);
+    }//GEN-LAST:event_optionsEspActionPerformed
+    private void CrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearUsuarioActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        CrearPerfil crear = new CrearPerfil();
+        crear.setVisible(true);
+    }//GEN-LAST:event_CrearUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,8 +169,11 @@ public class InicioJuego extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CrearUsuario;
+    private javax.swing.JButton CrearUsuarioEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton login;
+    private javax.swing.JButton loginEsp;
     private javax.swing.JButton options;
+    private javax.swing.JButton optionsEsp;
     // End of variables declaration//GEN-END:variables
 }

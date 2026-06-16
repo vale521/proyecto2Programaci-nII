@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class UsuarioGuardado extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UsuarioGuardado.class.getName());
 
     /**
@@ -17,9 +17,21 @@ public class UsuarioGuardado extends javax.swing.JFrame {
      */
     public UsuarioGuardado() {
         initComponents();
-        
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            doneEsp.setVisible(true);
+            done.setVisible(false);
+        } else {
+            done.setVisible(true);
+            doneEsp.setVisible(false);
+        }
     }
 
     /**
@@ -32,6 +44,7 @@ public class UsuarioGuardado extends javax.swing.JFrame {
     private void initComponents() {
 
         done = new javax.swing.JButton();
+        doneEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,6 +54,11 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         done.addActionListener(this::doneActionPerformed);
         getContentPane().add(done);
         done.setBounds(190, 250, 90, 30);
+
+        doneEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
+        doneEsp.addActionListener(this::doneEspActionPerformed);
+        getContentPane().add(doneEsp);
+        doneEsp.setBounds(190, 250, 90, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/username.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -55,6 +73,10 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         InicioJuego inicio = new InicioJuego();
         inicio.setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
+
+    private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_doneEspActionPerformed
 
     /**
      * @param args the command line arguments
@@ -83,6 +105,7 @@ public class UsuarioGuardado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton done;
+    private javax.swing.JButton doneEsp;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

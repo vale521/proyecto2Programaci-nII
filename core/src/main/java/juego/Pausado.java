@@ -9,7 +9,7 @@ package juego;
  * @author admin
  */
 public class Pausado extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Pausado.class.getName());
 
     /**
@@ -17,6 +17,8 @@ public class Pausado extends javax.swing.JFrame {
      */
     public Pausado() {
         initComponents();
+        this.setSize(493, 347);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,17 +30,17 @@ public class Pausado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        back = new javax.swing.JButton();
+        resume = new javax.swing.JButton();
         niveles = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/resume.png"))); // NOI18N
-        back.addActionListener(this::backActionPerformed);
-        getContentPane().add(back);
-        back.setBounds(210, 220, 120, 40);
+        resume.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/resume.png"))); // NOI18N
+        resume.addActionListener(this::resumeActionPerformed);
+        getContentPane().add(resume);
+        resume.setBounds(210, 220, 120, 40);
 
         niveles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/10.png"))); // NOI18N
         niveles.addActionListener(this::nivelesActionPerformed);
@@ -55,27 +57,14 @@ public class Pausado extends javax.swing.JFrame {
     private void nivelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelesActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Login l = new Login();
-        l.setVisible(true);
+        Niveles niveles = new Niveles();
+        niveles.setVisible(true);
     }//GEN-LAST:event_nivelesActionPerformed
 
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+    private void resumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resumeActionPerformed
         // TODO add your handling code here:
-
-        String usuario = username.getText().trim();
-        String password = pass.getText().trim();
-
-        if (usuario.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        } else {
-            UsuarioGuardado mensaje = new UsuarioGuardado();
-            mensaje.setVisible(true);
-        }
-        InicioJuego inicio = new InicioJuego();
         this.dispose();
-        inicio.setVisible(true);
-    }//GEN-LAST:event_backActionPerformed
+    }//GEN-LAST:event_resumeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,7 +73,7 @@ public class Pausado extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -103,8 +92,8 @@ public class Pausado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton niveles;
+    private javax.swing.JButton resume;
     // End of variables declaration//GEN-END:variables
 }

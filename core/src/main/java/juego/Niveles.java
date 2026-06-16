@@ -4,22 +4,50 @@
  */
 package juego;
 
+import desuso.CutTheRopeGame;
+
 /**
  *
  * @author admin
  */
 public class Niveles extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Niveles.class.getName());
+    private Jugador jugador;
 
     /**
      * Creates new form Niveles
      */
     public Niveles() {
         initComponents();
-        
+
         this.setSize(470, 435);
         this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            backEsp.setVisible(true);
+            back.setVisible(false);
+            stats.setVisible(false);
+            statsEsp.setVisible(true);
+        } else {
+            back.setVisible(true);
+            backEsp.setVisible(false);
+            stats.setVisible(true);
+            statsEsp.setVisible(false);
+        }
+    }
+
+    public Niveles(Jugador jugador) {
+        initComponents();
+
+        this.setSize(470, 435);
+        this.setLocationRelativeTo(null);
+        this.jugador = jugador;
+        configurarBtnProgreso();
     }
 
     /**
@@ -31,47 +59,49 @@ public class Niveles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nivel5 = new javax.swing.JButton();
         nivel1 = new javax.swing.JButton();
         nivel2 = new javax.swing.JButton();
         nivel3 = new javax.swing.JButton();
         nivel4 = new javax.swing.JButton();
-        nivel10 = new javax.swing.JButton();
         nivelgris1 = new javax.swing.JButton();
         nivelgris2 = new javax.swing.JButton();
         nivelgris3 = new javax.swing.JButton();
         nivelgris4 = new javax.swing.JButton();
         nivelgris5 = new javax.swing.JButton();
-        nivelgris6 = new javax.swing.JButton();
-        nivelgris7 = new javax.swing.JButton();
-        nivelgris8 = new javax.swing.JButton();
-        nivelgris9 = new javax.swing.JButton();
-        nivelgris10 = new javax.swing.JButton();
         back = new javax.swing.JButton();
+        backEsp = new javax.swing.JButton();
+        stats = new javax.swing.JButton();
+        statsEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        nivel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5.png"))); // NOI18N
-        getContentPane().add(nivel1);
-        nivel1.setBounds(370, 130, 80, 80);
+        nivel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5.png"))); // NOI18N
+        nivel5.addActionListener(this::nivel5ActionPerformed);
+        getContentPane().add(nivel5);
+        nivel5.setBounds(370, 70, 80, 80);
 
-        nivel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1.png"))); // NOI18N
+        nivel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1.png"))); // NOI18N
+        nivel1.addActionListener(this::nivel1ActionPerformed);
+        getContentPane().add(nivel1);
+        nivel1.setBounds(10, 70, 80, 80);
+
+        nivel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l2.png"))); // NOI18N
         nivel2.addActionListener(this::nivel2ActionPerformed);
         getContentPane().add(nivel2);
-        nivel2.setBounds(10, 130, 80, 80);
+        nivel2.setBounds(100, 70, 80, 80);
 
-        nivel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l2.png"))); // NOI18N
+        nivel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l3.png"))); // NOI18N
+        nivel3.addActionListener(this::nivel3ActionPerformed);
         getContentPane().add(nivel3);
-        nivel3.setBounds(100, 130, 80, 80);
+        nivel3.setBounds(190, 70, 80, 80);
 
-        nivel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l3.png"))); // NOI18N
+        nivel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l4.png"))); // NOI18N
+        nivel4.addActionListener(this::nivel4ActionPerformed);
         getContentPane().add(nivel4);
-        nivel4.setBounds(190, 130, 80, 80);
-
-        nivel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l4.png"))); // NOI18N
-        getContentPane().add(nivel10);
-        nivel10.setBounds(280, 130, 80, 80);
+        nivel4.setBounds(280, 70, 80, 80);
 
         nivelgris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1gris.png"))); // NOI18N
         nivelgris1.addActionListener(this::nivelgris1ActionPerformed);
@@ -98,35 +128,25 @@ public class Niveles extends javax.swing.JFrame {
         getContentPane().add(nivelgris5);
         nivelgris5.setBounds(370, 70, 80, 80);
 
-        nivelgris6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l6gris.png"))); // NOI18N
-        nivelgris6.addActionListener(this::nivelgris6ActionPerformed);
-        getContentPane().add(nivelgris6);
-        nivelgris6.setBounds(10, 170, 80, 80);
-
-        nivelgris7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l7gris.png"))); // NOI18N
-        nivelgris7.addActionListener(this::nivelgris7ActionPerformed);
-        getContentPane().add(nivelgris7);
-        nivelgris7.setBounds(100, 170, 80, 80);
-
-        nivelgris8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l8gris.png"))); // NOI18N
-        nivelgris8.addActionListener(this::nivelgris8ActionPerformed);
-        getContentPane().add(nivelgris8);
-        nivelgris8.setBounds(190, 170, 80, 80);
-
-        nivelgris9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l9gris.png"))); // NOI18N
-        nivelgris9.addActionListener(this::nivelgris9ActionPerformed);
-        getContentPane().add(nivelgris9);
-        nivelgris9.setBounds(280, 170, 80, 80);
-
-        nivelgris10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l10gris.png"))); // NOI18N
-        nivelgris10.addActionListener(this::nivelgris10ActionPerformed);
-        getContentPane().add(nivelgris10);
-        nivelgris10.setBounds(370, 170, 80, 80);
-
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(140, 240, 160, 60);
+        back.setBounds(60, 250, 160, 60);
+
+        backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
+        backEsp.addActionListener(this::backEspActionPerformed);
+        getContentPane().add(backEsp);
+        backEsp.setBounds(60, 250, 160, 60);
+
+        stats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/stats.png"))); // NOI18N
+        stats.addActionListener(this::statsActionPerformed);
+        getContentPane().add(stats);
+        stats.setBounds(240, 250, 160, 60);
+
+        statsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/statsesp.png"))); // NOI18N
+        statsEsp.addActionListener(this::statsEspActionPerformed);
+        getContentPane().add(statsEsp);
+        statsEsp.setBounds(240, 250, 160, 60);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/niveles.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -137,18 +157,24 @@ public class Niveles extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new InicioJuego().setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
-    private void nivel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel2ActionPerformed
+    private void nivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nivel2ActionPerformed
+        abrirNivel(1);
+
+    }//GEN-LAST:event_nivel1ActionPerformed
 
     private void nivelgris1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris1ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_nivelgris1ActionPerformed
 
     private void nivelgris2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris2ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_nivelgris2ActionPerformed
 
     private void nivelgris3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris3ActionPerformed
@@ -163,25 +189,39 @@ public class Niveles extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nivelgris5ActionPerformed
 
-    private void nivelgris6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris6ActionPerformed
+    private void nivel5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nivelgris6ActionPerformed
+        abrirNivel(5);
+    }//GEN-LAST:event_nivel5ActionPerformed
 
-    private void nivelgris7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris7ActionPerformed
+    private void nivel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nivelgris7ActionPerformed
+        abrirNivel(2);
+    }//GEN-LAST:event_nivel2ActionPerformed
 
-    private void nivelgris8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris8ActionPerformed
+    private void nivel3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nivelgris8ActionPerformed
+        abrirNivel(3);
+    }//GEN-LAST:event_nivel3ActionPerformed
 
-    private void nivelgris9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris9ActionPerformed
+    private void nivel4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nivelgris9ActionPerformed
+        abrirNivel(4);
+    }//GEN-LAST:event_nivel4ActionPerformed
 
-    private void nivelgris10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris10ActionPerformed
+    private void statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nivelgris10ActionPerformed
+        Rankings rank = new Rankings();
+        rank.setVisible(true);
+    }//GEN-LAST:event_statsActionPerformed
+
+    private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backEspActionPerformed
+
+    private void statsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statsEspActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,21 +250,69 @@ public class Niveles extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
+    private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton nivel1;
-    private javax.swing.JButton nivel10;
     private javax.swing.JButton nivel2;
     private javax.swing.JButton nivel3;
     private javax.swing.JButton nivel4;
+    private javax.swing.JButton nivel5;
     private javax.swing.JButton nivelgris1;
-    private javax.swing.JButton nivelgris10;
     private javax.swing.JButton nivelgris2;
     private javax.swing.JButton nivelgris3;
     private javax.swing.JButton nivelgris4;
     private javax.swing.JButton nivelgris5;
-    private javax.swing.JButton nivelgris6;
-    private javax.swing.JButton nivelgris7;
-    private javax.swing.JButton nivelgris8;
-    private javax.swing.JButton nivelgris9;
+    private javax.swing.JButton stats;
+    private javax.swing.JButton statsEsp;
     // End of variables declaration//GEN-END:variables
+
+    private void configurarBtnProgreso() {
+        if (jugador == null) {
+            return;
+        }
+
+        int nivelDesbloqueado = jugador.getNivelPartidaActual();
+
+        // Niveles activos (filas superiores del mapa)
+        nivel1.setEnabled(nivelDesbloqueado >= 1);
+        nivel2.setEnabled(nivelDesbloqueado >= 2);
+        nivel3.setEnabled(nivelDesbloqueado >= 3);
+        nivel4.setEnabled(nivelDesbloqueado >= 4);
+        nivel5.setEnabled(nivelDesbloqueado >= 5);
+
+        // Niveles grises (fila inferior del mapa) — siempre bloqueados
+        // a menos que el jugador haya avanzado suficientemente
+        nivelgris1.setEnabled(nivelDesbloqueado >= 1);
+        nivelgris2.setEnabled(nivelDesbloqueado >= 2);
+        nivelgris3.setEnabled(nivelDesbloqueado >= 3);
+        nivelgris4.setEnabled(nivelDesbloqueado >= 4);
+        nivelgris5.setEnabled(nivelDesbloqueado >= 5);
+
+    }
+
+    private void abrirNivel(int numeroNivel) {
+        if (jugador == null) {
+            return;
+        }
+
+        // Verificar que el nivel no supere los disponibles
+        GestorNiveles gestor = new GestorNiveles(jugador);
+        if (numeroNivel > gestor.getNiveles().size()) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Nivel no disponible aún.");
+            return;
+        }
+
+        // >>> NUEVO: imprimir estado del jugador al entrar a un nivel <<<
+        System.out.println("Entrando al nivel " + numeroNivel
+                + " | Jugador: " + jugador.toString());
+
+        gestor.setNivelActual(numeroNivel);
+        Nivel nivel = gestor.obtenerNivelActual();
+        nivel.iniciarNivel();
+
+        // Abrir la pantalla del juego pasando el nivel y el jugador
+        this.dispose();
+        new CutTheRopeGame(jugador, gestor);
+    }
 }

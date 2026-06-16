@@ -18,7 +18,7 @@ import java.time.Duration;
  *Serializable: dice qu el obj puede convertirse en una secuencia de bytes y guardarse en un archivo o enviarse por una red.
  * @author valer
  */
-public class Jugador implements Serializable {
+public class Jugador implements Serializable {//clase USUARIO
     //crear clase persistencia de un jugador que le datos jugador, para saber si existe por username, modificar datos del jugador ->crear archivo tmb
     //crear clase persistencia de partidas que almacene todas las partidas, obtenga todas las partidas de un jugador, agregar nueva partida. ->crear archivo tmb
     //estado partida
@@ -35,7 +35,7 @@ public class Jugador implements Serializable {
     private PuntajeNivel[] puntajes;
     private PreferenciasJuego preferenciasJuego;
     private Duration tiempoTotal;
-    private ArrayList<ResultadoPartida> historial;
+    private ArrayList<ResultadoPartida> historial; //PARTIDAS JUGADAS
     private boolean activo;
 
     public Jugador() {
@@ -218,5 +218,11 @@ public class Jugador implements Serializable {
     public void setPreferenciasJuego(PreferenciasJuego preferenciasJuego)
     {
         this.preferenciasJuego= preferenciasJuego;
+    }
+    @Override
+    public String toString() {
+        return "Jugador{username='" + username + "', nombreCompleto='" + nombreCompleto + 
+               "', fechaRegistro=" + fechaRegistro + ", nivelActual=" + nivelPartidaActual + 
+               ", puntajeGeneral=" + puntajeGeneral + ", activo=" + activo + "}";
     }
 }
