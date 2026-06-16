@@ -24,6 +24,7 @@ public class Options extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
+    
     public void actualizarBotonesMusica() {
         boolean estaActivada = InicioJuego.preferencias.getMusica().isActivada();
 

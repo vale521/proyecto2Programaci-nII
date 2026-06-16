@@ -72,7 +72,7 @@ public class Login extends javax.swing.JFrame {
         done.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N
         done.addActionListener(this::doneActionPerformed);
         getContentPane().add(done);
-        done.setBounds(110, 260, 90, 30);
+        done.setBounds(140, 260, 90, 30);
 
         doneEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
         doneEsp.addActionListener(this::doneEspActionPerformed);

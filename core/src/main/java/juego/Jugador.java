@@ -221,8 +221,50 @@ public class Jugador implements Serializable {//clase USUARIO
     }
     @Override
     public String toString() {
-        return "Jugador{username='" + username + "', nombreCompleto='" + nombreCompleto + 
-               "', fechaRegistro=" + fechaRegistro + ", nivelActual=" + nivelPartidaActual + 
+        return "Jugador{username='" + username + "', nombreCompleto='" + nombreCompleto +
+               "', fechaRegistro=" + fechaRegistro + ", nivelActual=" + nivelPartidaActual +
                ", puntajeGeneral=" + puntajeGeneral + ", activo=" + activo + "}";
+    }
+
+    public int getCntidadPartidas()
+    {
+        return historial.size();
+    }
+
+    public float getTiempoPromedio()
+    {
+        if(historial.isEmpty())
+        {
+            return 0;
+        }
+        float suma=0;
+        for (ResultadoPartida partida: historial)
+        {
+            suma+=partida.getTiempoSegundos();
+        }
+        return suma/historial.size();
+    }
+
+    public int calcularPuntajeTotal()
+    {
+        int total=0;
+        for (ResultadoPartida partida: historial)
+        {
+            total+= partida.getPuntajeObtenido();
+        }
+        return total;
+    }
+
+    public int getNivelesCompletados()
+    {
+        int maximo=0;
+        for (ResultadoPartida partida: historial)
+        {
+            if(partida.isVictoria())
+            {
+                maximo= Math.max(maximo, partida.getNivelAlcanzado());
+            }
+        }
+        return maximo;
     }
 }

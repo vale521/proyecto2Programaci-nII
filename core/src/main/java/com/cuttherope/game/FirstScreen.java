@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import juego.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,8 @@ public class FirstScreen implements Screen {
 
     private float mouseAnteriorX=-1;
     private float mouseAnteriorY=-1;
-
+    private LocalDateTime fechaInicioPartida;
+    private LocalDateTime fechaFinalPartida;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -76,7 +78,7 @@ public class FirstScreen implements Screen {
         this.gestorNiveles= new GestorNiveles(this.jugador);
         this.nivel= gestorNiveles.obtenerNivelActual();
         nivel.iniciarNivel();
-
+        fechaInicioPartida=LocalDateTime.now();
         if(progreso.isHayPartidaGuardada())
         {
             tiempoNivel= progreso.getTiempoTranscurridoSegundos();
@@ -128,7 +130,7 @@ public class FirstScreen implements Screen {
         this.gestorNiveles= new GestorNiveles(this.jugador);
         this.nivel= gestorNiveles.obtenerNivelActual();
         nivel.iniciarNivel();
-
+        fechaInicioPartida=LocalDateTime.now();
         if(progreso.isHayPartidaGuardada())
         {
             tiempoNivel= progreso.getTiempoTranscurridoSegundos();
@@ -240,7 +242,7 @@ public class FirstScreen implements Screen {
 
             if (mouseX >= xBtnPausar && (mouseX <= xBtnPausar + anchoBtn) && mouseY >= yBtnPausar && (mouseY <= yBtnPausar + altoBtn)) {
                 pausado = !pausado;
-                javax.swing.SwingUtilities.invokeLater(() -> {new Pausado().setVisible(true);});
+                javax.swing.SwingUtilities.invokeLater(() -> {new Pausado(jugador).setVisible(true);});
                 return;
             }
 
@@ -484,6 +486,8 @@ public class FirstScreen implements Screen {
             if(nivel.verificarVictoria()==true && nivelCompletado==false)
             {
                 ResultadoPartida resultadoPartida= new ResultadoPartida();
+                resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
+                resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
                 resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
                 resultadoPartida.setCantidadEstrellasRecolectadas(caramelo.getEstrellasRecolectadas());
                 resultadoPartida.setTiempoSegundos(tiempoNivel);
