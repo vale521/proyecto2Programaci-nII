@@ -14,6 +14,19 @@ public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         //createApplication();
+        //AppContext.registrarAccionOcultarVentana(() -> {
+//            try
+//            {
+//                com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics graphics =
+//                    (com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics) com.badlogic.gdx.Gdx.graphics;
+//                graphics.getWindow().iconifyWindow();
+//            }
+//            catch (Exception e)
+//            {
+//                // no critico si falla
+//            }
+//        });
+
         AppContext.registrarLanzador((Jugador jugador, int numeroNivel) -> {
             MainGame gameActivo= AppContext.getMainGameActivo();
             if(gameActivo!= null)

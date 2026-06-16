@@ -435,6 +435,7 @@ public class FirstScreen implements Screen {
         persistenciaJugador.borrarProgreso(jugador.getUsername());
         cerrandoJuego=true;
         // Volvemos a la pantalla de Niveles original
+        //AppContext.ocultarVentana();
         javax.swing.SwingUtilities.invokeLater(() -> {
             new Niveles(jugador).setVisible(true);
         });
@@ -535,6 +536,7 @@ public class FirstScreen implements Screen {
             {
                 cerrandoJuego=true;
                 //nivelCompletado=false;
+                //AppContext.ocultarVentana();
                 javax.swing.SwingUtilities.invokeLater(() ->{
                     new Niveles(jugador).setVisible(true);
                 });

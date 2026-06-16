@@ -26,4 +26,19 @@ public class AppContext {
     {
         mainGameActivo=null;
     }
+
+//    private static Runnable accionOcultarVentana = null;
+//
+//    public static void registrarAccionOcultarVentana(Runnable accion)
+//    {
+//        accionOcultarVentana = accion;
+//    }
+//
+//    public static void ocultarVentana()
+//    {
+//        if (accionOcultarVentana != null)
+//        {
+//            accionOcultarVentana.run();
+//        }
+//    }
 }
