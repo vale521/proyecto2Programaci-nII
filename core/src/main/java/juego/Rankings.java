@@ -11,7 +11,7 @@ package juego;
 public class Rankings extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Rankings.class.getName());
-
+    private Jugador jugador;
     /**
      * Creates new form Rankings
      */
@@ -33,6 +33,24 @@ public class Rankings extends javax.swing.JFrame {
         jTable4.setRowHeight(40);
     }
 
+    public Rankings(Jugador jugador) {
+        initComponents();
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+
+        this.setSize(695, 490);
+        this.setLocationRelativeTo(null);
+
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+
+        jScrollPane4.setOpaque(false);
+        jScrollPane4.getViewport().setOpaque(false);
+
+        jTable1.setRowHeight(40);
+        jTable4.setRowHeight(40);
+    }
+    
     public void actualizarInterfazIdioma() {
         if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
@@ -62,6 +80,7 @@ public class Rankings extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        btnAgregarAmigos = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -170,7 +189,11 @@ public class Rankings extends javax.swing.JFrame {
         }
 
         jPanel2.add(jScrollPane4);
-        jScrollPane4.setBounds(10, 10, 570, 300);
+        jScrollPane4.setBounds(10, 10, 570, 260);
+
+        btnAgregarAmigos.setText("AgregarAmigo");
+        jPanel2.add(btnAgregarAmigos);
+        btnAgregarAmigos.setBounds(10, 270, 570, 27);
 
         jTabbedPane1.addTab("Friends", jPanel2);
 
@@ -285,20 +308,20 @@ public class Rankings extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.dispose();
-        Niveles niveles = new Niveles();
+        Niveles niveles = new Niveles(jugador);
         niveles.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Niveles niveles = new Niveles();
+        Niveles niveles = new Niveles(jugador);
         niveles.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
         // TODO add your handling code here:
-        Historial historial = new Historial();
+        Historial historial = new Historial(jugador);
         historial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_historialActionPerformed
@@ -331,6 +354,7 @@ public class Rankings extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
+    private javax.swing.JButton btnAgregarAmigos;
     private javax.swing.JButton historial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

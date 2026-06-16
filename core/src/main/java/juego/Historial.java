@@ -11,7 +11,7 @@ package juego;
 public class Historial extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Historial.class.getName());
-
+    private Jugador jugador;
     /**
      * Creates new form Historial
      */
@@ -24,6 +24,15 @@ public class Historial extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
+    public Historial(Jugador jugador) {
+        initComponents();
+
+        this.setSize(700, 500);
+        this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+        this.jugador= jugador;
+    }
     public void actualizarInterfazIdioma() {
         if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
@@ -106,14 +115,14 @@ public class Historial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Rankings rankings = new Rankings();
+        Rankings rankings = new Rankings(jugador);
         rankings.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
-        Rankings rankings = new Rankings();
+        Rankings rankings = new Rankings(jugador);
         rankings.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backEspActionPerformed

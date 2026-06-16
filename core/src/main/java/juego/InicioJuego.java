@@ -118,7 +118,6 @@ public class InicioJuego extends javax.swing.JFrame {
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
         // TODO add your handling code here:
-        this.dispose();
         Options o = new Options();
         o.setVisible(true);
     }//GEN-LAST:event_optionsActionPerformed
@@ -132,7 +131,6 @@ public class InicioJuego extends javax.swing.JFrame {
 
     private void optionsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsEspActionPerformed
         // TODO add your handling code here:
-        this.dispose();
         Options o = new Options();
         o.setVisible(true);
     }//GEN-LAST:event_optionsEspActionPerformed

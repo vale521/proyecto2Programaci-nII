@@ -108,7 +108,7 @@ public class FirstScreen implements Screen {
         texturabtnMenu= new Texture("btnMenu2.png");
         texturaFondo= new Texture("fondoNiveles.png");
     }
-    
+
     public FirstScreen(Jugador jugador, MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -213,7 +213,7 @@ public class FirstScreen implements Screen {
         texturabtnMenu= new Texture("btnMenu2.png");
         texturaFondo= new Texture("fondoNiveles.png");
     }
-    
+
     @Override
     public void show() {
         System.out.println("Entro en show");
@@ -240,7 +240,7 @@ public class FirstScreen implements Screen {
 
             if (mouseX >= xBtnPausar && (mouseX <= xBtnPausar + anchoBtn) && mouseY >= yBtnPausar && (mouseY <= yBtnPausar + altoBtn)) {
                 pausado = !pausado;
-
+                javax.swing.SwingUtilities.invokeLater(() -> {new Pausado().setVisible(true);});
                 return;
             }
 
@@ -352,15 +352,24 @@ public class FirstScreen implements Screen {
         {
             tiempoVictoria-=Gdx.graphics.getDeltaTime();
             System.out.println("CAMBIANDO NIVEL");
+//            if(tiempoVictoria<=0)
+//            {
+//                gestorNiveles.avanzarNivel();
+//                if (gestorNiveles.ultimoNivelCompletado() == false) {
+//                    nivel = gestorNiveles.obtenerNivelActual();
+//                    nivel.iniciarNivel();
+//                    tiempoNivel=0;
+//                }
+//                nivelCompletado=false;
+//            }
+            //cambie esto para que al terminar el nivel vuelva a niveles
             if(tiempoVictoria<=0)
             {
-                gestorNiveles.avanzarNivel();
-                if (gestorNiveles.ultimoNivelCompletado() == false) {
-                    nivel = gestorNiveles.obtenerNivelActual();
-                    nivel.iniciarNivel();
-                    tiempoNivel=0;
-                }
                 nivelCompletado=false;
+                Gdx.app.postRunnable(() ->{
+                    new Niveles(jugador).setVisible(true);
+                });
+                Gdx.app.exit();
             }
             return;
         }
@@ -480,7 +489,16 @@ public class FirstScreen implements Screen {
                 resultadoPartida.setTiempoSegundos(tiempoNivel);
                 resultadoPartida.setVictoria(true);
                 jugador.agregarResultado(resultadoPartida);
+                //cambie esto para que agregue el archivo con ayuda de la clase PersistenciaPartidas
+                PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
+                persistenciaPartidas.agregarPartida(jugador.getUsername(), resultadoPartida);
                 persistenciaJugador.borrarProgreso(jugador.getUsername());
+                //cambie esto para que al terminar se aumente el nivel del jugador
+                if(jugador.getNivelPartidaActual()<= nivel.getNumeroNivel())
+                {
+                    jugador.setNivelPartidaActual(nivel.getNumeroNivel()+1);
+                    persistenciaJugador.guardarJugador(jugador);
+                }
                 nivelCompletado=true;
                 tiempoVictoria=1f;
             }

@@ -212,12 +212,14 @@ public class Niveles extends javax.swing.JFrame {
 
     private void statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsActionPerformed
         // TODO add your handling code here:
-        Rankings rank = new Rankings();
+        Rankings rank = new Rankings(jugador);
         rank.setVisible(true);
     }//GEN-LAST:event_statsActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new InicioJuego().setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     private void statsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsEspActionPerformed
