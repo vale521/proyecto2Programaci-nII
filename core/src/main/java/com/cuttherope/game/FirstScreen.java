@@ -59,6 +59,9 @@ public class FirstScreen implements Screen {
     private float mouseAnteriorY=-1;
     private LocalDateTime fechaInicioPartida;
     private LocalDateTime fechaFinalPartida;
+    private boolean cerrandoJuego=false;
+
+    private static final Object LOCK_PROGRESO= new Object();
     //private int cantFallos=0;
     public FirstScreen(MainGame game) {
         this.game = game;
@@ -318,7 +321,10 @@ public class FirstScreen implements Screen {
 
     private void actualizarJuego()
     {
-
+        if(cerrandoJuego==true)
+        {
+            return;
+        }
         if(Gdx.input.justTouched()==true) {
             float mouseX = Gdx.input.getX();
             float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
@@ -464,11 +470,14 @@ public class FirstScreen implements Screen {
         }
 
         new Thread (() -> {
-            PartidaProgreso estado= new PartidaProgreso(nivelID, estrellas, tiempo);
-            estado.setEstadoCuerdasCortadas(listaCuerdas);
-            estado.setEstadoEstrellasRecolectadas(listaEstrellas);
-            persistenciaJugador.guardarProgreso(username, estado);
-            System.out.println("[Hilo-Progreso] Guardado en tiempo real completado para: "+username);
+            synchronized (LOCK_PROGRESO)
+            {
+                PartidaProgreso estado= new PartidaProgreso(nivelID, estrellas, tiempo);
+                estado.setEstadoCuerdasCortadas(listaCuerdas);
+                estado.setEstadoEstrellasRecolectadas(listaEstrellas);
+                persistenciaJugador.guardarProgreso(username, estado);
+                System.out.println("[Hilo-Progreso] Guardado en tiempo real completado para: "+username);
+            }
         }, "Hilo-GuardarProgreso").start();
 
 //        Thread hiloEscrituraProgreso = new Thread(new Runnable()
@@ -528,13 +537,17 @@ public class FirstScreen implements Screen {
 //                nivelCompletado=false;
 //            }
             //cambie esto para que al terminar el nivel vuelva a niveles
-            if(tiempoVictoria<=0)
+            if(tiempoVictoria<=0 && cerrandoJuego==false)
             {
+                cerrandoJuego=true;
                 nivelCompletado=false;
-                Gdx.app.postRunnable(() ->{
+                javax.swing.SwingUtilities.invokeLater(() ->{
                     new Niveles(jugador).setVisible(true);
                 });
-                Gdx.app.exit();
+                Gdx.app.postRunnable(() -> {
+                    Gdx.app.exit();
+                });
+
             }
             return;
         }
