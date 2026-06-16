@@ -32,7 +32,18 @@ public class Niveles extends javax.swing.JFrame {
         this.setSize(470, 435);
         this.setLocationRelativeTo(null);
         this.jugador = jugador;
+        lblVidas.setText(""+jugador.getVidas());
         configurarBtnProgreso();
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+        if(backEsp.isVisible())
+        {
+            lblTituloVidas.setText(" Vidas");
+        }
+        else
+        {
+            lblTituloVidas.setText(" Lives");
+        }
     }
 
     public void actualizarInterfazIdioma() {
@@ -41,11 +52,13 @@ public class Niveles extends javax.swing.JFrame {
             back.setVisible(false);
             stats.setVisible(false);
             statsEsp.setVisible(true);
+            
         } else {
             back.setVisible(true);
             backEsp.setVisible(false);
             stats.setVisible(true);
             statsEsp.setVisible(false);
+            
         }
     }
 
@@ -84,82 +97,84 @@ public class Niveles extends javax.swing.JFrame {
         nivel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5.png"))); // NOI18N
         nivel5.addActionListener(this::nivel5ActionPerformed);
         getContentPane().add(nivel5);
-        nivel5.setBounds(370, 70, 80, 80);
+        nivel5.setBounds(370, 110, 80, 80);
 
         nivel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1.png"))); // NOI18N
         nivel1.addActionListener(this::nivel1ActionPerformed);
         getContentPane().add(nivel1);
-        nivel1.setBounds(10, 70, 80, 80);
+        nivel1.setBounds(10, 110, 80, 80);
 
         nivel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l2.png"))); // NOI18N
         nivel2.addActionListener(this::nivel2ActionPerformed);
         getContentPane().add(nivel2);
-        nivel2.setBounds(100, 70, 80, 80);
+        nivel2.setBounds(100, 110, 80, 80);
 
         nivel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l3.png"))); // NOI18N
         nivel3.addActionListener(this::nivel3ActionPerformed);
         getContentPane().add(nivel3);
-        nivel3.setBounds(190, 70, 80, 80);
+        nivel3.setBounds(190, 110, 80, 80);
 
         nivel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l4.png"))); // NOI18N
         nivel4.addActionListener(this::nivel4ActionPerformed);
         getContentPane().add(nivel4);
-        nivel4.setBounds(280, 70, 80, 80);
+        nivel4.setBounds(280, 110, 80, 80);
 
         nivelgris1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l1gris.png"))); // NOI18N
         nivelgris1.addActionListener(this::nivelgris1ActionPerformed);
         getContentPane().add(nivelgris1);
-        nivelgris1.setBounds(10, 70, 80, 80);
+        nivelgris1.setBounds(10, 110, 80, 80);
 
         nivelgris2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l2gris.png"))); // NOI18N
         nivelgris2.addActionListener(this::nivelgris2ActionPerformed);
         getContentPane().add(nivelgris2);
-        nivelgris2.setBounds(100, 70, 80, 80);
+        nivelgris2.setBounds(100, 110, 80, 80);
 
         nivelgris3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l3gris.png"))); // NOI18N
         nivelgris3.addActionListener(this::nivelgris3ActionPerformed);
         getContentPane().add(nivelgris3);
-        nivelgris3.setBounds(190, 70, 80, 80);
+        nivelgris3.setBounds(190, 110, 80, 80);
 
         nivelgris4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l4gris.png"))); // NOI18N
         nivelgris4.addActionListener(this::nivelgris4ActionPerformed);
         getContentPane().add(nivelgris4);
-        nivelgris4.setBounds(280, 70, 80, 80);
+        nivelgris4.setBounds(280, 110, 80, 80);
 
         nivelgris5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5gris.png"))); // NOI18N
         nivelgris5.addActionListener(this::nivelgris5ActionPerformed);
         getContentPane().add(nivelgris5);
-        nivelgris5.setBounds(370, 70, 80, 80);
+        nivelgris5.setBounds(370, 110, 80, 80);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(60, 250, 160, 60);
+        back.setBounds(60, 210, 160, 60);
 
         backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
         backEsp.addActionListener(this::backEspActionPerformed);
         getContentPane().add(backEsp);
-        backEsp.setBounds(60, 250, 160, 60);
+        backEsp.setBounds(60, 210, 160, 60);
 
         stats.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/stats.png"))); // NOI18N
         stats.addActionListener(this::statsActionPerformed);
         getContentPane().add(stats);
-        stats.setBounds(240, 250, 160, 60);
+        stats.setBounds(240, 210, 160, 60);
 
         statsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/statsesp.png"))); // NOI18N
         statsEsp.addActionListener(this::statsEspActionPerformed);
         getContentPane().add(statsEsp);
-        statsEsp.setBounds(240, 250, 160, 60);
+        statsEsp.setBounds(240, 210, 160, 60);
 
-        lblVidas.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lblVidas.setBackground(new java.awt.Color(122, 66, 0));
+        lblVidas.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblVidas.setForeground(new java.awt.Color(255, 255, 255));
         lblVidas.setText("jLabel2");
         getContentPane().add(lblVidas);
-        lblVidas.setBounds(370, 20, 70, 30);
+        lblVidas.setBounds(370, 20, 60, 30);
 
         lblTituloVidas.setBackground(new java.awt.Color(122, 66, 0));
         lblTituloVidas.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblTituloVidas.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloVidas.setText("jLabel2");
+        lblTituloVidas.setText(" jLabel2");
         lblTituloVidas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblTituloVidas.setOpaque(true);
         getContentPane().add(lblTituloVidas);
@@ -175,6 +190,7 @@ public class Niveles extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        jugador.setActivo(false);
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
@@ -235,6 +251,7 @@ public class Niveles extends javax.swing.JFrame {
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        jugador.setActivo(false);
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
@@ -294,6 +311,20 @@ public class Niveles extends javax.swing.JFrame {
             return;
         }
 
+        if(jugador.getVidas()<=0)
+        {
+            nivel1.setEnabled(false);
+            nivel2.setEnabled(false);
+            nivel3.setEnabled(false);
+            nivel4.setEnabled(false);
+            nivel5.setEnabled(false);
+            nivelgris1.setEnabled(false);
+            nivelgris2.setEnabled(false);
+            nivelgris3.setEnabled(false);
+            nivelgris4.setEnabled(false);
+            nivelgris5.setEnabled(false);
+
+        }
         int nivelDesbloqueado = jugador.getNivelPartidaActual();
 
         // Niveles activos (filas superiores del mapa)

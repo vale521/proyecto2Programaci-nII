@@ -59,7 +59,7 @@ public class FirstScreen implements Screen {
     private float mouseAnteriorY=-1;
     private LocalDateTime fechaInicioPartida;
     private LocalDateTime fechaFinalPartida;
-    private int cantFallos=0;
+    //private int cantFallos=0;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -251,8 +251,9 @@ public class FirstScreen implements Screen {
                 nivel.reiniciarNivel();
                 tiempoNivel=0;
                 pausado = false;
-                cantFallos++;
-                int vidasRestantes= Math.max(0,3-cantFallos);
+                //cantFallos++;
+                int vidasRestantes= jugador.getVidas()-1;
+                jugador.setVidas(vidasRestantes);
                 if(vidasRestantes<=0)
                 {
                     terminarPartidaPorDerrota();
@@ -332,7 +333,7 @@ public class FirstScreen implements Screen {
         ResultadoPartida resultadoPartida = new ResultadoPartida();
         resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
         resultadoPartida.setVictoria(false);
-        resultadoPartida.setFallos(cantFallos);
+        resultadoPartida.setFallos(3-jugador.getVidas());
         resultadoPartida.setVidasRestantes(0);
         resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
         resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
@@ -432,6 +433,22 @@ public class FirstScreen implements Screen {
         {
             System.out.println("sin cuerdas activas");
             nivel.getCaramelo().setLibre(true);
+            //para que pierda la vida cuando el caramelo tiene caida libre
+            if(nivel.getCaramelo().getY()<0 && nivelCompletado==false)
+            {
+                int vidasActuales= jugador.getVidas()-1;
+                jugador.setVidas(vidasActuales);
+                if(vidasActuales<=0)
+                {
+                    terminarPartidaPorDerrota();
+                }
+                else
+                {
+                    nivel.reiniciarNivel();
+                    tiempoNivel=0;
+                }
+                return;
+            }
         }
     }
     private float distanciaPuntoLinea(float px, float py, float x1, float y1, float x2, float y2)
@@ -521,8 +538,8 @@ public class FirstScreen implements Screen {
                 ResultadoPartida resultadoPartida= new ResultadoPartida();
                 resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
                 resultadoPartida.setVictoria(true);
-                resultadoPartida.setFallos(cantFallos);
-                resultadoPartida.setVidasRestantes(Math.max(0, 3-cantFallos));
+                resultadoPartida.setFallos(3-jugador.getVidas());
+                resultadoPartida.setVidasRestantes(jugador.getVidas());
                 resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
                 resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
                 resultadoPartida.setCantidadEstrellasRecolectadas(caramelo.getEstrellasRecolectadas());
@@ -632,8 +649,7 @@ public class FirstScreen implements Screen {
         batch.draw(texturaBtnReiniciar, xBtnReiniciar, yBtnReiniciar, anchoBtn, altoBtn);
         batch.draw(texturaBtnPausar, xBtnPausar, yBtnPausar, anchoBtn, altoBtn);
         batch.draw(texturabtnMenu, xBtnMenu, yBtnMenu, anchoBtn, altoBtn);
-        int vidas= Math.max(0,3-cantFallos);
-        font.draw(batch, "Vidas/Lives: "+vidas, 20,70);
+        font.draw(batch, "Vidas/Lives: "+jugador.getVidas(), 20,70);
         font.draw(batch, "Tiempo/Time: "+(int) tiempoNivel +" s", 20, 50);
         batch.end();
     }

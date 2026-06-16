@@ -37,7 +37,7 @@ public class Jugador implements Serializable {//clase USUARIO
     private Duration tiempoTotal;
     private ArrayList<ResultadoPartida> historial; //PARTIDAS JUGADAS
     private boolean activo;
-
+    private int vidas=3;
     public Jugador() {
         this.puntajes=new PuntajeNivel[5];
         this.historial= new ArrayList<>();
@@ -266,5 +266,13 @@ public class Jugador implements Serializable {//clase USUARIO
             }
         }
         return maximo;
+    }
+
+    public int getVidas() {
+        return vidas;
+    }
+
+    public void setVidas(int vidas) {
+        this.vidas = vidas;
     }
 }

@@ -116,7 +116,8 @@ public class Login extends javax.swing.JFrame {
             new IncorrectPass().setVisible(true);
             return;
         }
-
+        jugador.setVidas(3);
+        jugador.setActivo(true);
         UsuarioGuardado mensaje = new UsuarioGuardado(jugador);
         mensaje.setVisible(true);
         
