@@ -1,13 +1,15 @@
 package juego;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PartidaProgreso implements Serializable {
     private int nivelActual;
     private int estrellasRecolectadas;
     private float tiempoTranscurridoSegundos;
     private boolean hayPartidaGuardada;
-
+    private ArrayList<Boolean> estadoCuerdasCortadas;
+    private ArrayList<Boolean> estadoEstrellasRecolectadas;
 
     public PartidaProgreso(int nivelActual, int estrellasRecolectadas, float tiempoTranscurridoSegundos)
     {
@@ -24,6 +26,7 @@ public class PartidaProgreso implements Serializable {
         this.tiempoTranscurridoSegundos = 0;
         this.hayPartidaGuardada = false;
     }
+
 
     public int getEstrellasRecolectadas()
     {
@@ -63,5 +66,21 @@ public class PartidaProgreso implements Serializable {
     public void setHayPartidaGuardada(boolean hayPartidaGuardada)
     {
         this.hayPartidaGuardada = hayPartidaGuardada;
+    }
+
+    public ArrayList<Boolean> getEstadoCuerdasCortadas() {
+        return estadoCuerdasCortadas;
+    }
+
+    public void setEstadoCuerdasCortadas(ArrayList<Boolean> estadoCuerdasCortadas) {
+        this.estadoCuerdasCortadas = estadoCuerdasCortadas;
+    }
+
+    public ArrayList<Boolean> getEstadoEstrellasRecolectadas() {
+        return estadoEstrellasRecolectadas;
+    }
+
+    public void setEstadoEstrellasRecolectadas(ArrayList<Boolean> estadoEstrellasRecolectadas) {
+        this.estadoEstrellasRecolectadas = estadoEstrellasRecolectadas;
     }
 }

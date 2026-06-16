@@ -95,7 +95,9 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -130,10 +132,35 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
+        InicioJuego inicio = new InicioJuego();
+        this.dispose();
+        inicio.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
         // TODO add your handling code here:
+        String user = username.getText().trim();
+        String passw = pass.getText().trim();
+
+        if (user.isEmpty() || passw.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos");
+            return;
+        }
+
+        PersistenciaJugador persistencia = new PersistenciaJugador();
+
+        if (persistencia.existeJugador(user)) {
+            JOptionPane.showMessageDialog(this, "El usuario ya existe");
+            return;
+        }
+
+        Jugador jugador = new Jugador(user, user, passw, null);
+
+        persistencia.guardarJugador(jugador);
+
+        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
+        this.dispose();
+        new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneEspActionPerformed
 
     /**

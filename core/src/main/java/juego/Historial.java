@@ -4,6 +4,8 @@
  */
 package juego;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author admin
@@ -11,7 +13,7 @@ package juego;
 public class Historial extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Historial.class.getName());
-
+    private Jugador jugador;
     /**
      * Creates new form Historial
      */
@@ -24,16 +26,74 @@ public class Historial extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
+    public Historial(Jugador jugador) {
+        initComponents();
+
+        this.setSize(700, 500);
+        this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+        this.jugador= jugador;
+        cargarHistorial();
+    }
     public void actualizarInterfazIdioma() {
-        if (Idioma.isEspanol()) {
+        if (Idioma.isEspanol())
+        {
             backEsp.setVisible(true);
             back.setVisible(false);
-        } else {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("FECHA");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("HORA");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("NIVEL");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("PUNTACION");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("TIEMPO JUGADO");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("VIDAS PERDIDAS");
+            jTable1.getColumnModel().getColumn(6).setHeaderValue("FALLOS");
+            jTable1.getColumnModel().getColumn(7).setHeaderValue("ESTADO");
+        }
+        else
+        {
             back.setVisible(true);
             backEsp.setVisible(false);
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("DATE");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("TIME");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("LEVEL");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("SCORE");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("TIME PLAY");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("LIVES LOST");
+            jTable1.getColumnModel().getColumn(6).setHeaderValue("MISTAKES");
+            jTable1.getColumnModel().getColumn(7).setHeaderValue("STATUS");
         }
+        jTable1.getTableHeader().repaint();
     }
 
+    public void cargarHistorial()
+    {
+        DefaultTableModel modelo =(DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0);
+        for(ResultadoPartida partida: jugador.getHistorialPartidas())
+        {
+            String fecha="";
+            String hora="";
+            if(partida.getFechaHoraInicioPartida()!=null)
+            {
+                fecha= partida.getFechaHoraInicioPartida().toLocalDate().toString();
+                hora= partida.getFechaHoraInicioPartida().toLocalTime().toString();
+            }
+            else if(partida.getFecha()!=null)
+            {
+                fecha= partida.getFecha().toLocalDate().toString();
+                hora= partida.getFecha().toLocalTime().toString();
+            }
+
+            int nivel= partida.getNivelAlcanzado();
+            int puntacion= partida.getCantidadEstrellasRecolectadas()*100;
+            String tiempo= String.format("%.0f seg", partida.getTiempoSegundos());
+            int vidasPerdidas= 3-partida.getVidasRestantes();
+            int fallos= partida.getFallos();
+            String estado= partida.isVictoria()? "VICTORIA": "DERROTA";
+            modelo.addRow(new Object[]{fecha, hora, nivel, puntacion, tiempo, vidasPerdidas, fallos, estado});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,14 +166,14 @@ public class Historial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Rankings rankings = new Rankings();
+        Rankings rankings = new Rankings(jugador);
         rankings.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
-        Rankings rankings = new Rankings();
+        Rankings rankings = new Rankings(jugador);
         rankings.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backEspActionPerformed
@@ -125,7 +185,7 @@ public class Historial extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

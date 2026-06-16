@@ -66,15 +66,11 @@ public class IncorrectPass extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     /**

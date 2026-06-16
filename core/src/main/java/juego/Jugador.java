@@ -37,7 +37,7 @@ public class Jugador implements Serializable {//clase USUARIO
     private Duration tiempoTotal;
     private ArrayList<ResultadoPartida> historial; //PARTIDAS JUGADAS
     private boolean activo;
-
+    private int vidas=3;
     public Jugador() {
         this.puntajes=new PuntajeNivel[5];
         this.historial= new ArrayList<>();
@@ -221,8 +221,58 @@ public class Jugador implements Serializable {//clase USUARIO
     }
     @Override
     public String toString() {
-        return "Jugador{username='" + username + "', nombreCompleto='" + nombreCompleto + 
-               "', fechaRegistro=" + fechaRegistro + ", nivelActual=" + nivelPartidaActual + 
+        return "Jugador{username='" + username + "', nombreCompleto='" + nombreCompleto +
+               "', fechaRegistro=" + fechaRegistro + ", nivelActual=" + nivelPartidaActual +
                ", puntajeGeneral=" + puntajeGeneral + ", activo=" + activo + "}";
+    }
+
+    public int getCntidadPartidas()
+    {
+        return historial.size();
+    }
+
+    public float getTiempoPromedio()
+    {
+        if(historial.isEmpty())
+        {
+            return 0;
+        }
+        float suma=0;
+        for (ResultadoPartida partida: historial)
+        {
+            suma+=partida.getTiempoSegundos();
+        }
+        return suma/historial.size();
+    }
+
+    public int calcularPuntajeTotal()
+    {
+        int total=0;
+        for (ResultadoPartida partida: historial)
+        {
+            total+= partida.getPuntajeObtenido()*100;
+        }
+        return total;
+    }
+
+    public int getNivelesCompletados()
+    {
+        int maximo=0;
+        for (ResultadoPartida partida: historial)
+        {
+            if(partida.isVictoria())
+            {
+                maximo= Math.max(maximo, partida.getNivelAlcanzado());
+            }
+        }
+        return maximo;
+    }
+
+    public int getVidas() {
+        return vidas;
+    }
+
+    public void setVidas(int vidas) {
+        this.vidas = vidas;
     }
 }

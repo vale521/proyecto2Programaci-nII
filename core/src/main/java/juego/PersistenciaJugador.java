@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
 public class PersistenciaJugador {
     private final File carpetaUsuarios;
 
@@ -158,5 +160,29 @@ public class PersistenciaJugador {
         {
             archivo.delete();
         }
+    }
+
+    public ArrayList<Jugador> obtenerTodosJugadores()
+    {
+        ArrayList<Jugador> jugadores = new ArrayList<>();
+        File[] carpetas= carpetaUsuarios.listFiles();
+        if(carpetas==null)
+        {
+            return jugadores;
+        }
+        System.out.println("Carpetas encontradas: ");
+        for(File carpeta: carpetas)
+        {
+            if(carpeta.isDirectory())
+            {
+                Jugador jugador= cargarJugador(carpeta.getName());
+                if(jugador!=null)
+                {
+                    jugadores.add(jugador);
+                    System.out.println("cargado -> "+jugador.getUsername());
+                }
+            }
+        }
+        return jugadores;
     }
 }
