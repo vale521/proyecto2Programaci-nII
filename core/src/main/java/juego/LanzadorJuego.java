@@ -8,6 +8,6 @@ package juego;
  *
  * @author valer
  */
-public interface LanzadorNivel {
-    void lanzarNivel(Jugador jugador, int numeroNivel);
+public interface LanzadorJuego {
+    void lanzar(Jugador jugador, int numeroNivel);
 }

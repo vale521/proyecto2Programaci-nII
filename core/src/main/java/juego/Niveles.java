@@ -14,7 +14,6 @@ public class Niveles extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Niveles.class.getName());
     private Jugador jugador;
-    private LanzadorNivel lanzador;
     /**
      * Creates new form Niveles
      */
@@ -27,10 +26,15 @@ public class Niveles extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
-    public void setLanzador(LanzadorNivel lanzador)
-    {
-        this.lanzador=lanzador;
+    public Niveles(Jugador jugador) {
+        initComponents();
+
+        this.setSize(470, 435);
+        this.setLocationRelativeTo(null);
+        this.jugador = jugador;
+        configurarBtnProgreso();
     }
+
     public void actualizarInterfazIdioma() {
         if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
@@ -45,14 +49,7 @@ public class Niveles extends javax.swing.JFrame {
         }
     }
 
-    public Niveles(Jugador jugador) {
-        initComponents();
 
-        this.setSize(470, 435);
-        this.setLocationRelativeTo(null);
-        this.jugador = jugador;
-        configurarBtnProgreso();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -234,7 +231,7 @@ public class Niveles extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -296,23 +293,24 @@ public class Niveles extends javax.swing.JFrame {
 
     private void abrirNivel(int numeroNivel) {
         if (jugador == null) {
+            System.out.println("ERROE: NO HAY JUGADOR ACTIVO");
             return;
         }
         GestorNiveles gestor = new GestorNiveles(jugador);
-        if (numeroNivel > gestor.getNiveles().size()) 
+        if (numeroNivel > gestor.getNiveles().size())
         {
             javax.swing.JOptionPane.showMessageDialog(this,"Nivel no disponible aún.");
             return;
         }
         System.out.println("Entrando al nivel " + numeroNivel+ " | Jugador: " + jugador.toString());
+        LanzadorJuego lanzador= AppContext.getLanzador();
+        if(lanzador == null)
+        {
+            System.out.println("ERRRRRRRRRRRRROR");
+            return;
+        }
+
         this.dispose();
-        if(lanzador!=null)
-        {
-            lanzador.lanzarNivel(jugador, numeroNivel);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "ERROR: lanzador no configurado");
-        }
+        lanzador.lanzar(jugador, numeroNivel);
     }
 }
