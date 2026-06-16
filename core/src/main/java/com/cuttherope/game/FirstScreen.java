@@ -59,6 +59,7 @@ public class FirstScreen implements Screen {
     private float mouseAnteriorY=-1;
     private LocalDateTime fechaInicioPartida;
     private LocalDateTime fechaFinalPartida;
+    private int cantFallos=0;
     public FirstScreen(MainGame game) {
         this.game = game;
         this.shape = new ShapeRenderer();
@@ -250,6 +251,13 @@ public class FirstScreen implements Screen {
                 nivel.reiniciarNivel();
                 tiempoNivel=0;
                 pausado = false;
+                cantFallos++;
+                int vidasRestantes= Math.max(0,3-cantFallos);
+                if(vidasRestantes<=0)
+                {
+                    terminarPartidaPorDerrota();
+                    return;
+                }
                 return;
             }
             if (mouseX >= xBtnMenu && (mouseX <= xBtnMenu + anchoBtn) && mouseY >= yBtnMenu && (mouseY <= yBtnMenu + altoBtn))
@@ -318,6 +326,30 @@ public class FirstScreen implements Screen {
         verificarOmNom();
     }
 
+    private void terminarPartidaPorDerrota()
+    {
+        fechaFinalPartida = LocalDateTime.now();
+        ResultadoPartida resultadoPartida = new ResultadoPartida();
+        resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
+        resultadoPartida.setVictoria(false);
+        resultadoPartida.setFallos(cantFallos);
+        resultadoPartida.setVidasRestantes(0);
+        resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
+        resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
+        resultadoPartida.setCantidadEstrellasRecolectadas(nivel.getCaramelo().getEstrellasRecolectadas());
+        resultadoPartida.setTiempoSegundos(tiempoNivel);
+        jugador.agregarResultado(resultadoPartida);
+        PersistenciaPartidas persistenciaPartidas = new PersistenciaPartidas();
+        persistenciaPartidas.agregarPartida(jugador.getUsername(), resultadoPartida);
+        persistenciaJugador.guardarJugador(jugador);
+        persistenciaJugador.borrarProgreso(jugador.getUsername());
+
+        // Volvemos a la pantalla de Niveles original
+        Gdx.app.postRunnable(() -> {
+            new Niveles(jugador).setVisible(true);
+        });
+        Gdx.app.exit();
+    }
     private void guardarProgresoActual()
     {
         String username= jugador.getUsername();
@@ -485,13 +517,17 @@ public class FirstScreen implements Screen {
 //            }
             if(nivel.verificarVictoria()==true && nivelCompletado==false)
             {
+                fechaFinalPartida = LocalDateTime.now();
                 ResultadoPartida resultadoPartida= new ResultadoPartida();
+                resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
+                resultadoPartida.setVictoria(true);
+                resultadoPartida.setFallos(cantFallos);
+                resultadoPartida.setVidasRestantes(Math.max(0, 3-cantFallos));
                 resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
                 resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
-                resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
                 resultadoPartida.setCantidadEstrellasRecolectadas(caramelo.getEstrellasRecolectadas());
                 resultadoPartida.setTiempoSegundos(tiempoNivel);
-                resultadoPartida.setVictoria(true);
+
                 jugador.agregarResultado(resultadoPartida);
                 //cambie esto para que agregue el archivo con ayuda de la clase PersistenciaPartidas
                 PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
@@ -501,8 +537,8 @@ public class FirstScreen implements Screen {
                 if(jugador.getNivelPartidaActual()<= nivel.getNumeroNivel())
                 {
                     jugador.setNivelPartidaActual(nivel.getNumeroNivel()+1);
-                    persistenciaJugador.guardarJugador(jugador);
                 }
+                persistenciaJugador.guardarJugador(jugador);
                 nivelCompletado=true;
                 tiempoVictoria=1f;
             }
@@ -596,7 +632,9 @@ public class FirstScreen implements Screen {
         batch.draw(texturaBtnReiniciar, xBtnReiniciar, yBtnReiniciar, anchoBtn, altoBtn);
         batch.draw(texturaBtnPausar, xBtnPausar, yBtnPausar, anchoBtn, altoBtn);
         batch.draw(texturabtnMenu, xBtnMenu, yBtnMenu, anchoBtn, altoBtn);
-        font.draw(batch, "Tiempo: "+(int) tiempoNivel +" s", 20, 50);
+        int vidas= Math.max(0,3-cantFallos);
+        font.draw(batch, "Vidas/Lives: "+vidas, 20,70);
+        font.draw(batch, "Tiempo/Time: "+(int) tiempoNivel +" s", 20, 50);
         batch.end();
     }
     @Override

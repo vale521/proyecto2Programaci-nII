@@ -250,7 +250,7 @@ public class Jugador implements Serializable {//clase USUARIO
         int total=0;
         for (ResultadoPartida partida: historial)
         {
-            total+= partida.getPuntajeObtenido();
+            total+= partida.getPuntajeObtenido()*100;
         }
         return total;
     }

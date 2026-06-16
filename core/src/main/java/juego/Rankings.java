@@ -60,19 +60,92 @@ public class Rankings extends javax.swing.JFrame {
     }
 
     public void actualizarInterfazIdioma() {
-        if (Idioma.isEspanol()) {
+        if (Idioma.isEspanol())
+        {
             backEsp.setVisible(true);
             back.setVisible(false);
-        } else {
+            jTabbedPane1.setTitleAt(0, "Ranking Global");
+            jTabbedPane1.setTitleAt(1, "Amigos");
+            jTabbedPane1.setTitleAt(2, "Mi Ranking");
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("Posición");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Jugador");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Tiempo Jugado");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Niveles");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Tiempo Prom.");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("Puntaje");
+            jTable4.getColumnModel().getColumn(0).setHeaderValue("Posición");
+            jTable4.getColumnModel().getColumn(1).setHeaderValue("Jugador");
+            jTable4.getColumnModel().getColumn(2).setHeaderValue("Tiempo Jugado");
+            jTable4.getColumnModel().getColumn(3).setHeaderValue("Niveles");
+            jTable4.getColumnModel().getColumn(4).setHeaderValue("Tiempo Prom.");
+            jTable4.getColumnModel().getColumn(5).setHeaderValue("Puntaje");
+            lblTituloDescripcion.setText("DESCRIPCIÓN");
+            lblTituloDatos.setText("DATOS");
+            lblTituloCantPartidas.setText("Cantidad de Partidas");
+            lblTituloNivelesCompletados.setText("Niveles Completados");
+            lblTituloTiempoPromedio.setText("Tiempo Promedio");
+            lblTituloFechaRegistro.setText("Fecha de Registro");
+            lblTituloPuntajeTotal.setText("Puntaje Total");
+            lblTituloTiempoTotal.setText("Tiempo Total");
+            lblTituloAct.setText("ACTIVIDAD DE SESIONES RECIENTES");
+            jTable2.getColumnModel().getColumn(0).setHeaderValue("Fecha");
+            jTable2.getColumnModel().getColumn(1).setHeaderValue("Duración");
+            jTable2.getColumnModel().getColumn(2).setHeaderValue("Logros");
+            jTable2.getColumnModel().getColumn(3).setHeaderValue("Vidas");
+            btnAgregarAmigos1.setText("Agregar Amigo");
+        }
+        else
+        {
             back.setVisible(true);
             backEsp.setVisible(false);
+            jTabbedPane1.setTitleAt(0, "Global Ranking");
+            jTabbedPane1.setTitleAt(1, "Friends");
+            jTabbedPane1.setTitleAt(2, "My Ranking");
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("PLACE");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("PLAYER");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("TIME PLAYED");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("COMPLETED LEVELS");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("AVERANGE TIME");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("TOTAL SCORE");
+            jTable4.getColumnModel().getColumn(0).setHeaderValue("PLACE");
+            jTable4.getColumnModel().getColumn(1).setHeaderValue("PLAYER");
+            jTable4.getColumnModel().getColumn(2).setHeaderValue("TIME PLAYED");
+            jTable4.getColumnModel().getColumn(3).setHeaderValue("COMPLETED LEVELS");
+            jTable4.getColumnModel().getColumn(4).setHeaderValue("AVERANGE TIME");
+            jTable4.getColumnModel().getColumn(5).setHeaderValue("TOTAL SCORE");
+            lblTituloDescripcion.setText("DESCRIPTION");
+            lblTituloDatos.setText("DATA");
+            lblTituloCantPartidas.setText("Games Played");
+            lblTituloNivelesCompletados.setText("Completed Levels");
+            lblTituloTiempoPromedio.setText("Average Time");
+            lblTituloFechaRegistro.setText("Registration Date");
+            lblTituloPuntajeTotal.setText("Total Score");
+            lblTituloTiempoTotal.setText("Total Time");
+            lblTituloAct.setText("RECENT SESSION ACTIVITY");
+            jTable2.getColumnModel().getColumn(0).setHeaderValue("Date");
+            jTable2.getColumnModel().getColumn(1).setHeaderValue("Duration");
+            jTable2.getColumnModel().getColumn(2).setHeaderValue("Achivements");
+            jTable2.getColumnModel().getColumn(3).setHeaderValue("Lives");
+            btnAgregarAmigos1.setText("Add Friends");
         }
+        jTable1.getTableHeader().repaint();
+        jTable2.getTableHeader().repaint();
+        jTable4.getTableHeader().repaint();
     }
 
     public void cargarRankingGlobal()
     {
         PersistenciaJugador persitenciaJugador=new PersistenciaJugador();
         ArrayList<Jugador> jugadores= persitenciaJugador.obtenerTodosJugadores();
+        PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
+        for (Jugador jugador : jugadores) 
+        {
+            ArrayList<ResultadoPartida> partidas= persistenciaPartidas.obtenerPartidas(jugador.getUsername());
+            for (ResultadoPartida partida : partidas) 
+            {
+                jugador.agregarResultado(partida);
+            }
+        }
         //para ordenar en orden de puntaje
         jugadores.sort((a, b) -> Integer.compare(b.calcularPuntajeTotal(), a.calcularPuntajeTotal()));
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -91,8 +164,18 @@ public class Rankings extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable4.getModel();
         modelo.setRowCount(0);
         ArrayList<Jugador> amigos= new ArrayList<>();
-        //para ordenar en orden de puntaje
+        PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
         amigos.addAll(jugador.getAmigos());
+        for (Jugador amigo : amigos) 
+        {
+            ArrayList<ResultadoPartida> partidas= persistenciaPartidas.obtenerPartidas(amigo.getUsername());
+            for (ResultadoPartida partida : partidas) 
+            {
+                amigo.agregarResultado(partida);
+            }
+        }
+        //para ordenar en orden de puntaje
+        
         amigos.sort((a, b) -> Integer.compare(b.calcularPuntajeTotal(), a.calcularPuntajeTotal()));
         int posicion=1;
         for(Jugador amigo: amigos)
@@ -106,7 +189,7 @@ public class Rankings extends javax.swing.JFrame {
     public void cargarMiRanking()
     {
         lblCantPartidas.setText(String.valueOf(jugador.getCntidadPartidas()));
-        lblNivelesCompletados.setText(String.valueOf(jugador));
+        lblNivelesCompletados.setText(String.valueOf(jugador.getNivelesCompletados()));
         lblTiempoPromedio.setText(String.format("%.2f seg", jugador.getTiempoPromedio()));
         lblFechaRegistro.setText(jugador.getFechaRegistro().toLocalDate().toString());
         lblPuntajeTotal.setText(String.valueOf(jugador.calcularPuntajeTotal()));
@@ -122,9 +205,13 @@ public class Rankings extends javax.swing.JFrame {
         for(int i = historial.size() - 1; i >= inicio; i--) {
             ResultadoPartida partida = historial.get(i);
             String fecha;
-            if(partida.getFechaHoraInicioPartida().toLocalDate().toString()!=null)
+            if(partida.getFechaHoraInicioPartida()!=null)
             {
                 fecha= partida.getFechaHoraInicioPartida().toLocalDate().toString();
+            }
+            else if(partida.getFecha()!=null)
+            {
+                fecha=partida.getFecha().toLocalDate().toString();
             }
             else
             {
@@ -135,6 +222,12 @@ public class Rankings extends javax.swing.JFrame {
             if(partida.getFechaHoraInicioPartida() != null && partida.getFechaHoraFinalPartida() != null)
             {
                 duracion = partida.getTiempoPartida().toMinutes() + " min";
+            }
+            else if(partida.getTiempoSegundos()>0)
+            {
+                int minutos=(int)(partida.getTiempoSegundos()/60);
+                int segundos= (int)(partida.getTiempoSegundos()%60);
+                duracion= minutos+" mins "+segundos+" segs";
             }
             else
             {

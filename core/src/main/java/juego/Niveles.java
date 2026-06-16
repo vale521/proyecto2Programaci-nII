@@ -74,6 +74,8 @@ public class Niveles extends javax.swing.JFrame {
         backEsp = new javax.swing.JButton();
         stats = new javax.swing.JButton();
         statsEsp = new javax.swing.JButton();
+        lblVidas = new javax.swing.JLabel();
+        lblTituloVidas = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,6 +150,20 @@ public class Niveles extends javax.swing.JFrame {
         statsEsp.addActionListener(this::statsEspActionPerformed);
         getContentPane().add(statsEsp);
         statsEsp.setBounds(240, 250, 160, 60);
+
+        lblVidas.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lblVidas.setText("jLabel2");
+        getContentPane().add(lblVidas);
+        lblVidas.setBounds(370, 20, 70, 30);
+
+        lblTituloVidas.setBackground(new java.awt.Color(122, 66, 0));
+        lblTituloVidas.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblTituloVidas.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloVidas.setText("jLabel2");
+        lblTituloVidas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblTituloVidas.setOpaque(true);
+        getContentPane().add(lblTituloVidas);
+        lblTituloVidas.setBounds(290, 20, 150, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/niveles.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -224,6 +240,8 @@ public class Niveles extends javax.swing.JFrame {
 
     private void statsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsEspActionPerformed
         // TODO add your handling code here:
+        Rankings rank = new Rankings(jugador);
+        rank.setVisible(true);
     }//GEN-LAST:event_statsEspActionPerformed
 
     /**
@@ -255,6 +273,8 @@ public class Niveles extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblTituloVidas;
+    private javax.swing.JLabel lblVidas;
     private javax.swing.JButton nivel1;
     private javax.swing.JButton nivel2;
     private javax.swing.JButton nivel3;
