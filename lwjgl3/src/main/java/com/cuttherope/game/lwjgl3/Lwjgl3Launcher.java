@@ -1,5 +1,6 @@
 package com.cuttherope.game.lwjgl3;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.cuttherope.game.MainGame;
@@ -14,9 +15,20 @@ public class Lwjgl3Launcher {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         //createApplication();
         AppContext.registrarLanzador((Jugador jugador, int numeroNivel) -> {
-            new Thread(() -> {
-                new Lwjgl3Application(new MainGame(jugador, numeroNivel), getDefaultConfiguration());
-            }, "LibGDX-Thread").start();
+            MainGame gameActivo= AppContext.getMainGameActivo();
+            if(gameActivo!= null)
+            {
+                Gdx.app.postRunnable(() -> {
+                    gameActivo.cambiarNivel(jugador, numeroNivel);
+                });
+            }
+            else
+            {
+                new Thread(() -> {
+                    Lwjgl3Application nuevaApp= new Lwjgl3Application(new MainGame(jugador, numeroNivel), getDefaultConfiguration());
+                    AppContext.limpiar();
+                }, "LibGDX-Thread").start();
+            }
         });
 
         SwingUtilities.invokeLater(() -> {

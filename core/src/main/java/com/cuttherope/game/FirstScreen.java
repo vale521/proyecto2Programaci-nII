@@ -433,18 +433,12 @@ public class FirstScreen implements Screen {
         persistenciaPartidas.agregarPartida(jugador.getUsername(), resultadoPartida);
         persistenciaJugador.guardarJugador(jugador);
         persistenciaJugador.borrarProgreso(jugador.getUsername());
-
+        cerrandoJuego=true;
         // Volvemos a la pantalla de Niveles original
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run()
-            {
-                javax.swing.SwingUtilities.invokeLater(() ->{
-                    new Niveles(jugador).setVisible(true);
-                });
-                Gdx.app.exit();
-            }
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new Niveles(jugador).setVisible(true);
         });
+        Gdx.app.exit();
 
     }
     private void guardarProgresoActual()
@@ -540,13 +534,13 @@ public class FirstScreen implements Screen {
             if(tiempoVictoria<=0 && cerrandoJuego==false)
             {
                 cerrandoJuego=true;
-                nivelCompletado=false;
+                //nivelCompletado=false;
                 javax.swing.SwingUtilities.invokeLater(() ->{
                     new Niveles(jugador).setVisible(true);
                 });
-                Gdx.app.postRunnable(() -> {
-                    Gdx.app.exit();
-                });
+//                Gdx.app.postRunnable(() -> {
+//                    Gdx.app.exit();
+//                });
 
             }
             return;

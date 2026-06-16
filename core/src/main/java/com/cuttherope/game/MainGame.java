@@ -1,13 +1,14 @@
 package com.cuttherope.game;
 
 import com.badlogic.gdx.Game;
+import juego.AppContext;
 import juego.Jugador;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class MainGame extends Game {
 //
-    private final Jugador jugador;
-    private final int nivelSeleccionado;
+    private Jugador jugador;
+    private int nivelSeleccionado;
 //    public static Jugador jugadorPendiente =null;
 //    public static int nivelPendiente=1;
     public MainGame() {
@@ -23,6 +24,7 @@ public class MainGame extends Game {
     @Override
     public void create()//hola valeria
     {
+        AppContext.registrarMainGame(this);
         if(jugador!=null)
         {
              setScreen(new FirstScreen(jugador, this, nivelSeleccionado));
@@ -35,5 +37,19 @@ public class MainGame extends Game {
         {
             setScreen(new FirstScreen(this));
         }
+    }
+
+    public void cambiarNivel(Jugador jugador, int numeroNivel)
+    {
+        this.jugador= jugador;
+        this.nivelSeleccionado= numeroNivel;
+        setScreen(new FirstScreen(jugador, this, numeroNivel));
+
+    }
+    @Override
+    public void dispose()
+    {
+        AppContext.limpiar();
+        super.dispose();
     }
 }
