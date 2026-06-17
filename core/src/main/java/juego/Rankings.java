@@ -280,6 +280,7 @@ public class Rankings extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historial.png"))); // NOI18N
@@ -338,7 +339,7 @@ public class Rankings extends javax.swing.JFrame {
         btnAgregarAmigos1.setText("AgregarAmigo");
         btnAgregarAmigos1.addActionListener(this::btnAgregarAmigos1ActionPerformed);
         jPanel1.add(btnAgregarAmigos1);
-        btnAgregarAmigos1.setBounds(10, 290, 570, 27);
+        btnAgregarAmigos1.setBounds(10, 290, 570, 23);
 
         jTabbedPane1.addTab("Global Ranking", jPanel1);
 

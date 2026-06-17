@@ -50,6 +50,7 @@ public class IncorrectPass extends javax.swing.JFrame {
         jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N

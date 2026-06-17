@@ -36,6 +36,7 @@ public class Perder extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         niveles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/10.png"))); // NOI18N

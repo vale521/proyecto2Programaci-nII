@@ -62,6 +62,7 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         done.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N

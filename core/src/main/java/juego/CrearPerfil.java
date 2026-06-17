@@ -34,6 +34,8 @@ public class CrearPerfil extends javax.swing.JFrame {
             done.setVisible(false);
             jLabel1.setVisible(false);
             jLabelEsp.setVisible(true);
+            fotoDeperfilEsp.setVisible(true);
+            fotoDeperfil.setVisible(false);
         } else {
             back.setVisible(true);
             done.setVisible(true);
@@ -41,6 +43,8 @@ public class CrearPerfil extends javax.swing.JFrame {
             doneEsp.setVisible(false);
             jLabel1.setVisible(true);
             jLabelEsp.setVisible(false);
+            fotoDeperfil.setVisible(true);
+            fotoDeperfilEsp.setVisible(false);
         }
     }
 
@@ -53,23 +57,43 @@ public class CrearPerfil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pass = new javax.swing.JTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         username = new javax.swing.JTextField();
+        fotoDeperfil = new javax.swing.JButton();
+        fotoDeperfilEsp = new javax.swing.JButton();
+        aviso = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         done = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         doneEsp = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
+        verPass = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
-        getContentPane().add(pass);
-        pass.setBounds(150, 210, 180, 22);
 
         username.addActionListener(this::usernameActionPerformed);
         getContentPane().add(username);
         username.setBounds(150, 120, 180, 22);
+
+        fotoDeperfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfp.png"))); // NOI18N
+        fotoDeperfil.addActionListener(this::fotoDeperfilActionPerformed);
+        getContentPane().add(fotoDeperfil);
+        fotoDeperfil.setBounds(10, 10, 110, 30);
+
+        fotoDeperfilEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfpesp.png"))); // NOI18N
+        fotoDeperfilEsp.addActionListener(this::fotoDeperfilEspActionPerformed);
+        getContentPane().add(fotoDeperfilEsp);
+        fotoDeperfilEsp.setBounds(10, 10, 150, 30);
+
+        aviso.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        aviso.setForeground(new java.awt.Color(255, 0, 51));
+        aviso.setText("aviso");
+        getContentPane().add(aviso);
+        aviso.setBounds(100, 230, 270, 16);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -90,6 +114,16 @@ public class CrearPerfil extends javax.swing.JFrame {
         doneEsp.addActionListener(this::doneEspActionPerformed);
         getContentPane().add(doneEsp);
         doneEsp.setBounds(140, 250, 90, 30);
+        getContentPane().add(password);
+        password.setBounds(150, 210, 180, 22);
+
+        verPass.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        verPass.setForeground(new java.awt.Color(255, 255, 255));
+        verPass.setText("Ver contraseña");
+        verPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        verPass.addActionListener(this::verPassActionPerformed);
+        getContentPane().add(verPass);
+        verPass.setBounds(330, 210, 120, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/login.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -116,26 +150,49 @@ public class CrearPerfil extends javax.swing.JFrame {
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
         String user = username.getText().trim();
-        String passw = pass.getText().trim();
+        String passw = password.getText().trim();
+        aviso.setText("");
 
         if (user.isEmpty() || passw.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos");
+            aviso.setText("Complete todos los campos.");
+            return;
+        }
+
+        if (!passw.matches(".*[A-Z].*")) {
+            aviso.setText("Debe incluir al menos una letra mayúscula.");
+            return;
+        }
+
+        if (!passw.matches(".*[a-z].*")) {
+            aviso.setText("Debe incluir al menos una letra minúscula.");
+            return;
+        }
+
+        if (!passw.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>/?\\\\|].*")) {
+            aviso.setText("Debe incluir al menos un carácter especial.");
+            return;
+        }
+        if (!passw.matches(".*\\d.*")) {
+            aviso.setText("Debe incluir al menos un número.");
             return;
         }
 
         PersistenciaJugador persistencia = new PersistenciaJugador();
 
         if (persistencia.existeJugador(user)) {
-            JOptionPane.showMessageDialog(this, "El usuario ya existe");
+            aviso.setText("El usuario ya existe en el sistema.");
             return;
         }
+
+        aviso.setText("");
 
         Jugador jugador = new Jugador(user, user, passw, null);
 
         persistencia.guardarJugador(jugador);
 
-        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
         this.dispose();
+        UsuarioGuardado usuarioGuardado = new UsuarioGuardado();
+        usuarioGuardado.setVisible(true);
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
@@ -149,28 +206,68 @@ public class CrearPerfil extends javax.swing.JFrame {
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
         // TODO add your handling code here:
         String user = username.getText().trim();
-        String passw = pass.getText().trim();
+        String passw = password.getText().trim();
+        aviso.setText("");
 
         if (user.isEmpty() || passw.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete todos los campos");
+            aviso.setText("Complete todos los campos.");
+            return;
+        }
+
+        if (!passw.matches(".*[A-Z].*")) {
+            aviso.setText("Debe incluir al menos una letra mayúscula.");
+            return;
+        }
+
+        if (!passw.matches(".*[a-z].*")) {
+            aviso.setText("Debe incluir al menos una letra minúscula.");
+            return;
+        }
+
+        if (!passw.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\",.<>/?\\\\|].*")) {
+            aviso.setText("Debe incluir al menos un carácter especial (ej: @, #, $, *).");
+            return;
+        }
+        if (!passw.matches(".*\\d.*")) {
+            aviso.setText("Debe incluir al menos un número.");
             return;
         }
 
         PersistenciaJugador persistencia = new PersistenciaJugador();
 
         if (persistencia.existeJugador(user)) {
-            JOptionPane.showMessageDialog(this, "El usuario ya existe");
+            aviso.setText("El usuario ya existe en el sistema.");
             return;
         }
+
+        aviso.setText("");
 
         Jugador jugador = new Jugador(user, user, passw, null);
 
         persistencia.guardarJugador(jugador);
 
-        JOptionPane.showMessageDialog(this, "Usuario registrado correctamente");
         this.dispose();
+        UsuarioGuardado usuarioGuardado = new UsuarioGuardado();
+        usuarioGuardado.setVisible(true);
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_doneEspActionPerformed
+
+    private void verPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verPassActionPerformed
+        // TODO add your handling code here:
+        if (verPass.isSelected()) {
+            password.setEchoChar((char) 0);
+        } else {
+            password.setEchoChar('•');
+        }
+    }//GEN-LAST:event_verPassActionPerformed
+
+    private void fotoDeperfilEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fotoDeperfilEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fotoDeperfilEspActionPerformed
+
+    private void fotoDeperfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fotoDeperfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fotoDeperfilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,13 +295,18 @@ public class CrearPerfil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel aviso;
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton done;
     private javax.swing.JButton doneEsp;
+    private javax.swing.JButton fotoDeperfil;
+    private javax.swing.JButton fotoDeperfilEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelEsp;
-    private javax.swing.JTextField pass;
+    private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
+    private javax.swing.JCheckBox verPass;
     // End of variables declaration//GEN-END:variables
 }

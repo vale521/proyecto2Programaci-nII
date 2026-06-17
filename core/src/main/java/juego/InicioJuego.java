@@ -70,6 +70,7 @@ public class InicioJuego extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         options.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/3.png"))); // NOI18N

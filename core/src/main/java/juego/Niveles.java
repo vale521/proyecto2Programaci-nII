@@ -14,6 +14,7 @@ public class Niveles extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Niveles.class.getName());
     private Jugador jugador;
+
     /**
      * Creates new form Niveles
      */
@@ -32,18 +33,11 @@ public class Niveles extends javax.swing.JFrame {
         this.setSize(826, 796);
         this.setLocationRelativeTo(null);
         this.jugador = jugador;
-        lblVidas.setText(""+jugador.getVidas());
+        lblVidas.setText("" + jugador.getVidas());
         configurarBtnProgreso();
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
-        if(backEsp.isVisible())
-        {
-            lblTituloVidas.setText(" Vidas");
-        }
-        else
-        {
-            lblTituloVidas.setText(" Lives");
-        }
+
     }
 
     public void actualizarInterfazIdioma() {
@@ -52,17 +46,20 @@ public class Niveles extends javax.swing.JFrame {
             back.setVisible(false);
             stats.setVisible(false);
             statsEsp.setVisible(true);
-            
+            lblTituloVidas.setText(" Vidas");
+            optionsEsp.setVisible(true);
+            options.setVisible(false);
+
         } else {
             back.setVisible(true);
             backEsp.setVisible(false);
             stats.setVisible(true);
             statsEsp.setVisible(false);
-            
+            lblTituloVidas.setText(" Lives");
+            optionsEsp.setVisible(false);
+            options.setVisible(true);
         }
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,11 +84,14 @@ public class Niveles extends javax.swing.JFrame {
         backEsp = new javax.swing.JButton();
         stats = new javax.swing.JButton();
         statsEsp = new javax.swing.JButton();
+        optionsEsp = new javax.swing.JButton();
+        options = new javax.swing.JButton();
         lblVidas = new javax.swing.JLabel();
         lblTituloVidas = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         nivel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/l5.png"))); // NOI18N
@@ -164,12 +164,22 @@ public class Niveles extends javax.swing.JFrame {
         getContentPane().add(statsEsp);
         statsEsp.setBounds(400, 380, 160, 60);
 
+        optionsEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp2.png"))); // NOI18N
+        optionsEsp.addActionListener(this::optionsEspActionPerformed);
+        getContentPane().add(optionsEsp);
+        optionsEsp.setBounds(300, 450, 160, 60);
+
+        options.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/3.png"))); // NOI18N
+        options.addActionListener(this::optionsActionPerformed);
+        getContentPane().add(options);
+        options.setBounds(300, 450, 160, 60);
+
         lblVidas.setBackground(new java.awt.Color(122, 66, 0));
         lblVidas.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblVidas.setForeground(new java.awt.Color(255, 255, 255));
         lblVidas.setText("jLabel2");
         getContentPane().add(lblVidas);
-        lblVidas.setBounds(530, 190, 60, 30);
+        lblVidas.setBounds(400, 190, 60, 30);
 
         lblTituloVidas.setBackground(new java.awt.Color(122, 66, 0));
         lblTituloVidas.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -178,7 +188,7 @@ public class Niveles extends javax.swing.JFrame {
         lblTituloVidas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblTituloVidas.setOpaque(true);
         getContentPane().add(lblTituloVidas);
-        lblTituloVidas.setBounds(450, 190, 150, 30);
+        lblTituloVidas.setBounds(320, 190, 150, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/niveles2.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -261,6 +271,18 @@ public class Niveles extends javax.swing.JFrame {
         rank.setVisible(true);
     }//GEN-LAST:event_statsEspActionPerformed
 
+    private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
+        // TODO add your handling code here:
+        Options o = new Options();
+        o.setVisible(true);
+    }//GEN-LAST:event_optionsActionPerformed
+
+    private void optionsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsEspActionPerformed
+        // TODO add your handling code here:
+        Options o = new Options();
+        o.setVisible(true);
+    }//GEN-LAST:event_optionsEspActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,6 +324,8 @@ public class Niveles extends javax.swing.JFrame {
     private javax.swing.JButton nivelgris3;
     private javax.swing.JButton nivelgris4;
     private javax.swing.JButton nivelgris5;
+    private javax.swing.JButton options;
+    private javax.swing.JButton optionsEsp;
     private javax.swing.JButton stats;
     private javax.swing.JButton statsEsp;
     // End of variables declaration//GEN-END:variables
@@ -311,8 +335,7 @@ public class Niveles extends javax.swing.JFrame {
             return;
         }
 
-        if(jugador.getVidas()<=0)
-        {
+        if (jugador.getVidas() <= 0) {
             nivel1.setEnabled(false);
             nivel2.setEnabled(false);
             nivel3.setEnabled(false);
@@ -350,15 +373,13 @@ public class Niveles extends javax.swing.JFrame {
             return;
         }
         GestorNiveles gestor = new GestorNiveles(jugador);
-        if (numeroNivel > gestor.getNiveles().size())
-        {
-            javax.swing.JOptionPane.showMessageDialog(this,"Nivel no disponible aún.");
+        if (numeroNivel > gestor.getNiveles().size()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Nivel no disponible aún.");
             return;
         }
-        System.out.println("Entrando al nivel " + numeroNivel+ " | Jugador: " + jugador.toString());
-        LanzadorJuego lanzador= AppContext.getLanzador();
-        if(lanzador == null)
-        {
+        System.out.println("Entrando al nivel " + numeroNivel + " | Jugador: " + jugador.toString());
+        LanzadorJuego lanzador = AppContext.getLanzador();
+        if (lanzador == null) {
             System.out.println("ERRRRRRRRRRRRROR");
             return;
         }

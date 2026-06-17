@@ -21,7 +21,7 @@ public class Historial extends javax.swing.JFrame {
     public Historial() {
         initComponents();
 
-        this.setSize(700, 500);
+        this.setSize(797, 456);
         this.setLocationRelativeTo(null);
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
@@ -112,6 +112,7 @@ public class Historial extends javax.swing.JFrame {
         jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -148,7 +149,7 @@ public class Historial extends javax.swing.JFrame {
         }
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 120, 760, 300);
+        jScrollPane1.setBounds(60, 110, 670, 300);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);

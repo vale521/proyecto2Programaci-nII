@@ -77,6 +77,7 @@ public class Options extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         musica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/5.png"))); // NOI18N

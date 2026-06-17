@@ -51,8 +51,10 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabelEsp = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
@@ -72,6 +74,10 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/noexiste.png"))); // NOI18N
         getContentPane().add(jLabelEsp);
         jLabelEsp.setBounds(0, 0, 480, 313);
+
+        jRadioButton1.setText("jRadioButton1");
+        getContentPane().add(jRadioButton1);
+        jRadioButton1.setBounds(410, 140, 98, 21);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -114,5 +120,6 @@ public class CuentaNoExiste extends javax.swing.JFrame {
     private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelEsp;
+    private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
 }

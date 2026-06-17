@@ -53,6 +53,7 @@ public class Pausado extends javax.swing.JFrame {
         jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         resume.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/resume.png"))); // NOI18N
