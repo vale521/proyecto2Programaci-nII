@@ -1,14 +1,52 @@
 package com.cuttherope.game.lwjgl3;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.cuttherope.game.MainGame;
+import juego.AppContext;
+import juego.Jugador;
+import juego.InicioJuego;
+import javax.swing.*;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
-        createApplication();
+        //createApplication();
+        //AppContext.registrarAccionOcultarVentana(() -> {
+//            try
+//            {
+//                com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics graphics =
+//                    (com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics) com.badlogic.gdx.Gdx.graphics;
+//                graphics.getWindow().iconifyWindow();
+//            }
+//            catch (Exception e)
+//            {
+//                // no critico si falla
+//            }
+//        });
+
+        AppContext.registrarLanzador((Jugador jugador, int numeroNivel) -> {
+            MainGame gameActivo= AppContext.getMainGameActivo();
+            if(gameActivo!= null)
+            {
+                Gdx.app.postRunnable(() -> {
+                    gameActivo.cambiarNivel(jugador, numeroNivel);
+                });
+            }
+            else
+            {
+                new Thread(() -> {
+                    Lwjgl3Application nuevaApp= new Lwjgl3Application(new MainGame(jugador, numeroNivel), getDefaultConfiguration());
+                    AppContext.limpiar();
+                }, "LibGDX-Thread").start();
+            }
+        });
+
+        SwingUtilities.invokeLater(() -> {
+            new InicioJuego().setVisible(true);
+        });
     }
 
     private static Lwjgl3Application createApplication() {
@@ -28,7 +66,7 @@ public class Lwjgl3Launcher {
         //// useful for testing performance, but can also be very stressful to some hardware.
         //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
 
-        configuration.setWindowedMode(640, 480);
+        configuration.setWindowedMode(1000, 800);
         //// You can change these files; they are in lwjgl3/src/main/resources/ .
         //// They can also be loaded from the root of assets/ .
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
