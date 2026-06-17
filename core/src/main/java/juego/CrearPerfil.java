@@ -259,6 +259,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
+        String name= nombre.getText().trim();
         String user = username.getText().trim();
         String passw = new String(password.getPassword()).trim();
 
@@ -281,7 +282,7 @@ public class CrearPerfil extends javax.swing.JFrame {
         aviso.setText("");
 
         ImageIcon foto= (ImageIcon) fotoperfil.getIcon();
-        Jugador jugador = new Jugador(user, user, passw, foto);
+        Jugador jugador = new Jugador(user, name, passw, foto);
 
         persistencia.guardarJugador(jugador);
 
