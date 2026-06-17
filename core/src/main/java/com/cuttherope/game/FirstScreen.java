@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import juego.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,98 +57,203 @@ public class FirstScreen implements Screen {
 
     private float mouseAnteriorX=-1;
     private float mouseAnteriorY=-1;
+    private LocalDateTime fechaInicioPartida;
+    private LocalDateTime fechaFinalPartida;
+    private boolean cerrandoJuego=false;
 
+    private static final Object LOCK_PROGRESO= new Object();
+    //private int cantFallos=0;
     public FirstScreen(MainGame game) {
         this.game = game;
-        this.shape = new ShapeRenderer();
-
-        this.jugador= new Jugador();
-        this.persistenciaJugador= new PersistenciaJugador();
-        String username= jugador.getUsername();
-        PartidaProgreso progreso;
-        if(username!=null && username.isEmpty()==false)
-        {
-            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
-        }
-        else
-        {
-            progreso= new PartidaProgreso();
-        }
-        this.gestorNiveles= new GestorNiveles(this.jugador);
-        this.nivel= gestorNiveles.obtenerNivelActual();
-        nivel.iniciarNivel();
-
-        if(progreso.isHayPartidaGuardada())
-        {
-            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
-            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
-            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
-            int restauradas=0;
-            for (Estrella estrella: nivel.getEstrellas())
-            {
-                if(restauradas<estrellasRestaurar)
-                {
-                    estrella.recolectar();
-                    restauradas++;
-                }
-            }
-        }
-
-        batch= new SpriteBatch();
-        font= new BitmapFont();
-
-        texturaOmNom= new Texture("omNomNormal.png");
-        texturaCaramelo= new Texture("caramelo.png");
-        texturaEstrella= new Texture("estrella.png");
-        texturaOrigenCuerda= new Texture("origenCuerda.png");
-        texturaOmNomDulce= new Texture("omNomDulce.png");
-        texturaEstrellaGanada= new Texture("estrellaGanada2.png");
-        texturaEstrellaNoGanada= new Texture("estrellaNoGanada2.png");
-        texturaBtnPausar= new Texture("btnPausar2.png");
-        texturaBtnReiniciar= new Texture("btnReiniciar2.png");
-        texturabtnMenu= new Texture("btnMenu2.png");
-        texturaFondo= new Texture("fondoNiveles.png");
+//        this.shape = new ShapeRenderer();
+//
+//        this.jugador= new Jugador();
+//        this.persistenciaJugador= new PersistenciaJugador();
+//        String username= jugador.getUsername();
+//        PartidaProgreso progreso;
+//        if(username!=null && username.isEmpty()==false)
+//        {
+//            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
+//        }
+//        else
+//        {
+//            progreso= new PartidaProgreso();
+//        }
+//        this.gestorNiveles= new GestorNiveles(this.jugador);
+//        this.nivel= gestorNiveles.obtenerNivelActual();
+//        nivel.iniciarNivel();
+//        fechaInicioPartida=LocalDateTime.now();
+//        if(progreso.isHayPartidaGuardada())
+//        {
+//            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
+//            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
+//            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
+//            int restauradas=0;
+//            for (Estrella estrella: nivel.getEstrellas())
+//            {
+//                if(restauradas<estrellasRestaurar)
+//                {
+//                    estrella.recolectar();
+//                    restauradas++;
+//                }
+//            }
+//        }
+//
+//        batch= new SpriteBatch();
+//        font= new BitmapFont();
+//
+//        texturaOmNom= new Texture("omNomNormal.png");
+//        texturaCaramelo= new Texture("caramelo.png");
+//        texturaEstrella= new Texture("estrella.png");
+//        texturaOrigenCuerda= new Texture("origenCuerda.png");
+//        texturaOmNomDulce= new Texture("omNomDulce.png");
+//        texturaEstrellaGanada= new Texture("estrellaGanada2.png");
+//        texturaEstrellaNoGanada= new Texture("estrellaNoGanada2.png");
+//        texturaBtnPausar= new Texture("btnPausar2.png");
+//        texturaBtnReiniciar= new Texture("btnReiniciar2.png");
+//        texturabtnMenu= new Texture("btnMenu2.png");
+//        texturaFondo= new Texture("fondoNiveles.png");
+        inicializarComponentesComunes();
     }
-    
+
     public FirstScreen(Jugador jugador, MainGame game) {
         this.game = game;
-        this.shape = new ShapeRenderer();
-
+//        this.shape = new ShapeRenderer();
+//
+//        this.jugador= jugador;
+//        this.persistenciaJugador= new PersistenciaJugador();
+//        String username= jugador.getUsername();
+//        PartidaProgreso progreso;
+//        if(username!=null && username.isEmpty()==false)
+//        {
+//            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
+//        }
+//        else
+//        {
+//            progreso= new PartidaProgreso();
+//        }
+//        this.gestorNiveles= new GestorNiveles(this.jugador);
+//        this.nivel= gestorNiveles.obtenerNivelActual();
+//        nivel.iniciarNivel();
+//        fechaInicioPartida=LocalDateTime.now();
+//        if(progreso.isHayPartidaGuardada())
+//        {
+//            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
+//            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
+//            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
+//            int restauradas=0;
+//            for (Estrella estrella: nivel.getEstrellas())
+//            {
+//                if(restauradas<estrellasRestaurar)
+//                {
+//                    estrella.recolectar();
+//                    restauradas++;
+//                }
+//            }
+//        }
+//
+//        batch= new SpriteBatch();
+//        font= new BitmapFont();
+//
+//        texturaOmNom= new Texture("omNomNormal.png");
+//        texturaCaramelo= new Texture("caramelo.png");
+//        texturaEstrella= new Texture("estrella.png");
+//        texturaOrigenCuerda= new Texture("origenCuerda.png");
+//        texturaOmNomDulce= new Texture("omNomDulce.png");
+//        texturaEstrellaGanada= new Texture("estrellaGanada2.png");
+//        texturaEstrellaNoGanada= new Texture("estrellaNoGanada2.png");
+//        texturaBtnPausar= new Texture("btnPausar2.png");
+//        texturaBtnReiniciar= new Texture("btnReiniciar2.png");
+//        texturabtnMenu= new Texture("btnMenu2.png");
+//        texturaFondo= new Texture("fondoNiveles.png");
         this.jugador= jugador;
+        inicializarComponentesComunes();
+    }
+
+    public FirstScreen(Jugador jugador, MainGame game, int numeroNivel) {
+        this.game = game;
+//        this.shape = new ShapeRenderer();
+//
+//        this.jugador= jugador;
+//        this.persistenciaJugador= new PersistenciaJugador();
+//        String username= jugador.getUsername();
+//        PartidaProgreso progreso;
+//        if(username!=null && username.isEmpty()==false)
+//        {
+//            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
+//        }
+//        else
+//        {
+//            progreso= new PartidaProgreso();
+//        }
+//        this.gestorNiveles= new GestorNiveles(this.jugador);
+//        this.gestorNiveles.setNivelActual(numeroNivel);
+//        this.nivel= gestorNiveles.obtenerNivelActual();
+//        nivel.iniciarNivel();
+
+//        if(progreso.isHayPartidaGuardada())
+//        {
+//            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
+//            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
+//            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
+//            int restauradas=0;
+//            for (Estrella estrella: nivel.getEstrellas())
+//            {
+//                if(restauradas<estrellasRestaurar)
+//                {
+//                    estrella.recolectar();
+//                    restauradas++;
+//                }
+//            }
+//        }
+//
+//        batch= new SpriteBatch();
+//        font= new BitmapFont();
+//
+//        texturaOmNom= new Texture("omNomNormal.png");
+//        texturaCaramelo= new Texture("caramelo.png");
+//        texturaEstrella= new Texture("estrella.png");
+//        texturaOrigenCuerda= new Texture("origenCuerda.png");
+//        texturaOmNomDulce= new Texture("omNomDulce.png");
+//        texturaEstrellaGanada= new Texture("estrellaGanada2.png");
+//        texturaEstrellaNoGanada= new Texture("estrellaNoGanada2.png");
+//        texturaBtnPausar= new Texture("btnPausar2.png");
+//        texturaBtnReiniciar= new Texture("btnReiniciar2.png");
+//        texturabtnMenu= new Texture("btnMenu2.png");
+//        texturaFondo= new Texture("fondoNiveles.png");
+        this.jugador= jugador;
+        this.shape= new ShapeRenderer();
         this.persistenciaJugador= new PersistenciaJugador();
-        String username= jugador.getUsername();
-        PartidaProgreso progreso;
-        if(username!=null && username.isEmpty()==false)
-        {
-            progreso= persistenciaJugador.cargarProgreso(jugador.getUsername());
-        }
-        else
-        {
-            progreso= new PartidaProgreso();
-        }
         this.gestorNiveles= new GestorNiveles(this.jugador);
+        this.gestorNiveles.setNivelActual(numeroNivel);
         this.nivel= gestorNiveles.obtenerNivelActual();
         nivel.iniciarNivel();
-
-        if(progreso.isHayPartidaGuardada())
-        {
-            tiempoNivel= progreso.getTiempoTranscurridoSegundos();
-            nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
-            int estrellasRestaurar= progreso.getEstrellasRecolectadas();
-            int restauradas=0;
-            for (Estrella estrella: nivel.getEstrellas())
-            {
-                if(restauradas<estrellasRestaurar)
-                {
-                    estrella.recolectar();
-                    restauradas++;
-                }
-            }
-        }
-
-        batch= new SpriteBatch();
+        batch=new SpriteBatch();
         font= new BitmapFont();
+        cargarTexturas();
+        procesarRestauracionProgreso();
+    }
 
+    public void inicializarComponentesComunes()
+    {
+        this.shape = new ShapeRenderer();
+        if(this.jugador==null)
+        {
+            this.jugador= new Jugador();
+        }
+        this.persistenciaJugador= new PersistenciaJugador();
+        this.gestorNiveles= new GestorNiveles(this.jugador);
+        this.nivel= gestorNiveles.obtenerNivelActual();
+        fechaInicioPartida= LocalDateTime.now();
+        batch= new SpriteBatch();
+        font = new BitmapFont();
+        cargarTexturas();
+        procesarRestauracionProgreso();
+
+    }
+
+    public void cargarTexturas()
+    {
         texturaOmNom= new Texture("omNomNormal.png");
         texturaCaramelo= new Texture("caramelo.png");
         texturaEstrella= new Texture("estrella.png");
@@ -161,6 +267,41 @@ public class FirstScreen implements Screen {
         texturaFondo= new Texture("fondoNiveles.png");
     }
 
+    public void procesarRestauracionProgreso()
+    {
+        String username= jugador.getUsername();
+        if(username!=null && !username.isEmpty())
+        {
+            PartidaProgreso progreso= persistenciaJugador.cargarProgreso((jugador.getUsername()));
+            if(progreso.isHayPartidaGuardada()==true && progreso.getNivelActual()==gestorNiveles.getNivelActual())
+            {
+                if(progreso.isHayPartidaGuardada()==true && progreso.getNivelActual()==gestorNiveles.getNivelActual())
+                {
+                    tiempoNivel= progreso.getTiempoTranscurridoSegundos();
+                    nivel.getCaramelo().setEstrellasRecolectadas(progreso.getEstrellasRecolectadas());
+                    ArrayList<Boolean> cuerdasGuardadas= progreso.getEstadoCuerdasCortadas();
+                    List<Cuerda> cuerdasActuales= nivel.getCuerdas();
+                    for (int i = 0; i < cuerdasActuales.size(); i++)
+                    {
+                        if(cuerdasGuardadas.get(i))
+                        {
+                            cuerdasActuales.get(i).cortar();
+                        }
+                    }
+
+                    ArrayList<Boolean> estrellasGuardadas= progreso.getEstadoCuerdasCortadas();
+                    List<Estrella> estrellasActuales= nivel.getEstrellas();
+                    for (int i = 0; i < cuerdasActuales.size(); i++)
+                    {
+                        if(estrellasGuardadas.get(i))
+                        {
+                            estrellasActuales.get(i).recolectar();
+                        }
+                    }
+                }
+            }
+        }
+    }
     @Override
     public void show() {
         System.out.println("Entro en show");
@@ -180,14 +321,18 @@ public class FirstScreen implements Screen {
 
     private void actualizarJuego()
     {
-
+        if(cerrandoJuego==true)
+        {
+            return;
+        }
         if(Gdx.input.justTouched()==true) {
             float mouseX = Gdx.input.getX();
             float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
             if (mouseX >= xBtnPausar && (mouseX <= xBtnPausar + anchoBtn) && mouseY >= yBtnPausar && (mouseY <= yBtnPausar + altoBtn)) {
                 pausado = !pausado;
-
+                guardarProgresoActual();
+                javax.swing.SwingUtilities.invokeLater(() -> {new Pausado(jugador).setVisible(true);});
                 return;
             }
 
@@ -195,6 +340,14 @@ public class FirstScreen implements Screen {
                 nivel.reiniciarNivel();
                 tiempoNivel=0;
                 pausado = false;
+                //cantFallos++;
+                int vidasRestantes= jugador.getVidas()-1;
+                jugador.setVidas(vidasRestantes);
+                if(vidasRestantes<=0)
+                {
+                    terminarPartidaPorDerrota();
+                    return;
+                }
                 return;
             }
             if (mouseX >= xBtnMenu && (mouseX <= xBtnMenu + anchoBtn) && mouseY >= yBtnMenu && (mouseY <= yBtnMenu + altoBtn))
@@ -263,6 +416,32 @@ public class FirstScreen implements Screen {
         verificarOmNom();
     }
 
+    private void terminarPartidaPorDerrota()
+    {
+        fechaFinalPartida = LocalDateTime.now();
+        ResultadoPartida resultadoPartida = new ResultadoPartida();
+        resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
+        resultadoPartida.setVictoria(false);
+        resultadoPartida.setFallos(3-jugador.getVidas());
+        resultadoPartida.setVidasRestantes(0);
+        resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
+        resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
+        resultadoPartida.setCantidadEstrellasRecolectadas(nivel.getCaramelo().getEstrellasRecolectadas());
+        resultadoPartida.setTiempoSegundos(tiempoNivel);
+        jugador.agregarResultado(resultadoPartida);
+        PersistenciaPartidas persistenciaPartidas = new PersistenciaPartidas();
+        persistenciaPartidas.agregarPartida(jugador.getUsername(), resultadoPartida);
+        persistenciaJugador.guardarJugador(jugador);
+        persistenciaJugador.borrarProgreso(jugador.getUsername());
+        cerrandoJuego=true;
+        // Volvemos a la pantalla de Niveles original
+        //AppContext.ocultarVentana();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new Niveles(jugador).setVisible(true);
+        });
+        Gdx.app.exit();
+
+    }
     private void guardarProgresoActual()
     {
         String username= jugador.getUsername();
@@ -270,9 +449,52 @@ public class FirstScreen implements Screen {
         {
             return;
         }
-        PartidaProgreso estado= new PartidaProgreso(gestorNiveles.getNivelActual(), nivel.getCaramelo().getEstrellasRecolectadas(), tiempoNivel);
-        persistenciaJugador.guardarProgreso(jugador.getUsername(), estado);
-        System.out.println("PROGRESO GUARDADO: NIVEL "+gestorNiveles.getNivelActual()+", estrellas "+nivel.getCaramelo().getEstrellasRecolectadas()+", tiempo "+tiempoNivel);
+
+        int nivelID= gestorNiveles.getNivelActual();
+        int estrellas= nivel.getCaramelo().getEstrellasRecolectadas();
+        float tiempo= tiempoNivel;
+        ArrayList<Boolean> listaCuerdas= new ArrayList<>();
+        for (Cuerda cuerda: nivel.getCuerdas())
+        {
+            listaCuerdas.add(cuerda.estaCortada());
+        }
+        ArrayList<Boolean> listaEstrellas= new ArrayList<>();
+        for (Estrella estrella: nivel.getEstrellas())
+        {
+            listaEstrellas.add(estrella.isRecolectada());
+        }
+
+        new Thread (() -> {
+            synchronized (LOCK_PROGRESO)
+            {
+                PartidaProgreso estado= new PartidaProgreso(nivelID, estrellas, tiempo);
+                estado.setEstadoCuerdasCortadas(listaCuerdas);
+                estado.setEstadoEstrellasRecolectadas(listaEstrellas);
+                persistenciaJugador.guardarProgreso(username, estado);
+                System.out.println("[Hilo-Progreso] Guardado en tiempo real completado para: "+username);
+            }
+        }, "Hilo-GuardarProgreso").start();
+
+//        Thread hiloEscrituraProgreso = new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                try
+//                {
+//                    PartidaProgreso estado = new PartidaProgreso(nivelID, estrellas, tiempo);
+//                    estado.setEstadoCuerdasCortadas(listaCuerdas);
+//                    estado.setEstadoEstrellasRecolectadas(listaEstrellas);
+//                    persistenciaJugador.guardarProgreso(username, estado);
+//                    System.out.println("[Hilo-Progreso] Guardado aincrono y seguro completado para: " + username);
+//                }
+//                catch (Exception e)
+//                {
+//                    System.out.println("Error en el hilo de persistencia asíncrona: " + e.getMessage());
+//                }
+//            }
+//        }, "Hilo-GuardarProgreso");
+//        hiloEscrituraProgreso.start();
     }
     private boolean segmentosSeIntersecan(float anteriorMouseX, float anteriorMouseY, float mouseX, float mouseY, float AnclajeX, float AnclajeY, float XCaramelo, float YCaramelo)
     {
@@ -299,15 +521,29 @@ public class FirstScreen implements Screen {
         {
             tiempoVictoria-=Gdx.graphics.getDeltaTime();
             System.out.println("CAMBIANDO NIVEL");
-            if(tiempoVictoria<=0)
+//            if(tiempoVictoria<=0)
+//            {
+//                gestorNiveles.avanzarNivel();
+//                if (gestorNiveles.ultimoNivelCompletado() == false) {
+//                    nivel = gestorNiveles.obtenerNivelActual();
+//                    nivel.iniciarNivel();
+//                    tiempoNivel=0;
+//                }
+//                nivelCompletado=false;
+//            }
+            //cambie esto para que al terminar el nivel vuelva a niveles
+            if(tiempoVictoria<=0 && cerrandoJuego==false)
             {
-                gestorNiveles.avanzarNivel();
-                if (gestorNiveles.ultimoNivelCompletado() == false) {
-                    nivel = gestorNiveles.obtenerNivelActual();
-                    nivel.iniciarNivel();
-                    tiempoNivel=0;
-                }
-                nivelCompletado=false;
+                cerrandoJuego=true;
+                //nivelCompletado=false;
+                //AppContext.ocultarVentana();
+                javax.swing.SwingUtilities.invokeLater(() ->{
+                    new Niveles(jugador).setVisible(true);
+                });
+//                Gdx.app.postRunnable(() -> {
+//                    Gdx.app.exit();
+//                });
+
             }
             return;
         }
@@ -336,6 +572,22 @@ public class FirstScreen implements Screen {
         {
             System.out.println("sin cuerdas activas");
             nivel.getCaramelo().setLibre(true);
+            //para que pierda la vida cuando el caramelo tiene caida libre
+            if(nivel.getCaramelo().getY()<0 && nivelCompletado==false)
+            {
+                int vidasActuales= jugador.getVidas()-1;
+                jugador.setVidas(vidasActuales);
+                if(vidasActuales<=0)
+                {
+                    terminarPartidaPorDerrota();
+                }
+                else
+                {
+                    nivel.reiniciarNivel();
+                    tiempoNivel=0;
+                }
+                return;
+            }
         }
     }
     private float distanciaPuntoLinea(float px, float py, float x1, float y1, float x2, float y2)
@@ -421,13 +673,28 @@ public class FirstScreen implements Screen {
 //            }
             if(nivel.verificarVictoria()==true && nivelCompletado==false)
             {
+                fechaFinalPartida = LocalDateTime.now();
                 ResultadoPartida resultadoPartida= new ResultadoPartida();
                 resultadoPartida.setNivelAlcanzado(nivel.getNumeroNivel());
+                resultadoPartida.setVictoria(true);
+                resultadoPartida.setFallos(3-jugador.getVidas());
+                resultadoPartida.setVidasRestantes(jugador.getVidas());
+                resultadoPartida.setFechaHoraInicioPartida(fechaInicioPartida);
+                resultadoPartida.setFechaHoraFinalPartida(fechaFinalPartida);
                 resultadoPartida.setCantidadEstrellasRecolectadas(caramelo.getEstrellasRecolectadas());
                 resultadoPartida.setTiempoSegundos(tiempoNivel);
-                resultadoPartida.setVictoria(true);
+
                 jugador.agregarResultado(resultadoPartida);
+                //cambie esto para que agregue el archivo con ayuda de la clase PersistenciaPartidas
+                PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
+                persistenciaPartidas.agregarPartida(jugador.getUsername(), resultadoPartida);
                 persistenciaJugador.borrarProgreso(jugador.getUsername());
+                //cambie esto para que al terminar se aumente el nivel del jugador
+                if(jugador.getNivelPartidaActual()<= nivel.getNumeroNivel())
+                {
+                    jugador.setNivelPartidaActual(nivel.getNumeroNivel()+1);
+                }
+                persistenciaJugador.guardarJugador(jugador);
                 nivelCompletado=true;
                 tiempoVictoria=1f;
             }
@@ -521,7 +788,8 @@ public class FirstScreen implements Screen {
         batch.draw(texturaBtnReiniciar, xBtnReiniciar, yBtnReiniciar, anchoBtn, altoBtn);
         batch.draw(texturaBtnPausar, xBtnPausar, yBtnPausar, anchoBtn, altoBtn);
         batch.draw(texturabtnMenu, xBtnMenu, yBtnMenu, anchoBtn, altoBtn);
-        font.draw(batch, "Tiempo: "+(int) tiempoNivel +" s", 20, 50);
+        font.draw(batch, "Vidas/Lives: "+jugador.getVidas(), 20,70);
+        font.draw(batch, "Tiempo/Time: "+(int) tiempoNivel +" s", 20, 50);
         batch.end();
     }
     @Override

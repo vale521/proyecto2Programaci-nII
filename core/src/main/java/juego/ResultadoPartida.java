@@ -21,10 +21,12 @@ public class ResultadoPartida implements Serializable {
     private LocalDateTime fechaHoraFinalPartida;
     private boolean victoria;
     private float tiempoSegundos;
-
+    private int vidasRestantes;
+    private int fallos;
     public ResultadoPartida()
     {
         this.fecha= LocalDateTime.now();
+
     }
 
     public Duration getTiempoPartida()
@@ -108,5 +110,21 @@ public class ResultadoPartida implements Serializable {
 
     public void setVictoria(boolean victoria) {
         this.victoria = victoria;
+    }
+
+    public int getVidasRestantes() {
+        return vidasRestantes;
+    }
+
+    public void setVidasRestantes(int vidasRestantes) {
+        this.vidasRestantes = vidasRestantes;
+    }
+
+    public int getFallos() {
+        return fallos;
+    }
+
+    public void setFallos(int fallos) {
+        this.fallos = fallos;
     }
 }

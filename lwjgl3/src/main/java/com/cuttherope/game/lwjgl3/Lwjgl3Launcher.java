@@ -1,19 +1,57 @@
 package com.cuttherope.game.lwjgl3;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.cuttherope.game.MainGame;
+import juego.AppContext;
+import juego.Jugador;
+import juego.InicioJuego;
+import javax.swing.*;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
-        createApplication();
+        //createApplication();
+        //AppContext.registrarAccionOcultarVentana(() -> {
+//            try
+//            {
+//                com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics graphics =
+//                    (com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics) com.badlogic.gdx.Gdx.graphics;
+//                graphics.getWindow().iconifyWindow();
+//            }
+//            catch (Exception e)
+//            {
+//                // no critico si falla
+//            }
+//        });
+
+        AppContext.registrarLanzador((Jugador jugador, int numeroNivel) -> {
+            MainGame gameActivo= AppContext.getMainGameActivo();
+            if(gameActivo!= null)
+            {
+                Gdx.app.postRunnable(() -> {
+                    gameActivo.cambiarNivel(jugador, numeroNivel);
+                });
+            }
+            else
+            {
+                new Thread(() -> {
+                    Lwjgl3Application nuevaApp= new Lwjgl3Application(new MainGame(jugador, numeroNivel), getDefaultConfiguration());
+                    AppContext.limpiar();
+                }, "LibGDX-Thread").start();
+            }
+        });
+
+        SwingUtilities.invokeLater(() -> {
+            new InicioJuego().setVisible(true);
+        });
     }
 
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new MainGame(), getDefaultConfiguration());
-    }   
+    }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();

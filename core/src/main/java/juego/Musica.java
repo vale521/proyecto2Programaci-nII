@@ -4,13 +4,14 @@
  */
 package juego;
 
+import java.io.Serializable;
 import javax.sound.sampled.Clip;
 
 /**
  *
  * @author admin
  */
-public class Musica {
+public class Musica implements Serializable{
         private boolean activada;
 
         public Musica(boolean activada) {

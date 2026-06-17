@@ -11,7 +11,7 @@ package juego;
 public class Pausado extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Pausado.class.getName());
-
+    private Jugador jugador;
     /**
      * Creates new form Pausado
      */
@@ -32,7 +32,12 @@ public class Pausado extends javax.swing.JFrame {
             jLabelEsp.setVisible(false);
         }
     }
-
+    public Pausado(Jugador jugador) {
+        initComponents();
+        this.setSize(493, 347);
+        this.setLocationRelativeTo(null);
+        this.jugador=jugador;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,7 +79,7 @@ public class Pausado extends javax.swing.JFrame {
     private void nivelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelesActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Niveles niveles = new Niveles();
+        Niveles niveles = new Niveles(jugador);
         niveles.setVisible(true);
     }//GEN-LAST:event_nivelesActionPerformed
 

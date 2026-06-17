@@ -4,6 +4,10 @@
  */
 package juego;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author admin
@@ -11,7 +15,7 @@ package juego;
 public class Rankings extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Rankings.class.getName());
-
+    private Jugador jugador;
     /**
      * Creates new form Rankings
      */
@@ -33,16 +37,207 @@ public class Rankings extends javax.swing.JFrame {
         jTable4.setRowHeight(40);
     }
 
+    public Rankings(Jugador jugador) {
+        initComponents();
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+
+        this.setSize(695, 490);
+        this.setLocationRelativeTo(null);
+        this.jugador=jugador;
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+
+        jScrollPane4.setOpaque(false);
+        jScrollPane4.getViewport().setOpaque(false);
+
+        jTable1.setRowHeight(40);
+        jTable4.setRowHeight(40);
+        cargarRankingGlobal();
+        cargarRankingAmigos();
+        cargarMiRanking();
+        cargarSesionesRecientes();
+    }
+
     public void actualizarInterfazIdioma() {
-        if (Idioma.isEspanol()) {
+        if (Idioma.isEspanol())
+        {
             backEsp.setVisible(true);
             back.setVisible(false);
-        } else {
+            jTabbedPane1.setTitleAt(0, "Ranking Global");
+            jTabbedPane1.setTitleAt(1, "Amigos");
+            jTabbedPane1.setTitleAt(2, "Mi Ranking");
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("Posición");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Jugador");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Tiempo Jugado");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Niveles");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Tiempo Prom.");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("Puntaje");
+            jTable4.getColumnModel().getColumn(0).setHeaderValue("Posición");
+            jTable4.getColumnModel().getColumn(1).setHeaderValue("Jugador");
+            jTable4.getColumnModel().getColumn(2).setHeaderValue("Tiempo Jugado");
+            jTable4.getColumnModel().getColumn(3).setHeaderValue("Niveles");
+            jTable4.getColumnModel().getColumn(4).setHeaderValue("Tiempo Prom.");
+            jTable4.getColumnModel().getColumn(5).setHeaderValue("Puntaje");
+            lblTituloDescripcion.setText("DESCRIPCIÓN");
+            lblTituloDatos.setText("DATOS");
+            lblTituloCantPartidas.setText("Cantidad de Partidas");
+            lblTituloNivelesCompletados.setText("Niveles Completados");
+            lblTituloTiempoPromedio.setText("Tiempo Promedio");
+            lblTituloFechaRegistro.setText("Fecha de Registro");
+            lblTituloPuntajeTotal.setText("Puntaje Total");
+            lblTituloTiempoTotal.setText("Tiempo Total");
+            lblTituloAct.setText("ACTIVIDAD DE SESIONES RECIENTES");
+            jTable2.getColumnModel().getColumn(0).setHeaderValue("Fecha");
+            jTable2.getColumnModel().getColumn(1).setHeaderValue("Duración");
+            jTable2.getColumnModel().getColumn(2).setHeaderValue("Logros");
+            jTable2.getColumnModel().getColumn(3).setHeaderValue("Vidas");
+            btnAgregarAmigos1.setText("Agregar Amigo");
+        }
+        else
+        {
             back.setVisible(true);
             backEsp.setVisible(false);
+            jTabbedPane1.setTitleAt(0, "Global Ranking");
+            jTabbedPane1.setTitleAt(1, "Friends");
+            jTabbedPane1.setTitleAt(2, "My Ranking");
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("PLACE");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("PLAYER");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("TIME PLAYED");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("COMPLETED LEVELS");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("AVERANGE TIME");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("TOTAL SCORE");
+            jTable4.getColumnModel().getColumn(0).setHeaderValue("PLACE");
+            jTable4.getColumnModel().getColumn(1).setHeaderValue("PLAYER");
+            jTable4.getColumnModel().getColumn(2).setHeaderValue("TIME PLAYED");
+            jTable4.getColumnModel().getColumn(3).setHeaderValue("COMPLETED LEVELS");
+            jTable4.getColumnModel().getColumn(4).setHeaderValue("AVERANGE TIME");
+            jTable4.getColumnModel().getColumn(5).setHeaderValue("TOTAL SCORE");
+            lblTituloDescripcion.setText("DESCRIPTION");
+            lblTituloDatos.setText("DATA");
+            lblTituloCantPartidas.setText("Games Played");
+            lblTituloNivelesCompletados.setText("Completed Levels");
+            lblTituloTiempoPromedio.setText("Average Time");
+            lblTituloFechaRegistro.setText("Registration Date");
+            lblTituloPuntajeTotal.setText("Total Score");
+            lblTituloTiempoTotal.setText("Total Time");
+            lblTituloAct.setText("RECENT SESSION ACTIVITY");
+            jTable2.getColumnModel().getColumn(0).setHeaderValue("Date");
+            jTable2.getColumnModel().getColumn(1).setHeaderValue("Duration");
+            jTable2.getColumnModel().getColumn(2).setHeaderValue("Achivements");
+            jTable2.getColumnModel().getColumn(3).setHeaderValue("Lives");
+            btnAgregarAmigos1.setText("Add Friends");
+        }
+        jTable1.getTableHeader().repaint();
+        jTable2.getTableHeader().repaint();
+        jTable4.getTableHeader().repaint();
+    }
+
+    public void cargarRankingGlobal()
+    {
+        PersistenciaJugador persitenciaJugador=new PersistenciaJugador();
+        ArrayList<Jugador> jugadores= persitenciaJugador.obtenerTodosJugadores();
+        PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
+        for (Jugador jugador : jugadores) 
+        {
+            ArrayList<ResultadoPartida> partidas= persistenciaPartidas.obtenerPartidas(jugador.getUsername());
+            for (ResultadoPartida partida : partidas) 
+            {
+                jugador.agregarResultado(partida);
+            }
+        }
+        //para ordenar en orden de puntaje
+        jugadores.sort((a, b) -> Integer.compare(b.calcularPuntajeTotal(), a.calcularPuntajeTotal()));
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0);
+        int posicion=1;
+        for(Jugador jugador: jugadores)
+        {
+            modelo.addRow(new Object[]{posicion, jugador.getUsername(), jugador.getCntidadPartidas(), jugador.getNivelesCompletados(), String.format("%.2f", jugador.getTiempoPromedio()), jugador.calcularPuntajeTotal()});
+            jugador.setPosicionRanking(posicion);
+            posicion++;
         }
     }
 
+    public void cargarRankingAmigos()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) jTable4.getModel();
+        modelo.setRowCount(0);
+        ArrayList<Jugador> amigos= new ArrayList<>();
+        PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
+        amigos.addAll(jugador.getAmigos());
+        for (Jugador amigo : amigos) 
+        {
+            ArrayList<ResultadoPartida> partidas= persistenciaPartidas.obtenerPartidas(amigo.getUsername());
+            for (ResultadoPartida partida : partidas) 
+            {
+                amigo.agregarResultado(partida);
+            }
+        }
+        //para ordenar en orden de puntaje
+        
+        amigos.sort((a, b) -> Integer.compare(b.calcularPuntajeTotal(), a.calcularPuntajeTotal()));
+        int posicion=1;
+        for(Jugador amigo: amigos)
+        {
+            modelo.addRow(new Object[]{posicion, amigo.getUsername(), amigo.getCntidadPartidas(), amigo.getNivelesCompletados(), String.format("%.2f", amigo.getTiempoPromedio()), amigo.calcularPuntajeTotal()});
+            amigo.setPosicionRanking(posicion);
+            posicion++;
+        }
+    }
+
+    public void cargarMiRanking()
+    {
+        lblCantPartidas.setText(String.valueOf(jugador.getCntidadPartidas()));
+        lblNivelesCompletados.setText(String.valueOf(jugador.getNivelesCompletados()));
+        lblTiempoPromedio.setText(String.format("%.2f seg", jugador.getTiempoPromedio()));
+        lblFechaRegistro.setText(jugador.getFechaRegistro().toLocalDate().toString());
+        lblPuntajeTotal.setText(String.valueOf(jugador.calcularPuntajeTotal()));
+        lblTiempoTotal.setText(jugador.getTiempoTotalJugado());
+    }
+
+    public void cargarSesionesRecientes()
+    {
+        DefaultTableModel modelo= (DefaultTableModel) jTable2.getModel();
+        modelo.setRowCount(0);
+        ArrayList<ResultadoPartida> historial= new ArrayList<>(jugador.getHistorialPartidas());
+        int inicio = Math.max(0,historial.size()-3);
+        for(int i = historial.size() - 1; i >= inicio; i--) {
+            ResultadoPartida partida = historial.get(i);
+            String fecha;
+            if(partida.getFechaHoraInicioPartida()!=null)
+            {
+                fecha= partida.getFechaHoraInicioPartida().toLocalDate().toString();
+            }
+            else if(partida.getFecha()!=null)
+            {
+                fecha=partida.getFecha().toLocalDate().toString();
+            }
+            else
+            {
+                fecha= "Sin fecha";
+            }
+            String duracion;
+
+            if(partida.getFechaHoraInicioPartida() != null && partida.getFechaHoraFinalPartida() != null)
+            {
+                duracion = partida.getTiempoPartida().toMinutes() + " min";
+            }
+            else if(partida.getTiempoSegundos()>0)
+            {
+                int minutos=(int)(partida.getTiempoSegundos()/60);
+                int segundos= (int)(partida.getTiempoSegundos()%60);
+                duracion= minutos+" mins "+segundos+" segs";
+            }
+            else
+            {
+                duracion = "N/A";
+            }
+            String logro = "Nivel " + partida.getNivelAlcanzado();
+
+            modelo.addRow(new Object[]{fecha, duracion, logro, partida.getVidasRestantes()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,27 +254,29 @@ public class Rankings extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btnAgregarAmigos1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblTituloDescripcion = new javax.swing.JLabel();
+        lblTituloDatos = new javax.swing.JLabel();
+        lblTituloCantPartidas = new javax.swing.JLabel();
+        lblCantPartidas = new javax.swing.JLabel();
+        lblTituloNivelesCompletados = new javax.swing.JLabel();
+        lblNivelesCompletados = new javax.swing.JLabel();
+        lblTituloTiempoPromedio = new javax.swing.JLabel();
+        lblTiempoPromedio = new javax.swing.JLabel();
+        lblTituloFechaRegistro = new javax.swing.JLabel();
+        lblFechaRegistro = new javax.swing.JLabel();
+        lblTituloPuntajeTotal = new javax.swing.JLabel();
+        lblPuntajeTotal = new javax.swing.JLabel();
+        lblTituloTiempoTotal = new javax.swing.JLabel();
+        lblTiempoTotal = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        lblTituloAct = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,7 +333,12 @@ public class Rankings extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 570, 300);
+        jScrollPane1.setBounds(10, 10, 570, 270);
+
+        btnAgregarAmigos1.setText("AgregarAmigo");
+        btnAgregarAmigos1.addActionListener(this::btnAgregarAmigos1ActionPerformed);
+        jPanel1.add(btnAgregarAmigos1);
+        btnAgregarAmigos1.setBounds(10, 290, 570, 27);
 
         jTabbedPane1.addTab("Global Ranking", jPanel1);
 
@@ -181,71 +383,71 @@ public class Rankings extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel3.setLayout(new java.awt.GridLayout(7, 2));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("CONCEPTO");
-        jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel8);
+        lblTituloDescripcion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTituloDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloDescripcion.setText("DESCRIPCION");
+        lblTituloDescripcion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloDescripcion);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("DATOS");
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel9);
+        lblTituloDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTituloDatos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloDatos.setText("DATOS");
+        lblTituloDatos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloDatos);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Cantidad de partidas");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel2);
+        lblTituloCantPartidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloCantPartidas.setText("Cantidad de partidas");
+        lblTituloCantPartidas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloCantPartidas);
 
-        jLabel10.setText("jLabel10");
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel10);
+        lblCantPartidas.setText("jLabel10");
+        lblCantPartidas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblCantPartidas);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Niveles Completados");
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel3);
+        lblTituloNivelesCompletados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloNivelesCompletados.setText("Niveles Completados");
+        lblTituloNivelesCompletados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloNivelesCompletados);
 
-        jLabel11.setText("jLabel11");
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel11);
+        lblNivelesCompletados.setText("jLabel11");
+        lblNivelesCompletados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblNivelesCompletados);
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Tiempo promedio");
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel4);
+        lblTituloTiempoPromedio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloTiempoPromedio.setText("Tiempo promedio");
+        lblTituloTiempoPromedio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloTiempoPromedio);
 
-        jLabel12.setText("jLabel12");
-        jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel12);
+        lblTiempoPromedio.setText("jLabel12");
+        lblTiempoPromedio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTiempoPromedio);
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Fecha de registro");
-        jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel6);
+        lblTituloFechaRegistro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloFechaRegistro.setText("Fecha de registro");
+        lblTituloFechaRegistro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloFechaRegistro);
 
-        jLabel13.setText("jLabel13");
-        jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel13);
+        lblFechaRegistro.setText("jLabel13");
+        lblFechaRegistro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblFechaRegistro);
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Puntaje total");
-        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel5);
+        lblTituloPuntajeTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloPuntajeTotal.setText("Puntaje total");
+        lblTituloPuntajeTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloPuntajeTotal);
 
-        jLabel14.setText("jLabel14");
-        jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel14);
+        lblPuntajeTotal.setText("jLabel14");
+        lblPuntajeTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblPuntajeTotal);
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Tiempo Total");
-        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel7);
+        lblTituloTiempoTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloTiempoTotal.setText("Tiempo Total");
+        lblTituloTiempoTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTituloTiempoTotal);
 
-        jLabel15.setText("jLabel15");
-        jLabel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jLabel15);
+        lblTiempoTotal.setText("jLabel15");
+        lblTiempoTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.add(lblTiempoTotal);
 
         jPanel4.add(jPanel3);
         jPanel3.setBounds(20, 10, 550, 170);
@@ -255,7 +457,7 @@ public class Rankings extends javax.swing.JFrame {
 
             },
             new String [] {
-                "FECHA", "DURACION", "LOGROS", "INTENTOS"
+                "FECHA", "DURACION", "LOGROS", "VIDAS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -269,7 +471,13 @@ public class Rankings extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         jPanel4.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 200, 550, 100);
+        jScrollPane2.setBounds(20, 210, 550, 100);
+
+        lblTituloAct.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTituloAct.setText("ACTIVIDAD DE SESIONES RECIENTES");
+        lblTituloAct.setOpaque(true);
+        jPanel4.add(lblTituloAct);
+        lblTituloAct.setBounds(20, 190, 330, 20);
 
         jTabbedPane1.addTab("My Ranking", jPanel4);
 
@@ -285,23 +493,66 @@ public class Rankings extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         this.dispose();
-        Niveles niveles = new Niveles();
+        Niveles niveles = new Niveles(jugador);
         niveles.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Niveles niveles = new Niveles();
+        Niveles niveles = new Niveles(jugador);
         niveles.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
     private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
         // TODO add your handling code here:
-        Historial historial = new Historial();
+        Historial historial = new Historial(jugador);
         historial.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_historialActionPerformed
+
+    private void btnAgregarAmigos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAmigos1ActionPerformed
+        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+        if(fila==-1)
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione un jugador");
+            return;
+        }
+
+        String usernameAmigo= jTable1.getValueAt(fila, 1).toString();
+        if(usernameAmigo.equals(jugador.getUsername()))
+        {
+            JOptionPane.showMessageDialog(this, "No puedes agregarte a ti mismo. SORRY:(");
+            return;
+        }
+        PersistenciaJugador persistenciaJugador= new PersistenciaJugador();
+        Jugador amigo= persistenciaJugador.cargarJugador(usernameAmigo);
+        if(amigo==null)
+        {
+            JOptionPane.showMessageDialog(this, "NO SE PUDO CARGAR EL JUGADOR. SORRY:(");
+        }
+        boolean existeAmigo=false;
+        for (Jugador amix : jugador.getAmigos())
+        {
+            if(amix.getUsername().equals(amigo.getUsername()))
+            {
+                existeAmigo=true;
+                break;
+            }
+        }
+        if(existeAmigo==true)
+        {
+            JOptionPane.showMessageDialog(this, "Ese jugador ya es tu amix");
+            return;
+        }
+        jugador.getAmigos().add(amigo);
+        amigo.getAmigos().add(jugador);
+        persistenciaJugador.guardarJugador(jugador);
+        persistenciaJugador.guardarJugador(amigo);
+        cargarRankingAmigos();
+        JOptionPane.showMessageDialog(this, "AMIGO AGREGADO CORRECTAMENTE");
+    }//GEN-LAST:event_btnAgregarAmigos1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,7 +561,7 @@ public class Rankings extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -331,22 +582,9 @@ public class Rankings extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
+    private javax.swing.JButton btnAgregarAmigos1;
     private javax.swing.JButton historial;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -358,5 +596,20 @@ public class Rankings extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
+    private javax.swing.JLabel lblCantPartidas;
+    private javax.swing.JLabel lblFechaRegistro;
+    private javax.swing.JLabel lblNivelesCompletados;
+    private javax.swing.JLabel lblPuntajeTotal;
+    private javax.swing.JLabel lblTiempoPromedio;
+    private javax.swing.JLabel lblTiempoTotal;
+    private javax.swing.JLabel lblTituloAct;
+    private javax.swing.JLabel lblTituloCantPartidas;
+    private javax.swing.JLabel lblTituloDatos;
+    private javax.swing.JLabel lblTituloDescripcion;
+    private javax.swing.JLabel lblTituloFechaRegistro;
+    private javax.swing.JLabel lblTituloNivelesCompletados;
+    private javax.swing.JLabel lblTituloPuntajeTotal;
+    private javax.swing.JLabel lblTituloTiempoPromedio;
+    private javax.swing.JLabel lblTituloTiempoTotal;
     // End of variables declaration//GEN-END:variables
 }

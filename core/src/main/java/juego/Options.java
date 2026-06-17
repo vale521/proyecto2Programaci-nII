@@ -24,6 +24,7 @@ public class Options extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
+    
     public void actualizarBotonesMusica() {
         boolean estaActivada = InicioJuego.preferencias.getMusica().isActivada();
 
@@ -142,7 +143,6 @@ public class Options extends javax.swing.JFrame {
         // TODO add your handling code here:
         InicioJuego inicio = new InicioJuego();
         this.dispose();
-        inicio.setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -162,7 +162,6 @@ public class Options extends javax.swing.JFrame {
         // TODO add your handling code here:
         InicioJuego inicio = new InicioJuego();
         this.dispose();
-        inicio.setVisible(true);
     }//GEN-LAST:event_doneEspActionPerformed
 
     private void languageEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageEspActionPerformed

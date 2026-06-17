@@ -65,9 +65,9 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().add(contrasena);
-        contrasena.setBounds(150, 220, 180, 22);
+        contrasena.setBounds(150, 220, 180, 26);
         getContentPane().add(username);
-        username.setBounds(150, 130, 180, 22);
+        username.setBounds(150, 130, 180, 26);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -99,38 +99,77 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
-        // TODO add your handling code here:
-
+    private void procesarLogin()
+    {
         String usuario = username.getText().trim();
         String password = contrasena.getText().trim();
 
-        if (usuario.isEmpty() || password.isEmpty()) {
+        if (usuario.isEmpty() || password.isEmpty())
+        {
             JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
             return;
-        } else {
-            UsuarioGuardado mensaje = new UsuarioGuardado();
-            mensaje.setVisible(true);
         }
 
-        //temporal
-        System.out.println(username.getText());
-        System.out.println(contrasena.getText());
         PersistenciaJugador persistencia = new PersistenciaJugador();
 
-        if (!persistencia.existeJugador(usuario)) {
-
+        if (!persistencia.existeJugador(usuario))
+        {
             new CuentaNoExiste().setVisible(true);
             return;
         }
+
         Jugador jugador = persistencia.cargarJugador(usuario);
-        if (jugador.getContraseña().equals(password) == false) {
+
+        if (!jugador.getContraseña().equals(password))
+        {
             new IncorrectPass().setVisible(true);
             return;
         }
+        jugador.setVidas(3);
+        jugador.setActivo(true);
+        UsuarioGuardado mensaje = new UsuarioGuardado(jugador);
+        mensaje.setVisible(true);
+        
         this.dispose();
-        new Niveles(jugador).setVisible(true);
+//
+//        Niveles ventanaNiveles = new Niveles(jugador);
+//        ventanaNiveles.setVisible(true);
+    }
+    private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
+        // TODO add your handling code here:
+//
+//        String usuario = username.getText().trim();
+//        String password = contrasena.getText().trim();
+//
+//        if (usuario.isEmpty() || password.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//        else {
+//            UsuarioGuardado mensaje = new UsuarioGuardado();
+//            mensaje.setVisible(true);
+//        }
+//
+//        //temporal
+//        System.out.println(username.getText());
+//        System.out.println(contrasena.getText());
+//        PersistenciaJugador persistencia = new PersistenciaJugador();
+//
+//        if (!persistencia.existeJugador(usuario)) {
+//
+//            new CuentaNoExiste().setVisible(true);
+//            return;
+//        }
+//        Jugador jugador = persistencia.cargarJugador(usuario);
+//        if (jugador.getContraseña().equals(password) == false) {
+//            new IncorrectPass().setVisible(true);
+//            return;
+//        }
+//        this.dispose();
+//        Niveles ventana = new Niveles(jugador);
+//        ventana.setLanzador(AppContext.getLanzador());
+//        ventana.setVisible(true);
+        procesarLogin();
     }//GEN-LAST:event_doneActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -148,6 +187,38 @@ public class Login extends javax.swing.JFrame {
 
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
         // TODO add your handling code here:
+
+//        String usuario = username.getText().trim();
+//        String password = contrasena.getText().trim();
+//
+//        if (usuario.isEmpty() || password.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos de la caja!", "Error", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        } else {
+//            UsuarioGuardado mensaje = new UsuarioGuardado();
+//            mensaje.setVisible(true);
+//        }
+//
+//        //temporal
+//        System.out.println(username.getText());
+//        System.out.println(contrasena.getText());
+//        PersistenciaJugador persistencia = new PersistenciaJugador();
+//
+//        if (!persistencia.existeJugador(usuario)) {
+//
+//            new CuentaNoExiste().setVisible(true);
+//            return;
+//        }
+//        Jugador jugador = persistencia.cargarJugador(usuario);
+//        if (jugador.getContraseña().equals(password) == false) {
+//            new IncorrectPass().setVisible(true);
+//            return;
+//        }
+//        this.dispose();
+//        Niveles ventana = new Niveles(jugador);
+//        ventana.setLanzador(AppContext.getLanzador());
+//        ventana.setVisible(true);
+        procesarLogin();
     }//GEN-LAST:event_doneEspActionPerformed
 
     /**
@@ -157,7 +228,7 @@ public class Login extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

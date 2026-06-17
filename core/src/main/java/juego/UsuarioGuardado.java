@@ -11,7 +11,7 @@ package juego;
 public class UsuarioGuardado extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UsuarioGuardado.class.getName());
-
+    private Jugador jugador;
     /**
      * Creates new form UsuarioGuardado
      */
@@ -24,6 +24,15 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         Idioma.suscribir(() -> actualizarInterfazIdioma());
     }
 
+    public UsuarioGuardado(Jugador jugador) {
+        initComponents();
+
+        this.setSize(493, 347);
+        this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+        this.jugador= jugador;
+    }
     public void actualizarInterfazIdioma() {
         if (Idioma.isEspanol()) {
             doneEsp.setVisible(true);
@@ -79,12 +88,15 @@ public class UsuarioGuardado extends javax.swing.JFrame {
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        InicioJuego inicio = new InicioJuego();
-        inicio.setVisible(true);
+        Niveles ventanaNiveles = new Niveles(jugador);
+        ventanaNiveles.setVisible(true);
     }//GEN-LAST:event_doneActionPerformed
 
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        Niveles ventanaNiveles = new Niveles(jugador);
+        ventanaNiveles.setVisible(true);
     }//GEN-LAST:event_doneEspActionPerformed
 
     /**
