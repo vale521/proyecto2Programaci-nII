@@ -20,6 +20,15 @@ public class CrearPerfil extends javax.swing.JFrame {
     public CrearPerfil() {
         initComponents();
 
+        this.getContentPane().setLayout(null);
+        jDesktopPane1.setSize(493, 347);
+        this.getContentPane().setComponentZOrder(jDesktopPane1, 0);
+
+        if (aviso != null) {
+            aviso.setText("");
+        }
+        jDesktopPane1.setVisible(false);
+
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
         actualizarInterfazIdioma();
@@ -59,8 +68,8 @@ public class CrearPerfil extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         username = new javax.swing.JTextField();
-        fotoDeperfil = new javax.swing.JButton();
         fotoDeperfilEsp = new javax.swing.JButton();
+        fotoDeperfil = new javax.swing.JButton();
         aviso = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         done = new javax.swing.JButton();
@@ -70,50 +79,61 @@ public class CrearPerfil extends javax.swing.JFrame {
         verPass = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabelEsp = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        doneEsp1 = new javax.swing.JButton();
+        done1 = new javax.swing.JButton();
+        backEsp1 = new javax.swing.JButton();
+        back1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelEsp1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
         getContentPane().setLayout(null);
 
         username.addActionListener(this::usernameActionPerformed);
         getContentPane().add(username);
         username.setBounds(150, 120, 180, 26);
 
-        fotoDeperfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfp.png"))); // NOI18N
-        fotoDeperfil.addActionListener(this::fotoDeperfilActionPerformed);
-        getContentPane().add(fotoDeperfil);
-        fotoDeperfil.setBounds(10, 10, 110, 30);
-
         fotoDeperfilEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfpesp.png"))); // NOI18N
         fotoDeperfilEsp.addActionListener(this::fotoDeperfilEspActionPerformed);
         getContentPane().add(fotoDeperfilEsp);
         fotoDeperfilEsp.setBounds(10, 10, 150, 30);
 
+        fotoDeperfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfp.png"))); // NOI18N
+        fotoDeperfil.addActionListener(this::fotoDeperfilActionPerformed);
+        getContentPane().add(fotoDeperfil);
+        fotoDeperfil.setBounds(10, 10, 110, 30);
+
         aviso.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        aviso.setForeground(new java.awt.Color(255, 0, 51));
+        aviso.setForeground(new java.awt.Color(255, 255, 255));
         aviso.setText("aviso");
         getContentPane().add(aviso);
-        aviso.setBounds(100, 230, 270, 16);
+        aviso.setBounds(100, 240, 340, 16);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(240, 250, 90, 30);
+        back.setBounds(240, 270, 90, 30);
 
         done.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N
         done.addActionListener(this::doneActionPerformed);
         getContentPane().add(done);
-        done.setBounds(140, 250, 90, 30);
+        done.setBounds(140, 270, 90, 30);
 
         backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
         backEsp.addActionListener(this::backEspActionPerformed);
         getContentPane().add(backEsp);
-        backEsp.setBounds(240, 250, 90, 30);
+        backEsp.setBounds(240, 270, 90, 30);
 
         doneEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
         doneEsp.addActionListener(this::doneEspActionPerformed);
         getContentPane().add(doneEsp);
-        doneEsp.setBounds(140, 250, 90, 30);
+        doneEsp.setBounds(140, 270, 90, 30);
         getContentPane().add(password);
         password.setBounds(150, 210, 180, 26);
 
@@ -132,6 +152,64 @@ public class CrearPerfil extends javax.swing.JFrame {
         jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/userpass.png"))); // NOI18N
         getContentPane().add(jLabelEsp);
         jLabelEsp.setBounds(0, 0, 480, 313);
+
+        jDesktopPane1.setOpaque(false);
+
+        buttonGroup1.add(jRadioButton5);
+        jRadioButton5.setText("jRadioButton5");
+        jDesktopPane1.add(jRadioButton5);
+        jRadioButton5.setBounds(250, 240, 98, 21);
+
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setText("jRadioButton4");
+        jDesktopPane1.add(jRadioButton4);
+        jRadioButton4.setBounds(120, 240, 98, 21);
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("jRadioButton3");
+        jDesktopPane1.add(jRadioButton3);
+        jRadioButton3.setBounds(330, 140, 98, 21);
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("jRadioButton2");
+        jDesktopPane1.add(jRadioButton2);
+        jRadioButton2.setBounds(180, 140, 98, 21);
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("jRadioButton1");
+        jDesktopPane1.add(jRadioButton1);
+        jRadioButton1.setBounds(60, 140, 98, 21);
+
+        doneEsp1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
+        doneEsp1.addActionListener(this::doneEsp1ActionPerformed);
+        jDesktopPane1.add(doneEsp1);
+        doneEsp1.setBounds(260, 270, 90, 30);
+
+        done1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/7.png"))); // NOI18N
+        done1.addActionListener(this::done1ActionPerformed);
+        jDesktopPane1.add(done1);
+        done1.setBounds(260, 270, 90, 30);
+
+        backEsp1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
+        backEsp1.addActionListener(this::backEsp1ActionPerformed);
+        jDesktopPane1.add(backEsp1);
+        backEsp1.setBounds(140, 270, 90, 30);
+
+        back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
+        back1.addActionListener(this::back1ActionPerformed);
+        jDesktopPane1.add(back1);
+        back1.setBounds(140, 270, 90, 30);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/profile pic.png"))); // NOI18N
+        jDesktopPane1.add(jLabel2);
+        jLabel2.setBounds(0, 0, 480, 310);
+
+        jLabelEsp1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/foto de perfil.png"))); // NOI18N
+        jDesktopPane1.add(jLabelEsp1);
+        jLabelEsp1.setBounds(0, 0, 470, 290);
+
+        getContentPane().add(jDesktopPane1);
+        jDesktopPane1.setBounds(260, 10, 100, 100);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -190,6 +268,10 @@ public class CrearPerfil extends javax.swing.JFrame {
 
         persistencia.guardarJugador(jugador);
 
+        jDesktopPane1.setVisible(false);
+        username.setEnabled(true);
+        password.setEnabled(true);
+
         this.dispose();
         UsuarioGuardado usuarioGuardado = new UsuarioGuardado();
         usuarioGuardado.setVisible(true);
@@ -246,6 +328,10 @@ public class CrearPerfil extends javax.swing.JFrame {
 
         persistencia.guardarJugador(jugador);
 
+        jDesktopPane1.setVisible(false);
+        username.setEnabled(true);
+        password.setEnabled(true);
+
         this.dispose();
         UsuarioGuardado usuarioGuardado = new UsuarioGuardado();
         usuarioGuardado.setVisible(true);
@@ -253,7 +339,7 @@ public class CrearPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_doneEspActionPerformed
 
     private void verPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verPassActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 695, 490
         if (verPass.isSelected()) {
             password.setEchoChar((char) 0);
         } else {
@@ -263,11 +349,51 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void fotoDeperfilEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fotoDeperfilEspActionPerformed
         // TODO add your handling code here:
+        int anchoPanel = 493;
+        int altoPanel = 347;
+
+        jDesktopPane1.setBounds(0, 0, anchoPanel, altoPanel);
+
+        jDesktopPane1.setVisible(true);
+
+        this.getContentPane().repaint();
+        this.getContentPane().revalidate();
+
+        username.setEnabled(false);
+        password.setEnabled(false);
     }//GEN-LAST:event_fotoDeperfilEspActionPerformed
 
     private void fotoDeperfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fotoDeperfilActionPerformed
         // TODO add your handling code here:
+        int anchoPanel = 493;
+        int altoPanel = 347;
+
+        jDesktopPane1.setBounds(0, 0, anchoPanel, altoPanel);
+
+        jDesktopPane1.setVisible(true);
+
+        this.getContentPane().repaint();
+        this.getContentPane().revalidate();
+
+        username.setEnabled(false);
+        password.setEnabled(false);
     }//GEN-LAST:event_fotoDeperfilActionPerformed
+
+    private void back1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back1ActionPerformed
+
+    }//GEN-LAST:event_back1ActionPerformed
+
+    private void backEsp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEsp1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backEsp1ActionPerformed
+
+    private void done1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_done1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_done1ActionPerformed
+
+    private void doneEsp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEsp1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_doneEsp1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,14 +423,26 @@ public class CrearPerfil extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel aviso;
     private javax.swing.JButton back;
+    private javax.swing.JButton back1;
     private javax.swing.JButton backEsp;
+    private javax.swing.JButton backEsp1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton done;
+    private javax.swing.JButton done1;
     private javax.swing.JButton doneEsp;
+    private javax.swing.JButton doneEsp1;
     private javax.swing.JButton fotoDeperfil;
     private javax.swing.JButton fotoDeperfilEsp;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelEsp;
+    private javax.swing.JLabel jLabelEsp1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     private javax.swing.JCheckBox verPass;
