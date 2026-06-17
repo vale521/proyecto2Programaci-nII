@@ -339,7 +339,7 @@ public class Rankings extends javax.swing.JFrame {
         btnAgregarAmigos1.setText("AgregarAmigo");
         btnAgregarAmigos1.addActionListener(this::btnAgregarAmigos1ActionPerformed);
         jPanel1.add(btnAgregarAmigos1);
-        btnAgregarAmigos1.setBounds(10, 290, 570, 23);
+        btnAgregarAmigos1.setBounds(10, 290, 570, 27);
 
         jTabbedPane1.addTab("Global Ranking", jPanel1);
 

@@ -77,7 +77,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
         username.addActionListener(this::usernameActionPerformed);
         getContentPane().add(username);
-        username.setBounds(150, 120, 180, 22);
+        username.setBounds(150, 120, 180, 26);
 
         fotoDeperfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfp.png"))); // NOI18N
         fotoDeperfil.addActionListener(this::fotoDeperfilActionPerformed);
@@ -115,7 +115,7 @@ public class CrearPerfil extends javax.swing.JFrame {
         getContentPane().add(doneEsp);
         doneEsp.setBounds(140, 250, 90, 30);
         getContentPane().add(password);
-        password.setBounds(150, 210, 180, 22);
+        password.setBounds(150, 210, 180, 26);
 
         verPass.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         verPass.setForeground(new java.awt.Color(255, 255, 255));
