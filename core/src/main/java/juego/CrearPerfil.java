@@ -158,27 +158,27 @@ public class CrearPerfil extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("jRadioButton5");
         jDesktopPane1.add(jRadioButton5);
-        jRadioButton5.setBounds(250, 240, 98, 21);
+        jRadioButton5.setBounds(250, 240, 101, 21);
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("jRadioButton4");
         jDesktopPane1.add(jRadioButton4);
-        jRadioButton4.setBounds(120, 240, 98, 21);
+        jRadioButton4.setBounds(120, 240, 101, 21);
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("jRadioButton3");
         jDesktopPane1.add(jRadioButton3);
-        jRadioButton3.setBounds(330, 140, 98, 21);
+        jRadioButton3.setBounds(330, 140, 101, 21);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("jRadioButton2");
         jDesktopPane1.add(jRadioButton2);
-        jRadioButton2.setBounds(180, 140, 98, 21);
+        jRadioButton2.setBounds(180, 140, 101, 21);
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("jRadioButton1");
         jDesktopPane1.add(jRadioButton1);
-        jRadioButton1.setBounds(60, 140, 98, 21);
+        jRadioButton1.setBounds(60, 140, 101, 21);
 
         doneEsp1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
         doneEsp1.addActionListener(this::doneEsp1ActionPerformed);
@@ -209,7 +209,7 @@ public class CrearPerfil extends javax.swing.JFrame {
         jLabelEsp1.setBounds(0, 0, 470, 290);
 
         getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(260, 10, 100, 100);
+        jDesktopPane1.setBounds(260, 10, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
