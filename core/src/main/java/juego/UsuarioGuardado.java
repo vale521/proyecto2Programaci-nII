@@ -16,6 +16,7 @@ public class UsuarioGuardado extends javax.swing.JFrame {
      * Creates new form UsuarioGuardado
      */
     public UsuarioGuardado() {
+        this.toFront();
         initComponents();
 
         this.setSize(493, 347);
@@ -25,6 +26,7 @@ public class UsuarioGuardado extends javax.swing.JFrame {
     }
 
     public UsuarioGuardado(Jugador jugador) {
+        this.toFront();
         initComponents();
 
         this.setSize(493, 347);

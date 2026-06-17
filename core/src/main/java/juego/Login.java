@@ -66,9 +66,9 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(contrasena);
-        contrasena.setBounds(150, 220, 180, 22);
+        contrasena.setBounds(150, 210, 180, 30);
         getContentPane().add(username);
-        username.setBounds(150, 130, 180, 22);
+        username.setBounds(150, 120, 180, 30);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);

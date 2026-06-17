@@ -16,6 +16,7 @@ public class Pausado extends javax.swing.JFrame {
      * Creates new form Pausado
      */
     public Pausado() {
+        this.toFront();
         initComponents();
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
@@ -33,6 +34,7 @@ public class Pausado extends javax.swing.JFrame {
         }
     }
     public Pausado(Jugador jugador) {
+        this.toFront();
         initComponents();
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);

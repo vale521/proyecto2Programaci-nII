@@ -4,6 +4,7 @@
  */
 package juego;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,7 +94,9 @@ public class CrearPerfil extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        nombre = new javax.swing.JTextField();
         username = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
         fotoDeperfilEsp = new javax.swing.JButton();
         fotoDeperfil = new javax.swing.JButton();
         aviso = new javax.swing.JLabel();
@@ -102,10 +105,9 @@ public class CrearPerfil extends javax.swing.JFrame {
         backEsp = new javax.swing.JButton();
         doneEsp = new javax.swing.JButton();
         fotoperfil = new javax.swing.JButton();
-        password = new javax.swing.JPasswordField();
         verPass = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
         jLabelEsp = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
@@ -120,9 +122,22 @@ public class CrearPerfil extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
+        nombre.addActionListener(this::nombreActionPerformed);
+        getContentPane().add(nombre);
+        nombre.setBounds(320, 90, 180, 30);
+
         username.addActionListener(this::usernameActionPerformed);
         getContentPane().add(username);
-        username.setBounds(320, 130, 180, 22);
+        username.setBounds(320, 180, 180, 30);
+
+        password.addActionListener(this::passwordActionPerformed);
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordKeyReleased(evt);
+            }
+        });
+        getContentPane().add(password);
+        password.setBounds(320, 260, 180, 30);
 
         fotoDeperfilEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pfpesp.png"))); // NOI18N
         fotoDeperfilEsp.addActionListener(this::fotoDeperfilEspActionPerformed);
@@ -165,34 +180,22 @@ public class CrearPerfil extends javax.swing.JFrame {
         getContentPane().add(fotoperfil);
         fotoperfil.setBounds(720, 30, 80, 80);
 
-        password.addActionListener(this::passwordActionPerformed);
-        password.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                passwordKeyReleased(evt);
-            }
-        });
-        getContentPane().add(password);
-<<<<<<< HEAD
-        password.setBounds(150, 210, 180, 26);
-=======
-        password.setBounds(320, 260, 180, 22);
->>>>>>> 7f8dab4764c7dd224bb051d42f9706e7366cb884
-
+        verPass.setBackground(new java.awt.Color(255, 255, 255));
         verPass.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        verPass.setForeground(new java.awt.Color(255, 255, 255));
+        verPass.setForeground(new java.awt.Color(0, 0, 0));
         verPass.setText("Ver contraseña");
         verPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         verPass.addActionListener(this::verPassActionPerformed);
         getContentPane().add(verPass);
         verPass.setBounds(350, 290, 120, 20);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/using.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 830, 504);
-
-        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usesp.png"))); // NOI18N
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usesp2.png"))); // NOI18N
         getContentPane().add(jLabelEsp);
-        jLabelEsp.setBounds(0, 0, 830, 504);
+        jLabelEsp.setBounds(0, 0, 830, 501);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/using2.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 830, 501);
 
         jDesktopPane1.setOpaque(false);
 
@@ -200,51 +203,31 @@ public class CrearPerfil extends javax.swing.JFrame {
         jRadioButton5.setText("Foto 5");
         jRadioButton5.addActionListener(this::jRadioButton5ActionPerformed);
         jDesktopPane1.add(jRadioButton5);
-<<<<<<< HEAD
-        jRadioButton5.setBounds(250, 240, 101, 21);
-=======
         jRadioButton5.setBounds(250, 240, 140, 21);
->>>>>>> 7f8dab4764c7dd224bb051d42f9706e7366cb884
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Foto 4");
         jRadioButton4.addActionListener(this::jRadioButton4ActionPerformed);
         jDesktopPane1.add(jRadioButton4);
-<<<<<<< HEAD
-        jRadioButton4.setBounds(120, 240, 101, 21);
-=======
         jRadioButton4.setBounds(120, 240, 130, 21);
->>>>>>> 7f8dab4764c7dd224bb051d42f9706e7366cb884
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Foto 3");
         jRadioButton3.addActionListener(this::jRadioButton3ActionPerformed);
         jDesktopPane1.add(jRadioButton3);
-<<<<<<< HEAD
-        jRadioButton3.setBounds(330, 140, 101, 21);
-=======
         jRadioButton3.setBounds(320, 140, 130, 21);
->>>>>>> 7f8dab4764c7dd224bb051d42f9706e7366cb884
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Foto 2");
         jRadioButton2.addActionListener(this::jRadioButton2ActionPerformed);
         jDesktopPane1.add(jRadioButton2);
-<<<<<<< HEAD
-        jRadioButton2.setBounds(180, 140, 101, 21);
-=======
         jRadioButton2.setBounds(180, 140, 130, 21);
->>>>>>> 7f8dab4764c7dd224bb051d42f9706e7366cb884
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Foto 1");
         jRadioButton1.addActionListener(this::jRadioButton1ActionPerformed);
         jDesktopPane1.add(jRadioButton1);
-<<<<<<< HEAD
-        jRadioButton1.setBounds(60, 140, 101, 21);
-=======
         jRadioButton1.setBounds(60, 140, 140, 21);
->>>>>>> 7f8dab4764c7dd224bb051d42f9706e7366cb884
 
         doneEspanol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/esp4.png"))); // NOI18N
         doneEspanol.addActionListener(this::doneEspanolActionPerformed);
@@ -297,7 +280,8 @@ public class CrearPerfil extends javax.swing.JFrame {
 
         aviso.setText("");
 
-        Jugador jugador = new Jugador(user, user, passw, null);
+        ImageIcon foto= (ImageIcon) fotoperfil.getIcon();
+        Jugador jugador = new Jugador(user, user, passw, foto);
 
         persistencia.guardarJugador(jugador);
 
@@ -313,6 +297,7 @@ public class CrearPerfil extends javax.swing.JFrame {
 
     private void doneEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneEspActionPerformed
         // TODO add your handling code here:
+        String name= nombre.getText().trim();
         String user = username.getText().trim();
         String passw = new String(password.getPassword()).trim();
 
@@ -333,8 +318,9 @@ public class CrearPerfil extends javax.swing.JFrame {
         }
 
         aviso.setText("");
-
-        Jugador jugador = new Jugador(user, user, passw, null);
+        
+        ImageIcon foto= (ImageIcon) fotoperfil.getIcon();
+        Jugador jugador = new Jugador(user, name, passw, foto);
 
         persistencia.guardarJugador(jugador);
 
@@ -502,6 +488,10 @@ public class CrearPerfil extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -547,6 +537,7 @@ public class CrearPerfil extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JTextField nombre;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel perfilEspanol;
     private javax.swing.JLabel perfilIngles;

@@ -51,7 +51,6 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabelEsp = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -60,7 +59,7 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(190, 230, 90, 30);
+        back.setBounds(230, 230, 90, 30);
 
         backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
         backEsp.addActionListener(this::backEspActionPerformed);
@@ -75,19 +74,19 @@ public class CuentaNoExiste extends javax.swing.JFrame {
         getContentPane().add(jLabelEsp);
         jLabelEsp.setBounds(0, 0, 480, 313);
 
-        jRadioButton1.setText("jRadioButton1");
-        getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(410, 140, 98, 21);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-
+        this.dispose();
+        Login log= new Login();
+        log.setVisible(true);
+        log.toFront();
     }//GEN-LAST:event_backActionPerformed
 
     private void backEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_backEspActionPerformed
 
     /**
@@ -120,6 +119,5 @@ public class CuentaNoExiste extends javax.swing.JFrame {
     private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelEsp;
-    private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
 }

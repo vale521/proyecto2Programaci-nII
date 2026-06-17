@@ -19,6 +19,7 @@ public class Niveles extends javax.swing.JFrame {
      * Creates new form Niveles
      */
     public Niveles() {
+        this.toFront();
         initComponents();
 
         this.setSize(826, 799);
@@ -28,6 +29,7 @@ public class Niveles extends javax.swing.JFrame {
     }
 
     public Niveles(Jugador jugador) {
+        this.toFront();
         initComponents();
 
         this.setSize(826, 796);
@@ -248,6 +250,7 @@ public class Niveles extends javax.swing.JFrame {
 
     private void statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         Rankings rank = new Rankings(jugador);
         rank.setVisible(true);
     }//GEN-LAST:event_statsActionPerformed
@@ -261,6 +264,7 @@ public class Niveles extends javax.swing.JFrame {
 
     private void statsEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsEspActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         Rankings rank = new Rankings(jugador);
         rank.setVisible(true);
     }//GEN-LAST:event_statsEspActionPerformed

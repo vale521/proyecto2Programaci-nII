@@ -29,14 +29,14 @@
     <Component class="javax.swing.JTextField" name="contrasena">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="220" width="180" height="-1"/>
+          <AbsoluteConstraints x="150" y="210" width="180" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="username">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="130" width="180" height="-1"/>
+          <AbsoluteConstraints x="150" y="120" width="180" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
