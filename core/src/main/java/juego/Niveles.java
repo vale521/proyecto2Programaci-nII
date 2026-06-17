@@ -204,12 +204,6 @@ public class Niveles extends javax.swing.JFrame {
         new InicioJuego().setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
-    private void nivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel1ActionPerformed
-        // TODO add your handling code here:
-        abrirNivel(1);
-
-    }//GEN-LAST:event_nivel1ActionPerformed
-
     private void nivelgris1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelgris1ActionPerformed
         // TODO add your handling code here:
 
@@ -282,6 +276,11 @@ public class Niveles extends javax.swing.JFrame {
         Options o = new Options();
         o.setVisible(true);
     }//GEN-LAST:event_optionsEspActionPerformed
+
+    private void nivel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivel1ActionPerformed
+        // TODO add your handling code here:
+        abrirNivel(1);
+    }//GEN-LAST:event_nivel1ActionPerformed
 
     /**
      * @param args the command line arguments
