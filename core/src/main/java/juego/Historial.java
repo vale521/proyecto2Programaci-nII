@@ -21,7 +21,7 @@ public class Historial extends javax.swing.JFrame {
     public Historial() {
         initComponents();
 
-        this.setSize(797, 456);
+        this.setSize(830, 508);
         this.setLocationRelativeTo(null);
         actualizarInterfazIdioma();
         Idioma.suscribir(() -> actualizarInterfazIdioma());
@@ -44,6 +44,8 @@ public class Historial extends javax.swing.JFrame {
             back.setVisible(false);
             jLabel1.setVisible(false);
             jLabelEsp.setVisible(true);
+            historial.setVisible(false);
+            historialEsp.setVisible(true);
             jTable1.getColumnModel().getColumn(0).setHeaderValue("FECHA");
             jTable1.getColumnModel().getColumn(1).setHeaderValue("HORA");
             jTable1.getColumnModel().getColumn(2).setHeaderValue("NIVEL");
@@ -59,6 +61,8 @@ public class Historial extends javax.swing.JFrame {
             jLabelEsp.setVisible(false);
             back.setVisible(true);
             backEsp.setVisible(false);
+            historial.setVisible(true);
+            historialEsp.setVisible(false);
             jTable1.getColumnModel().getColumn(0).setHeaderValue("DATE");
             jTable1.getColumnModel().getColumn(1).setHeaderValue("TIME");
             jTable1.getColumnModel().getColumn(2).setHeaderValue("LEVEL");
@@ -106,12 +110,15 @@ public class Historial extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        historialEsp = new javax.swing.JButton();
+        historial = new javax.swing.JButton();
         back = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(790, 450));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -149,25 +156,35 @@ public class Historial extends javax.swing.JFrame {
         }
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(60, 110, 670, 300);
+        jScrollPane1.setBounds(30, 130, 750, 300);
+
+        historialEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historialesp (2).png"))); // NOI18N
+        historialEsp.addActionListener(this::historialEspActionPerformed);
+        getContentPane().add(historialEsp);
+        historialEsp.setBounds(690, 30, 90, 30);
+
+        historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historial.png"))); // NOI18N
+        historial.addActionListener(this::historialActionPerformed);
+        getContentPane().add(historial);
+        historial.setBounds(690, 30, 90, 30);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
         getContentPane().add(back);
-        back.setBounds(10, 10, 90, 30);
+        back.setBounds(30, 30, 90, 30);
 
         backEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/11esp.png"))); // NOI18N
         backEsp.addActionListener(this::backEspActionPerformed);
         getContentPane().add(backEsp);
-        backEsp.setBounds(10, 10, 90, 30);
+        backEsp.setBounds(30, 30, 90, 30);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historial (1).png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historialing.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 800, 460);
+        jLabel1.setBounds(0, 0, 830, 510);
 
-        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historialesp.png"))); // NOI18N
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historialEsp.png"))); // NOI18N
         getContentPane().add(jLabelEsp);
-        jLabelEsp.setBounds(0, 0, 800, 460);
+        jLabelEsp.setBounds(0, -10, 860, 530);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -184,6 +201,14 @@ public class Historial extends javax.swing.JFrame {
         rankings.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backEspActionPerformed
+
+    private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_historialActionPerformed
+
+    private void historialEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_historialEspActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +238,8 @@ public class Historial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
+    private javax.swing.JButton historial;
+    private javax.swing.JButton historialEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelEsp;
     private javax.swing.JScrollPane jScrollPane1;

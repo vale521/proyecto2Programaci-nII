@@ -16,6 +16,7 @@ public class Rankings extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Rankings.class.getName());
     private Jugador jugador;
+
     /**
      * Creates new form Rankings
      */
@@ -44,7 +45,7 @@ public class Rankings extends javax.swing.JFrame {
 
         this.setSize(695, 490);
         this.setLocationRelativeTo(null);
-        this.jugador=jugador;
+        this.jugador = jugador;
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
 
@@ -60,8 +61,7 @@ public class Rankings extends javax.swing.JFrame {
     }
 
     public void actualizarInterfazIdioma() {
-        if (Idioma.isEspanol())
-        {
+        if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
             back.setVisible(false);
             jTabbedPane1.setTitleAt(0, "Ranking Global");
@@ -93,9 +93,7 @@ public class Rankings extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(2).setHeaderValue("Logros");
             jTable2.getColumnModel().getColumn(3).setHeaderValue("Vidas");
             btnAgregarAmigos1.setText("Agregar Amigo");
-        }
-        else
-        {
+        } else {
             back.setVisible(true);
             backEsp.setVisible(false);
             jTabbedPane1.setTitleAt(0, "Global Ranking");
@@ -133,16 +131,13 @@ public class Rankings extends javax.swing.JFrame {
         jTable4.getTableHeader().repaint();
     }
 
-    public void cargarRankingGlobal()
-    {
-        PersistenciaJugador persitenciaJugador=new PersistenciaJugador();
-        ArrayList<Jugador> jugadores= persitenciaJugador.obtenerTodosJugadores();
-        PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
-        for (Jugador jugador : jugadores) 
-        {
-            ArrayList<ResultadoPartida> partidas= persistenciaPartidas.obtenerPartidas(jugador.getUsername());
-            for (ResultadoPartida partida : partidas) 
-            {
+    public void cargarRankingGlobal() {
+        PersistenciaJugador persitenciaJugador = new PersistenciaJugador();
+        ArrayList<Jugador> jugadores = persitenciaJugador.obtenerTodosJugadores();
+        PersistenciaPartidas persistenciaPartidas = new PersistenciaPartidas();
+        for (Jugador jugador : jugadores) {
+            ArrayList<ResultadoPartida> partidas = persistenciaPartidas.obtenerPartidas(jugador.getUsername());
+            for (ResultadoPartida partida : partidas) {
                 jugador.agregarResultado(partida);
             }
         }
@@ -150,44 +145,38 @@ public class Rankings extends javax.swing.JFrame {
         jugadores.sort((a, b) -> Integer.compare(b.calcularPuntajeTotal(), a.calcularPuntajeTotal()));
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
-        int posicion=1;
-        for(Jugador jugador: jugadores)
-        {
+        int posicion = 1;
+        for (Jugador jugador : jugadores) {
             modelo.addRow(new Object[]{posicion, jugador.getUsername(), jugador.getCntidadPartidas(), jugador.getNivelesCompletados(), String.format("%.2f", jugador.getTiempoPromedio()), jugador.calcularPuntajeTotal()});
             jugador.setPosicionRanking(posicion);
             posicion++;
         }
     }
 
-    public void cargarRankingAmigos()
-    {
+    public void cargarRankingAmigos() {
         DefaultTableModel modelo = (DefaultTableModel) jTable4.getModel();
         modelo.setRowCount(0);
-        ArrayList<Jugador> amigos= new ArrayList<>();
-        PersistenciaPartidas persistenciaPartidas= new PersistenciaPartidas();
+        ArrayList<Jugador> amigos = new ArrayList<>();
+        PersistenciaPartidas persistenciaPartidas = new PersistenciaPartidas();
         amigos.addAll(jugador.getAmigos());
-        for (Jugador amigo : amigos) 
-        {
-            ArrayList<ResultadoPartida> partidas= persistenciaPartidas.obtenerPartidas(amigo.getUsername());
-            for (ResultadoPartida partida : partidas) 
-            {
+        for (Jugador amigo : amigos) {
+            ArrayList<ResultadoPartida> partidas = persistenciaPartidas.obtenerPartidas(amigo.getUsername());
+            for (ResultadoPartida partida : partidas) {
                 amigo.agregarResultado(partida);
             }
         }
         //para ordenar en orden de puntaje
-        
+
         amigos.sort((a, b) -> Integer.compare(b.calcularPuntajeTotal(), a.calcularPuntajeTotal()));
-        int posicion=1;
-        for(Jugador amigo: amigos)
-        {
+        int posicion = 1;
+        for (Jugador amigo : amigos) {
             modelo.addRow(new Object[]{posicion, amigo.getUsername(), amigo.getCntidadPartidas(), amigo.getNivelesCompletados(), String.format("%.2f", amigo.getTiempoPromedio()), amigo.calcularPuntajeTotal()});
             amigo.setPosicionRanking(posicion);
             posicion++;
         }
     }
 
-    public void cargarMiRanking()
-    {
+    public void cargarMiRanking() {
         lblCantPartidas.setText(String.valueOf(jugador.getCntidadPartidas()));
         lblNivelesCompletados.setText(String.valueOf(jugador.getNivelesCompletados()));
         lblTiempoPromedio.setText(String.format("%.2f seg", jugador.getTiempoPromedio()));
@@ -196,41 +185,30 @@ public class Rankings extends javax.swing.JFrame {
         lblTiempoTotal.setText(jugador.getTiempoTotalJugado());
     }
 
-    public void cargarSesionesRecientes()
-    {
-        DefaultTableModel modelo= (DefaultTableModel) jTable2.getModel();
+    public void cargarSesionesRecientes() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
         modelo.setRowCount(0);
-        ArrayList<ResultadoPartida> historial= new ArrayList<>(jugador.getHistorialPartidas());
-        int inicio = Math.max(0,historial.size()-3);
-        for(int i = historial.size() - 1; i >= inicio; i--) {
+        ArrayList<ResultadoPartida> historial = new ArrayList<>(jugador.getHistorialPartidas());
+        int inicio = Math.max(0, historial.size() - 3);
+        for (int i = historial.size() - 1; i >= inicio; i--) {
             ResultadoPartida partida = historial.get(i);
             String fecha;
-            if(partida.getFechaHoraInicioPartida()!=null)
-            {
-                fecha= partida.getFechaHoraInicioPartida().toLocalDate().toString();
-            }
-            else if(partida.getFecha()!=null)
-            {
-                fecha=partida.getFecha().toLocalDate().toString();
-            }
-            else
-            {
-                fecha= "Sin fecha";
+            if (partida.getFechaHoraInicioPartida() != null) {
+                fecha = partida.getFechaHoraInicioPartida().toLocalDate().toString();
+            } else if (partida.getFecha() != null) {
+                fecha = partida.getFecha().toLocalDate().toString();
+            } else {
+                fecha = "Sin fecha";
             }
             String duracion;
 
-            if(partida.getFechaHoraInicioPartida() != null && partida.getFechaHoraFinalPartida() != null)
-            {
+            if (partida.getFechaHoraInicioPartida() != null && partida.getFechaHoraFinalPartida() != null) {
                 duracion = partida.getTiempoPartida().toMinutes() + " min";
-            }
-            else if(partida.getTiempoSegundos()>0)
-            {
-                int minutos=(int)(partida.getTiempoSegundos()/60);
-                int segundos= (int)(partida.getTiempoSegundos()%60);
-                duracion= minutos+" mins "+segundos+" segs";
-            }
-            else
-            {
+            } else if (partida.getTiempoSegundos() > 0) {
+                int minutos = (int) (partida.getTiempoSegundos() / 60);
+                int segundos = (int) (partida.getTiempoSegundos() % 60);
+                duracion = minutos + " mins " + segundos + " segs";
+            } else {
                 duracion = "N/A";
             }
             String logro = "Nivel " + partida.getNivelAlcanzado();
@@ -238,6 +216,7 @@ public class Rankings extends javax.swing.JFrame {
             modelo.addRow(new Object[]{fecha, duracion, logro, partida.getVidasRestantes()});
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -247,7 +226,6 @@ public class Rankings extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        historial = new javax.swing.JButton();
         back = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -277,16 +255,13 @@ public class Rankings extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         lblTituloAct = new javax.swing.JLabel();
+        historialEsp = new javax.swing.JButton();
+        historial = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(null);
-
-        historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historial.png"))); // NOI18N
-        historial.addActionListener(this::historialActionPerformed);
-        getContentPane().add(historial);
-        historial.setBounds(580, 10, 90, 30);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -485,6 +460,16 @@ public class Rankings extends javax.swing.JFrame {
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(80, 80, 590, 350);
 
+        historialEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historialesp (2).png"))); // NOI18N
+        historialEsp.addActionListener(this::historialEspActionPerformed);
+        getContentPane().add(historialEsp);
+        historialEsp.setBounds(570, 10, 90, 30);
+
+        historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historial.png"))); // NOI18N
+        historial.addActionListener(this::historialActionPerformed);
+        getContentPane().add(historial);
+        historial.setBounds(570, 10, 90, 30);
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/rank (3).png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 680, 460);
@@ -505,45 +490,32 @@ public class Rankings extends javax.swing.JFrame {
         niveles.setVisible(true);
     }//GEN-LAST:event_backEspActionPerformed
 
-    private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
-        // TODO add your handling code here:
-        Historial historial = new Historial(jugador);
-        historial.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_historialActionPerformed
-
     private void btnAgregarAmigos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAmigos1ActionPerformed
         // TODO add your handling code here:
         int fila = jTable1.getSelectedRow();
-        if(fila==-1)
-        {
+        if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un jugador");
             return;
         }
 
-        String usernameAmigo= jTable1.getValueAt(fila, 1).toString();
-        if(usernameAmigo.equals(jugador.getUsername()))
-        {
+        String usernameAmigo = jTable1.getValueAt(fila, 1).toString();
+        if (usernameAmigo.equals(jugador.getUsername())) {
             JOptionPane.showMessageDialog(this, "No puedes agregarte a ti mismo. SORRY:(");
             return;
         }
-        PersistenciaJugador persistenciaJugador= new PersistenciaJugador();
-        Jugador amigo= persistenciaJugador.cargarJugador(usernameAmigo);
-        if(amigo==null)
-        {
+        PersistenciaJugador persistenciaJugador = new PersistenciaJugador();
+        Jugador amigo = persistenciaJugador.cargarJugador(usernameAmigo);
+        if (amigo == null) {
             JOptionPane.showMessageDialog(this, "NO SE PUDO CARGAR EL JUGADOR. SORRY:(");
         }
-        boolean existeAmigo=false;
-        for (Jugador amix : jugador.getAmigos())
-        {
-            if(amix.getUsername().equals(amigo.getUsername()))
-            {
-                existeAmigo=true;
+        boolean existeAmigo = false;
+        for (Jugador amix : jugador.getAmigos()) {
+            if (amix.getUsername().equals(amigo.getUsername())) {
+                existeAmigo = true;
                 break;
             }
         }
-        if(existeAmigo==true)
-        {
+        if (existeAmigo == true) {
             JOptionPane.showMessageDialog(this, "Ese jugador ya es tu amix");
             return;
         }
@@ -554,6 +526,18 @@ public class Rankings extends javax.swing.JFrame {
         cargarRankingAmigos();
         JOptionPane.showMessageDialog(this, "AMIGO AGREGADO CORRECTAMENTE");
     }//GEN-LAST:event_btnAgregarAmigos1ActionPerformed
+
+    private void historialEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialEspActionPerformed
+        // TODO add your handling code here:
+        Historial historial = new Historial();
+        historial.setVisible(true);
+    }//GEN-LAST:event_historialEspActionPerformed
+
+    private void historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historialActionPerformed
+        // TODO add your handling code here:
+        Historial historial = new Historial();
+        historial.setVisible(true);
+    }//GEN-LAST:event_historialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -585,6 +569,7 @@ public class Rankings extends javax.swing.JFrame {
     private javax.swing.JButton backEsp;
     private javax.swing.JButton btnAgregarAmigos1;
     private javax.swing.JButton historial;
+    private javax.swing.JButton historialEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
