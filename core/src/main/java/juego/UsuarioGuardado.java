@@ -28,9 +28,13 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         if (Idioma.isEspanol()) {
             doneEsp.setVisible(true);
             done.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabelEsp.setVisible(true);
         } else {
             done.setVisible(true);
             doneEsp.setVisible(false);
+            jLabel1.setVisible(true);
+            jLabelEsp.setVisible(false);
         }
     }
 
@@ -46,6 +50,7 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         done = new javax.swing.JButton();
         doneEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -63,6 +68,10 @@ public class UsuarioGuardado extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/username.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, -10, 480, 330);
+
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/usuarioguardado.png"))); // NOI18N
+        getContentPane().add(jLabelEsp);
+        jLabelEsp.setBounds(0, -10, 480, 330);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -107,5 +116,6 @@ public class UsuarioGuardado extends javax.swing.JFrame {
     private javax.swing.JButton done;
     private javax.swing.JButton doneEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelEsp;
     // End of variables declaration//GEN-END:variables
 }

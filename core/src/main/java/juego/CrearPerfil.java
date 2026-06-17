@@ -32,11 +32,15 @@ public class CrearPerfil extends javax.swing.JFrame {
             doneEsp.setVisible(true);
             back.setVisible(false);
             done.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabelEsp.setVisible(true);
         } else {
             back.setVisible(true);
             done.setVisible(true);
             backEsp.setVisible(false);
             doneEsp.setVisible(false);
+            jLabel1.setVisible(true);
+            jLabelEsp.setVisible(false);
         }
     }
 
@@ -56,15 +60,16 @@ public class CrearPerfil extends javax.swing.JFrame {
         backEsp = new javax.swing.JButton();
         doneEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().add(pass);
-        pass.setBounds(150, 210, 180, 26);
+        pass.setBounds(150, 210, 180, 22);
 
         username.addActionListener(this::usernameActionPerformed);
         getContentPane().add(username);
-        username.setBounds(150, 120, 180, 26);
+        username.setBounds(150, 120, 180, 22);
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/back.png"))); // NOI18N
         back.addActionListener(this::backActionPerformed);
@@ -89,6 +94,10 @@ public class CrearPerfil extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/login.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 313);
+
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/userpass.png"))); // NOI18N
+        getContentPane().add(jLabelEsp);
+        jLabelEsp.setBounds(0, 0, 480, 313);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,6 +176,7 @@ public class CrearPerfil extends javax.swing.JFrame {
     private javax.swing.JButton done;
     private javax.swing.JButton doneEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelEsp;
     private javax.swing.JTextField pass;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

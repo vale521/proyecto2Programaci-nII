@@ -19,6 +19,18 @@ public class Pausado extends javax.swing.JFrame {
         initComponents();
         this.setSize(493, 347);
         this.setLocationRelativeTo(null);
+        actualizarInterfazIdioma();
+        Idioma.suscribir(() -> actualizarInterfazIdioma());
+    }
+
+    public void actualizarInterfazIdioma() {
+        if (Idioma.isEspanol()) {
+            jLabel1.setVisible(false);
+            jLabelEsp.setVisible(true);
+        } else {
+            jLabel1.setVisible(true);
+            jLabelEsp.setVisible(false);
+        }
     }
 
     /**
@@ -33,6 +45,7 @@ public class Pausado extends javax.swing.JFrame {
         resume = new javax.swing.JButton();
         niveles = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -50,6 +63,10 @@ public class Pausado extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pausado.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 310);
+
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/pausa.png"))); // NOI18N
+        getContentPane().add(jLabelEsp);
+        jLabelEsp.setBounds(0, 0, 480, 310);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -93,6 +110,7 @@ public class Pausado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelEsp;
     private javax.swing.JButton niveles;
     private javax.swing.JButton resume;
     // End of variables declaration//GEN-END:variables

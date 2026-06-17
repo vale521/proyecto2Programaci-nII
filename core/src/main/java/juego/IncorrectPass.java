@@ -26,8 +26,12 @@ public class IncorrectPass extends javax.swing.JFrame {
     public void actualizarInterfazIdioma() {
         if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
+            jLabel1.setVisible(false);
+            jLabelEsp.setVisible(true);
         } else {
             back.setVisible(true);
+            jLabel1.setVisible(true);
+            jLabelEsp.setVisible(false);
         }
     }
 
@@ -43,6 +47,7 @@ public class IncorrectPass extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -60,6 +65,10 @@ public class IncorrectPass extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/incorrectpass.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 310);
+
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/passIncorrecta.png"))); // NOI18N
+        getContentPane().add(jLabelEsp);
+        jLabelEsp.setBounds(0, 0, 480, 310);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -106,5 +115,6 @@ public class IncorrectPass extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelEsp;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,9 +28,13 @@ public class Historial extends javax.swing.JFrame {
         if (Idioma.isEspanol()) {
             backEsp.setVisible(true);
             back.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabelEsp.setVisible(true);
         } else {
             back.setVisible(true);
             backEsp.setVisible(false);
+            jLabel1.setVisible(true);
+            jLabelEsp.setVisible(false);
         }
     }
 
@@ -48,6 +52,7 @@ public class Historial extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -102,6 +107,10 @@ public class Historial extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 800, 460);
 
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/historialesp.png"))); // NOI18N
+        getContentPane().add(jLabelEsp);
+        jLabelEsp.setBounds(0, 0, 800, 460);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,6 +156,7 @@ public class Historial extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.JButton backEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelEsp;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

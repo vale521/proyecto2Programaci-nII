@@ -32,11 +32,15 @@ public class Login extends javax.swing.JFrame {
             back.setVisible(false);
             done.setVisible(false);
             doneEsp.setVisible(true);
+            jLabel1.setVisible(false);
+            jLabelEsp.setVisible(true);
         } else {
             back.setVisible(true);
             backEsp.setVisible(false);
             done.setVisible(true);
             doneEsp.setVisible(false);
+            jLabel1.setVisible(true);
+            jLabelEsp.setVisible(false);
         }
     }
 
@@ -56,6 +60,7 @@ public class Login extends javax.swing.JFrame {
         doneEsp = new javax.swing.JButton();
         backEsp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabelEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -87,6 +92,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/login.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 480, 310);
+
+        jLabelEsp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/juego/userpass.png"))); // NOI18N
+        getContentPane().add(jLabelEsp);
+        jLabelEsp.setBounds(0, 0, 480, 310);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -173,6 +182,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton done;
     private javax.swing.JButton doneEsp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelEsp;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
